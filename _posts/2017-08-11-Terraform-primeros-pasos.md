@@ -5,10 +5,10 @@ categories: [terraform]
 tags: [terraform, primeros pasos, cloud]
 fullview: true
 comments: false
-excerpt: En este post exploraremos la herramienta Terraform, sus ventajas y desventajas y desplegaremos una instancia de prueba en Amazon AWS.
+excerpt: En este post exploraremos la herramienta Terraform, sus ventajas y desventajas; y desplegaremos una instancia de prueba en Amazon AWS.
 ---
 
-En este post exploraremos la herramienta Terraform, sus ventajas y desventajas y desplegaremos una instancia de prueba en Amazon AWS.
+En este post exploraremos la herramienta Terraform, sus ventajas y desventajas; y desplegaremos una instancia de prueba en Amazon AWS.
 
 * TOC
 {:toc}
