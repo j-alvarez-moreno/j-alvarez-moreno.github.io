@@ -5,6 +5,7 @@ categories: [placeholder]
 tags: [placeholder]
 fullview: true
 comments: false
+published: true
 ---
 
 Bienvenidos. En este blog iré escribiendo artículos técnicos y manuales sobre tecnología, con el objetivo de que sean útiles para cualquier visitante.
