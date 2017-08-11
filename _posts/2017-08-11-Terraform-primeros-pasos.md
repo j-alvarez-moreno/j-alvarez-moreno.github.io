@@ -1,0 +1,321 @@
+---
+layout: post
+title: Primeros pasos con Terraform
+categories: [terraform]
+tags: [terraform, primeros pasos, cloud]
+fullview: true
+comments: false
+excerpt: En este post exploraremos la herramienta Terraform, sus ventajas y desventajas y desplegaremos una instancia de prueba en Amazon AWS.
+---
+
+En este post exploraremos la herramienta Terraform, sus ventajas y desventajas y desplegaremos una instancia de prueba en Amazon AWS.
+
+* TOC
+{:toc}
+
+Qué es Terraform.
+=================
+
+Desarrollado por Hashicorp, creadores de Vagrant y Packer, Terraform es software que nos permite definir nuestra infraestructura como código. Terraform procesa nuestro código, lo compara con el estado del proveedor de servicios especificado y construye un plan de ejecución para que el estado de la infraestructura desplegada sea el definido en el código.
+
+Explicado de forma práctica: podemos añadir nuevas instancias o modificar instancias y recursos en nuestro código (claves ssh, conectividad de red, reglas de firewall…) y aplicarlos a la infraestructura remota sin preocuparnos del _cómo_.
+
+Terraform tiene soporte para los principales proveedores de infraestructura local o en la nube como Amazon AWS, Microsoft Azure, Openstack, VMware vSphere y Digital Ocean. La lista completa se encuentra, en inglés, en la [web de Terraform](https://www.terraform.io/docs/providers/index.html).
+
+Funcionamiento básico de Terraform.
+===================================
+Terraform tiene principalmente cuatro comandos: **refresh**, **plan**, **apply** y **destroy**. Refresh refresca la caché actual del estado de la infraestructura definida en el código, plan muestra los cambios que se realizarían comparando el estado del código con el del proveedor, y apply aplica los cambios. Destroy es evidente, y pide confirmación antes de borrar nada.
+
+> Apply no pide confirmación. Cualquier diferencia entre el estado remoto y el definido localmente será solucionada de forma irreversible. Es conveniente visualizar el plan antes de ejecutar cambios.
+
+Ventajas e inconvenientes de Terraform.
+=========================================
+
+Pros
+----
+
+- Infraestructura como código (IaC): Podremos versionar/revertir/redimensionar nuestra infraestructura de forma no destructiva. Esto nos permite, por ejemplo: mantener un historial _reversible_ de la configuración de la red incluyendo reglas de cortafuegos y VLANs, desplegar un centro de datos 100% idéntico al principal de forma automatizada en una situación de emergencia o recrear nuestra infraestructura de forma parcial o total en un entorno de desarrollo o pruebas.
+- Velocidad: Terraform es muy, muy rápido. Si el proveedor de infraestructura lo soporta, Terraform es capaz de generar los recursos especificados de forma paralela. En la práctica, esto posibilita que el tiempo de despliegue de 1 máquina sea el mismo que el requerido para 10.
+- Agnóstico: A diferencia de Heat o CloudFormation, Terraform es capaz de trabajar de forma simultánea con todos sus diferentes proveedores de infraestructura.
+- Flexibilidad: Terraform procesa todos los ficheros _.tf_ del directorio y los combina en memoria para generar el plan de ejecución, lo que nos permite separar los recursos de manera lógica y manejable.
+
+Inconvenientes y detalles a tener en cuenta.
+--------------------------------------------
+
+- Depende enteramente de la API de cada proveedor: Aunque la herramienta intenta mitigar posibles fallos mediante reintentos, timeouts y el uso de una caché local que contiene el estado de la infraestructura, está a merced de la fiabilidad de la API. Una respuesta inconsistente por parte del proveedor puede ocasionar que Terraform no reconozca un recurso concreto, y dado que no forma parte del plan declarado en los ficheros, dicho recurso por defecto será eliminado.
+	- Podemos mitigar esta circunstancia especificando una solución alternativa al conflicto [mediante la directiva lifecycle](https://www.terraform.io/docs/configuration/resources.html#lifecycle).
+- Terraform almacena el estado de los recursos en el fichero _terraform.state_, y esta es el punto de referencia a la hora de generar planes de ejecución. Si se modifica la infraestructura remota desde fuera de Terraform, el comportamiento de la herramienta puede no ser el deseado.
+- La sintáxis declarativa de los ficheros no es agnóstica respecto al proveedor utilizado. Por tanto, debemos mantener diferentes versiones de nuestra infraestructura según dónde vayamos a desplegarla.
+
+Instalación.
+============
+Aunque nosotros utilizaremos Terraform en Linux, también está disponible para otras plataformas como Windows o OSX.
+
+Descargaremos la versión de Terraform deseada [desde su página web](https://www.terraform.io/downloads.html). Terraform no necesita instalación, basta con descomprimir el archivo.
+
+Primeros pasos: Desplegar una instancia en Amazon AWS.
+======================================================
+Para que Terraform pueda acceder a los recursos del proveedor que hayamos elegido, necesitaremos claves API. En el caso de Amazon AWS, podemos obtenerlas [en la consola de AWS](https://console.aws.amazon.com/iam/home#security_credential).
+
+![Gestión de credenciales de Amazon AWS]({{ site.url }}/assets/images/aws-credentials-console.png) 
+
+A continuación vamos a generar un fichero _ejemplo.tf_ que contendrá la definición de una máquina Ubuntu 16.04 en una instancia t2.micro, con la configuración mínima necesaria para poder conectarnos por SSH. 
+
+{% highlight ruby %}
+# Definimos las claves de acceso a la API de AWS
+provider "aws" {
+  access_key = "ESCRIBE_TU_CLAVE"
+  secret_key = "ESCRIBE_TU_CLAVE"
+  region     = "us-east-1"
+}
+
+# Detalles de la instancia
+
+resource "aws_instance" "ejemplo" {
+  ami           = "ami-2757f631" # Esta es la ami de Ubuntu Server 16.04
+  instance_type = "t2.micro"
+  subnet_id     = "subnet-3fd11213"
+}
+# Clave pública SSH que usaremos para conectarnos a la instancia.
+# Evidentemente, esta clave de ejemplo no es una clave válida.
+resource "aws_key_pair" "ssh-keys" {
+  key_name   = "terraform"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFOuj5NcQMwA4v5E/qcbsN0NsyR0BmdWU9VeIr9BFlE8/R4jnUMS6Sa9tf52omzJyRlr6M64GykzHmSnp8Aro7CK9dM+8PuktmJF+/EEuDsj/5ynyK+JQ9VlrbspJBXJhUs84LQK+1DngxVuyj1dxFSTvFVVafl0uuYmJOgzhS5MkFa16G/P9PiV44tEsq8wjnVbNBpKmom06f85uPaqegM45gbzGmE7PEjxkDaw/7DD3UatBYJ1oA8JaCUCfr4LishPbuT+lWEIDROnhGOhzz7GlnSgOxyhDnhteVFQzMBQLIGKzwG1uNL+1OaPJ5j4jXplShe7kmfMrmC6hOtdmp josue@pruebaTerraform"
+}
+# Creamos una red virtual privada para la instancia
+resource "aws_vpc" "default" {
+  cidr_block = "10.0.0.0/16"
+}
+
+# Un gateway para que la máquina tenga acceso a internet
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.default.id}"
+}
+# Damos acceso a internet a la vpc
+resource "aws_route" "internet_access" {
+  route_table_id         = "${aws_vpc.default.main_route_table_id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.default.id}"
+}
+
+# Una subnet para nuestra máquina
+resource "aws_subnet" "default" {
+  vpc_id                  = "${aws_vpc.default.id}"
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+}
+
+# Creamos un grupo de seguridad para poder abrir puertos en la vpc
+resource "aws_security_group" "elb" {
+  name        = "terraform_example_elb"
+  description = "Grupo de seguridad de ejemplo"
+  vpc_id      = "${aws_vpc.default.id}"
+
+  # Abrimos el puerto 80 desde y hacia todas partes
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # “-1” significa TCP y UDP
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  # Permitimos acceso SSH desde cualquier IP. Sin esto, no podremos conectarnos tras desplegar la máquina.
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  {% endhighlight %}
+
+Si inspeccionamos el plan generado por Terraform, observamos que va a crear la instancia especificada.
+
+{% highlight none %}
+$ terraform plan
++ aws_instance.example
+    ami:                          "ami-2757f631"
+    associate_public_ip_address:  "<computed>"
+    availability_zone:            "<computed>"
+    ebs_block_device.#:           "<computed>"
+    ephemeral_block_device.#:     "<computed>"
+    instance_state:               "<computed>"
+    instance_type:                "t2.micro"
+    ipv6_address_count:           "<computed>"
+    ipv6_addresses.#:             "<computed>"
+    key_name:                     "<computed>"
+    network_interface.#:          "<computed>"
+    network_interface_id:         "<computed>"
+    placement_group:              "<computed>"
+    primary_network_interface_id: "<computed>"
+    private_dns:                  "<computed>"
+    private_ip:                   "<computed>"
+    public_dns:                   "<computed>"
+    public_ip:                    "<computed>"
+    root_block_device.#:          "<computed>"
+    security_groups.#:            "<computed>"
+    source_dest_check:            "true"
+    subnet_id:                    "<computed>"
+    tenancy:                      "<computed>"
+    volume_tags.%:                "<computed>"
+    vpc_security_group_ids.#:     "<computed>"
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+{% endhighlight %}
+  
+Nota: este plan sólo existe en memoria. Al realizar _terraform apply_ Terraform volverá a refrescar y el plan generado puede ser diferente si las circunstancias son diferentes.
+
+> Nota: Es posible almacenar el plan con el switch **-out** y pasárselo a apply.
+
+Vamos a aplicar los cambios.
+{% highlight none %}
+$ terraform apply
+aws_instance.example: Creating...
+  ami:                          "" => "ami-2757f631"
+  associate_public_ip_address:  "" => "<computed>"
+  availability_zone:            "" => "<computed>"
+  ebs_block_device.#:           "" => "<computed>"
+  ephemeral_block_device.#:     "" => "<computed>"
+  instance_state:               "" => "<computed>"
+  instance_type:                "" => "t2.micro"
+  ipv6_address_count:           "" => "<computed>"
+  ipv6_addresses.#:             "" => "<computed>"
+  key_name:                     "" => "<computed>"
+  network_interface.#:          "" => "<computed>"
+  network_interface_id:         "" => "<computed>"
+  placement_group:              "" => "<computed>"
+  primary_network_interface_id: "" => "<computed>"
+  private_dns:                  "" => "<computed>"
+  private_ip:                   "" => "<computed>"
+  public_dns:                   "" => "<computed>"
+  public_ip:                    "" => "<computed>"
+  root_block_device.#:          "" => "<computed>"
+  security_groups.#:            "" => "<computed>"
+  source_dest_check:            "" => "true"
+  subnet_id:                    "" => "subnet-3fd11213"
+  tenancy:                      "" => "<computed>"
+  volume_tags.%:                "" => "<computed>"
+  vpc_security_group_ids.#:     "" => "<computed>"
+aws_instance.example: Still creating... (10s elapsed)
+aws_instance.example: Still creating... (20s elapsed)
+aws_instance.example: Creation complete (ID: i-02fbb95386573f5ec)
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+{% endhighlight %}
+
+Ahora podemos comprobar el estado (cacheado) de nuestra infraestructura con _terraform show_. Entre otros datos, tenemos la IP pública de la instancia.
+{% highlight none %}
+aws_instance.example:
+  id = i-02fbb95386573f5ec
+  ami = ami-2757f631
+  associate_public_ip_address = true
+  availability_zone = us-east-1a
+  disable_api_termination = false
+  ebs_block_device.# = 0
+  ebs_optimized = false
+  ephemeral_block_device.# = 0
+  iam_instance_profile = 
+  instance_state = running
+  instance_type = t2.micro
+  ipv6_address_count = 0
+  ipv6_addresses.# = 0
+  key_name = 
+  monitoring = false
+  network_interface.# = 0
+  network_interface_id = eni-0aaf6ac3
+  primary_network_interface_id = eni-0aaf6ac3
+  private_dns = ip-10-0-0-149.ec2.internal
+  private_ip = 10.0.0.149
+  public_dns = ec2-107-21-158-184.compute-1.amazonaws.com
+  public_ip = 107.21.158.184
+  root_block_device.# = 1
+  root_block_device.0.delete_on_termination = true
+  root_block_device.0.iops = 100
+  root_block_device.0.volume_size = 8
+  root_block_device.0.volume_type = gp2
+  security_groups.# = 0
+  source_dest_check = true
+  subnet_id = subnet-3fd11213
+  tags.% = 0
+  tenancy = default
+  volume_tags.% = 0
+  vpc_security_group_ids.# = 1
+  vpc_security_group_ids.713989925 = sg-535d3d2d
+{% endhighlight %}
+
+Vamos a deshacernos de esta instancia de ejemplo con el comando destroy.
+{% highlight none %}
+$ terraform destroy
+Do you really want to destroy?
+  Terraform will delete all your managed infrastructure.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_instance.example: Refreshing state... (ID: i-02fbb95386573f5ec)
+aws_instance.example: Destroying... (ID: i-02fbb95386573f5ec)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 10s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 20s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 30s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 41s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 51s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m1s elapsed)
+aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m11s elapsed)
+aws_instance.example: Destruction complete
+{% endhighlight %}
+Provisionamiento simple de instancias.
+===============================
+Tras crear la instancia, podemos copiar ficheros y directorios a la misma. Así mismo, con la directiva _remote-exec_ podemos indicarle la ruta de un script local y Terraform lo copiará a la instancia y lo ejecutará.
+
+Vamos a probarlo con un sencillo "Hola". Creamos un fichero llamado _bootstrap.sh_ que contendrá el comando de prueba.
+
+{% highlight bash %}
+#!/bin/bash
+echo 'hello’ > /tmp/output.txt
+{% endhighlight %}
+
+Modificamos la definición de la instancia para añadir el provisionador, y la clave SSH que debe usar para conectarse.
+{% highlight ruby %}
+resource "aws_instance" "instancia1" {
+  ami           = "ami-b374d5a5"
+  instance_type = "t2.micro"
+  key_name = "terraform"
+
+  provisioner "remote-exec" {
+    scripts = [
+      "bootstrap.sh"
+    ]
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      private_key = "${file("~/.ssh/clave-terraform-blog")}"
+    }  
+  }
+}
+{% endhighlight %}
+
+Tras aplicar el plan, observamos que Terraform se coneta a la instancia y ejecuta _bootstrap.sh_:
+{% highlight none %}
+aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
+aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
+aws_instance.instancia1 (remote-exec):   User: ubuntu
+aws_instance.instancia1 (remote-exec):   Password: false
+aws_instance.instancia1 (remote-exec):   Private key: true
+aws_instance.instancia1 (remote-exec):   SSH Agent: true
+aws_instance.instancia1 (remote-exec): Connected!
+aws_instance.instancia1: Creation complete (ID: i-03cbd14db6ba0a896)
+{% endhighlight %}
+Y comprobamos que funciona.
+{% highlight bash %}
+$ ssh -i ~/.ssh/terraform-proyecto ubuntu@54.234.144.181 "cat /tmp/output.txt’”
+Hola
+{% endhighlight %}
+
+
+En un futuro post exploraremos como utilizar esta funcionalidad para provisionar máquinas de forma completamente automática.
