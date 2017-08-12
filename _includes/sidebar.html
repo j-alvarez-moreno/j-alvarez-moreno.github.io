@@ -4,13 +4,13 @@
 		<img src="//www.gravatar.com/avatar/{{site.author.email_md5}}?s=150" class="img-circle" />
 	</a>
 	<h3 class="title">
-        <a href="{{ site.BASE_PATH }}/">{{ site.title }}</a>
+        <a href="{{ site.BASE_PATH }}/">{{ site.title.[site.active_lang] }}</a>
     </h3>
 </header>
 
 {% if site.author.bio %}
 <div id="bio" class="text-center">
-	{{ site.author.bio }}
+	{{ site.author.bio.[site.active_lang] }}
 </div>
 {% endif %}
 
@@ -43,5 +43,16 @@
 			</a>
 		</li>
 	</ul>
+	<br><br><br><br>
+	<div id="language-switcher">
+  		{% for tongue in site.languages %}
+			<a {% if tongue == site.active_lang %}
+					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+				{% else %}
+					style="font-size: 16px; color: white"
+				{% endif %} href="{% if tongue == site.default_lang %} {{site.baseurl}}{{page.url}} {% else %} {{site.baseurl}}/{{ tongue }}{{page.url}} {% endif %}">{{ site.languages_long_names[tongue] }}</a>
+			{% if forloop.rindex > 1  %} | {% endif %}
+  		{% endfor %}
+  	</div>
 </div>
 <!-- sidebar.html end -->

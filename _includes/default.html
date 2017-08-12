@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>{{ page.title }}</title>
+	<title>{{ page.title.[site.active_lang] }}</title>
 	{% if page.description %}
 	<meta name="description" content="{{ page.description }}">
 	{% endif %}
@@ -59,7 +59,7 @@
 			{% endif %}
 			<a class="navbar-brand" href="{{ site.BASE_PATH }}/">
 				<img src="//www.gravatar.com/avatar/{{site.author.email_md5}}?s=35" class="img-circle" />
-				{{ site.title }}
+				{{ site.title.[site.active_lang] }}
 			</a>
 		</div>
 

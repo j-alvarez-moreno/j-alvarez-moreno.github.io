@@ -1,5 +1,12 @@
 # visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
+languages: ["es", "en"]
+languages_long_names:
+  es: Español
+  en: English
+default_lang: "es"
+exclude_from_localization: ["assets"]
+
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
 exclude: ["README.md"] # files to exclude
@@ -13,7 +20,9 @@ defaults:
     scope:
       path: "" # empty string for all files
     values:
-      title: Blog de Josué Álvarez Moreno
+      title:
+        es: Blog de Josué Álvarez Moreno
+        en: Josué Álvarez Moreno's blog
 
 description:  Blog de Josué Álvarez Moreno, donde almaceno notas y conocimiento para mí y para todos.
 author:
@@ -21,7 +30,9 @@ author:
   email: blog@josuealvarezmoreno.com
   github: j-alvarez-moreno
   linkedin: josué-álvarez-moreno-b88896144
-  bio: Administrador de Sistemas.
+  bio:
+    es: Administrador de Sistemas.
+    en: System Administrator.
   email_md5: da3470a132e93bfe23072dccad7e2956
 
 categories_path: categories.html
@@ -34,3 +45,5 @@ BASE_PATH:
 
 gems:
   - jekyll-paginate
+
+
