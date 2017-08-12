@@ -190,3 +190,14 @@ ul.dropdown-menu>li>a>i.fa {
     width: 1.3em;
 }
 
+#language-switcher {
+	all: revert
+	font-family: "Courier New", Courier, monospace;
+	font-size: 18px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+
+	a {
+		color: #70DB93;
+	}
+}
