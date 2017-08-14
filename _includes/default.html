@@ -47,23 +47,25 @@
 				<i class="fa fa-github"></i>
 			</a>
 			{% endif %}
-			{% if site.author.twitter %}
-			<a type="button" class="navbar-toggle nav-link" href="http://twitter.com/{{ site.author.twitter }}">
-				<i class="fa fa-twitter"></i>
-			</a>
-			{% endif %}
 			{% if site.author.email %}
 			<a type="button" class="navbar-toggle nav-link" href="mailto:{{ site.author.email }}">
 				<i class="fa fa-envelope"></i>
 			</a>
 			{% endif %}
+			{% if site.author.linkedin %}
+			<a type="button" class="navbar-toggle nav-link" href="https://linkedin.com/in/{{ site.author.linkedin }}">
+				<i class="fa fa-linkedin fa-lg"></i>
+			</a>
+			{% endif %}
+			<a type="button" class="navbar-toggle nav-link"  data-toggle="collapse" data-target="#language-picker">
+				<i class="fa fa-globe"></i>
+				<span class="sr-only">Language selection.</span>
+			</a>
 			<a class="navbar-brand" href="{{ site.BASE_PATH }}/">
 				<img src="//www.gravatar.com/avatar/{{site.author.email_md5}}?s=35" class="img-circle" />
 				{{ site.title.[site.active_lang] }}
 			</a>
 		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="{{ site.BASE_PATH }}/">Home</a></li>
@@ -71,6 +73,17 @@
 				<li><a href="{{ site.BASE_PATH}}/{{ site.tags_path }}">Tags</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
+		<div class="collapse navbar-collapse" id="language-picker">
+			<ul class="nav navbar-nav">
+				{% for tongue in site.languages %}
+					<li><a {% if tongue == site.active_lang %}
+							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+						{% else %}
+							style="font-size: 16px; color: grey"
+						{% endif %} href="{% if tongue == site.default_lang %} {{site.baseurl}}{{page.url}} {% else %} {{site.baseurl}}/{{ tongue }}{{page.url}} {% endif %}">{{ site.languages_long_names[tongue] }}</a></li>
+	  			{% endfor %}
+			</ul>
+		</div>
 	</nav>
 
 	<!-- nav-menu-dropdown -->
