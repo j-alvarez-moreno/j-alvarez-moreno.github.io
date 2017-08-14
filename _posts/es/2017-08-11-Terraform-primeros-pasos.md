@@ -303,7 +303,7 @@ resource "aws_instance" "instancia1" {
 }
 {% endhighlight %}
 
-Tras aplicar el plan, observamos que Terraform se coneta a la instancia y ejecuta _bootstrap.sh_:
+Tras aplicar el plan, observamos que Terraform se conecta a la instancia y ejecuta _bootstrap.sh_:
 {% highlight none %}
 aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
 aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
