@@ -77,7 +77,7 @@ provider "aws" {
 resource "aws_instance" "ejemplo" {
   ami           = "ami-2757f631" # Esta es la ami de Ubuntu Server 16.04
   instance_type = "t2.micro"
-  subnet_id     = "subnet-3fd11213"
+  subnet_id     = "${aws_subnet.default.id}"
 }
 # Clave pública SSH que usaremos para conectarnos a la instancia.
 # Evidentemente, esta clave de ejemplo no es una clave válida.
