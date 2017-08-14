@@ -54,8 +54,14 @@
 			<a type="button" class="navbar-toggle nav-link"  data-toggle="dropdown">
 				<i class="fa fa-globe"></i>
 				<ul class="dropdown-menu">
-					<li><a style="font-weight: bold; font-size: 20px; color: #ffcb6a" href=" / ">Español</a></li>
-					<li><a style="font-size: 16px; color: grey" href="/en/">English</a></li>
+				
+					<li><a 
+							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+						 href=" / ">Español</a></li>
+	  			
+					<li><a 
+							style="font-size: 16px; color: grey"
+						 href=" /en/ ">English</a></li>
 	  			
 				</ul>
 			</a>
@@ -173,7 +179,7 @@
 		  </span>
 
 		  <h2>
-		    <a href="/terraform/2017/08/11/Terraform-primeros-pasos.html">Primeros pasos con Terraform</a>
+		    <a href="/terraform/2017/08/11/Terraform-101.html">Primeros pasos con Terraform</a>
 		  </h2>
 
 		  <div>
@@ -255,7 +261,7 @@
 <span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"ejemplo"</span> <span class="p">{</span>
   <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># Esta es la ami de Ubuntu Server 16.04</span>
   <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"subnet-3fd11213"</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
 <span class="p">}</span>
 <span class="c1"># Clave pública SSH que usaremos para conectarnos a la instancia.</span>
 <span class="c1"># Evidentemente, esta clave de ejemplo no es una clave válida.</span>
@@ -475,7 +481,7 @@ aws_instance.example: Destruction complete</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Tras aplicar el plan, observamos que Terraform se coneta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
+<p>Tras aplicar el plan, observamos que Terraform se conecta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
 aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13

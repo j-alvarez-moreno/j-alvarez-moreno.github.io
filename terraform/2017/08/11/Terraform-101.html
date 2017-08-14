@@ -56,33 +56,33 @@
 				<ul class="dropdown-menu">
 				
 					<li><a 
-							style="font-size: 16px; color: grey"
-						 href=" /terraform/2017/08/11/Terraform-primeros-pasos.html ">Español</a></li>
+							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+						 href=" /terraform/2017/08/11/Terraform-101.html ">Español</a></li>
 	  			
 					<li><a 
-							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
-						 href=" /en/terraform/2017/08/11/Terraform-primeros-pasos.html ">English</a></li>
+							style="font-size: 16px; color: grey"
+						 href=" /en/terraform/2017/08/11/Terraform-101.html ">English</a></li>
 	  			
 				</ul>
 			</a>
-			<a class="navbar-brand" href="/en/">
+			<a class="navbar-brand" href="/">
 				<img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956?s=35" class="img-circle" />
 				
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/en/">Home</a></li>
-				<li><a href="/en/categories.html">Categories</a></li>
-				<li><a href="/en/tags.html">Tags</a></li>
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/en/">Home</a></li>
-				<li><a href="/en/categories.html">Categories</a></li>
-				<li><a href="/en/tags.html">Tags</a></li>
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -93,9 +93,9 @@
 			<i class="fa fa-bars"></i>
 		</button>
 		<ul class="dropdown-menu" role="menu">
-			<li><a href="/en/"><i class="fa fa-home"></i>Home</a></li>
-			<li><a href="/en/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
-			<li><a href="/en/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
 			<li class="divider"></li>
 			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
 		</ul>
@@ -104,17 +104,17 @@
 	<div class="col-sm-3 sidebar hidden-xs" style="">
 		<!-- sidebar.html -->
 <header class="sidebar-header" role="banner">
-	<a href="/en/">
+	<a href="/">
 		<img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956?s=150" class="img-circle" />
 	</a>
 	<h3 class="title">
-        <a href="/en/"></a>
+        <a href="/"></a>
     </h3>
 </header>
 
 
 <div id="bio" class="text-center">
-	System Administrator.
+	Administrador de Sistemas.
 </div>
 
 
@@ -145,13 +145,13 @@
 	<div id="language-switcher">
   		
 			<a 
-					style="font-size: 16px; color: white"
-				 href=" /terraform/2017/08/11/Terraform-primeros-pasos.html ">Español</a>
+					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+				 href=" /terraform/2017/08/11/Terraform-101.html ">Español</a>
 			 | 
   		
 			<a 
-					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
-				 href=" /en/terraform/2017/08/11/Terraform-primeros-pasos.html ">English</a>
+					style="font-size: 16px; color: white"
+				 href=" /en/terraform/2017/08/11/Terraform-101.html ">English</a>
 			
   		
   	</div>
@@ -253,7 +253,7 @@
 <span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"ejemplo"</span> <span class="p">{</span>
   <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># Esta es la ami de Ubuntu Server 16.04</span>
   <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"subnet-3fd11213"</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
 <span class="p">}</span>
 <span class="c1"># Clave pública SSH que usaremos para conectarnos a la instancia.</span>
 <span class="c1"># Evidentemente, esta clave de ejemplo no es una clave válida.</span>
@@ -473,7 +473,7 @@ aws_instance.example: Destruction complete</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Tras aplicar el plan, observamos que Terraform se coneta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
+<p>Tras aplicar el plan, observamos que Terraform se conecta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
 aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
@@ -573,7 +573,7 @@ Hola</span></code></pre></figure>
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/en/placeholder/2017/08/01/hello-world.html" title="Hello World!">&larr; Previous</a></li>
+		  <li class="previous"><a href="/placeholder/2017/08/01/hello-world.html" title="Hello World!">&larr; Previous</a></li>
 		  
 		  
 			<li class="next disabled"><a>Next &rarr;</a>
