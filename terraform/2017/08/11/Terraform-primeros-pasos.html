@@ -253,7 +253,7 @@
 <span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"ejemplo"</span> <span class="p">{</span>
   <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># Esta es la ami de Ubuntu Server 16.04</span>
   <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"subnet-3fd11213"</span>
+  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
 <span class="p">}</span>
 <span class="c1"># Clave pública SSH que usaremos para conectarnos a la instancia.</span>
 <span class="c1"># Evidentemente, esta clave de ejemplo no es una clave válida.</span>
