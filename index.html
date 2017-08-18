@@ -26,15 +26,21 @@ tagline:
 
 		  <div>
 		    {% if post.fullview %}
-		    {{ post.content }}
+		    	{{ post.content }}
 		    {% else %}
-		    {% if post.shortinfo %}
-		    {{ post.shortinfo }}
-		    {% elsif post.description %}
-		    {{ post.description }}
-		    {% else %}
-		    {{ post.excerpt }}
-		    {% endif %}
+		    	{% if post.shortinfo %}
+		    		{{ post.shortinfo }}
+		    	{% elsif post.description %}
+		    		{{ post.description }}
+		    	{% else %}
+		    		{% assign post_url = post.url | append:'#' %}
+  					{{ post.content | split: site.excerpt_separator| first | replace:'#',post_url }}
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="{{ site.baseurl }}{{ post.url }}">{{ site.translations.[site.active_lang].read_more }}</a>
+	  				</li>
+				</ul>
+			    {% endif %}
 		    {% endif %}
 		  </div>
 

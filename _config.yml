@@ -6,6 +6,7 @@ languages_long_names:
   en: English
 default_lang: "en"
 exclude_from_localization: ["assets"]
+excerpt_separator: <!--more-->
 
 paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
@@ -46,4 +47,10 @@ BASE_PATH:
 gems:
   - jekyll-paginate
 
+# I will need to split this into it's own config file, but it will suffice for testing purposes.
 
+translations:
+  en:
+    read_more: "View full post."
+  es:
+    read_more: "Ver post completo."
