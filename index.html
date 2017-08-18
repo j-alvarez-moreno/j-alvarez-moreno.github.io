@@ -185,19 +185,20 @@
 
 		  <div>
 		    
-		    <p>In this post we’ll explore a tool called Terraform, its advantages and disadvantages; and we’ll use it to spin up a test instance on Amazon AWS.</p>
+		    	
+		    		
+  					<p>In this post we’ll explore a tool called Terraform, its advantages and disadvantages; and we’ll use it to spin up a test instance on Amazon AWS.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#terraform-what-is-it" id="markdown-toc-terraform-what-is-it">Terraform: What is it?</a></li>
-  <li><a href="#advantages-and-disadvantages-of-using-terraform" id="markdown-toc-advantages-and-disadvantages-of-using-terraform">Advantages and disadvantages of using Terraform.</a>    <ul>
-      <li><a href="#pros" id="markdown-toc-pros">Pros</a></li>
-      <li><a href="#cons-and-caveats" id="markdown-toc-cons-and-caveats">Cons and caveats</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#terraform-what-is-it" id="markdown-toc-terraform-what-is-it">Terraform: What is it?</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#advantages-and-disadvantages-of-using-terraform" id="markdown-toc-advantages-and-disadvantages-of-using-terraform">Advantages and disadvantages of using Terraform.</a>    <ul>
+      <li><a href="/terraform/2017/08/11/Terraform-101.html#pros" id="markdown-toc-pros">Pros</a></li>
     </ul>
   </li>
-  <li><a href="#command-overview" id="markdown-toc-command-overview">Command overview.</a></li>
-  <li><a href="#installing-terraform" id="markdown-toc-installing-terraform">Installing Terraform</a></li>
-  <li><a href="#first-steps-creating-an-instance-on-amazon-aws" id="markdown-toc-first-steps-creating-an-instance-on-amazon-aws">First steps: Creating an instance on Amazon AWS.</a></li>
-  <li><a href="#basic-provisioning-of-instances" id="markdown-toc-basic-provisioning-of-instances">Basic provisioning of instances.</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#command-overview" id="markdown-toc-command-overview">Command overview.</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#installing-terraform" id="markdown-toc-installing-terraform">Installing Terraform</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#first-steps-creating-an-instance-on-amazon-aws" id="markdown-toc-first-steps-creating-an-instance-on-amazon-aws">First steps: Creating an instance on Amazon AWS.</a></li>
+  <li><a href="/terraform/2017/08/11/Terraform-101.html#basic-provisioning-of-instances" id="markdown-toc-basic-provisioning-of-instances">Basic provisioning of instances.</a></li>
 </ul>
 
 <h1 id="terraform-what-is-it">Terraform: What is it?</h1>
@@ -214,287 +215,15 @@
   <li><strong>Infrastructure as code (IaC)</strong>: This enables us to treat our infrastructure as a file. In plain English this means the following: we can back it up, keep a history of our hardware and configuration (including the associated firewall rules, VLANs and security policies) and rollback changes quickly and efficiently. Our datacenter is <em>stored on a file</em>, thus we can re-deploy our entire infrastructure in a few keystrokes. We are now able to set-up a testing or development environment that is guaranteed to be an exact replica of the actual production environment, or quickly spin-up a second datacenter in a disaster recovery scenario.</li>
   <li><strong>Speed</strong>: Terraform is fast, very fast. If the infrastructure provider supports it, Terraform parallelizes the generation and modification of resources. The result is: it takes literally a minute to provision one instance, <em>and it takes the exact same time to provision 20 of them</em>.</li>
   <li><strong>Supports multiple providers</strong>: Unlike Heat or CloudFormation, Terraform supports a variety of providers and can mix and match resources from any of them simultaneously. For example: We could keep the database in our local datacenter to comply with PII regulations, while hosting the frontend of the application somewhere else.</li>
-  <li><strong>Flexibility</strong>: Our infrastructure is declared in <em>.tf</em> files. Terraform consumes all the .tf files from the folder and processes them to create the execution plan. We can separate the resources in a logical way, and easily add/substract a file with new resources for testing purposes.</li>
-</ul>
-
-<h2 id="cons-and-caveats">Cons and caveats</h2>
-
-<ul>
   <li>
-    <p>Terraform stores the state of the deployed resources in a local file called <em>terraform.state</em>, and that is the canonical source of truth. If the file is corrupted or the state described in it no longer matches the deployed infrastructure (for example, a remote resource is modified manually), Terraform will fix the discrepancy by destroying the remote resource and recreating it according to the local definition.</p>
-  </li>
-  <li>Terraform depends entirely on the provider’s API: The tool tries to mitigate potential failures by retrying and verifying API calls. Inconsistencies on the provider side can cause a situation in which Terraform is not able to match a specific remote resource to its local definition of said resource, thus generating an execution plan that <em>destroys</em> the remote resource and then creates another instance according to the local <em>.tf</em> files.
-    <ul>
-      <li>We can specify an alternate solution to this kind of conflict <a href="https://www.terraform.io/docs/configuration/resources.html#lifecycle">with the lifecycle directive</a>.</li>
-    </ul>
-  </li>
-  <li>The declarative sintax of the <em>.tf</em> files is provider-specific. That means we will need to rewrite the definition of our infrastructure if we were to switch providers.</li>
-</ul>
+    <p><strong>Flexibility</strong>: Our infrastructure is declared in <em>.tf</em> files. Terraform consumes all the .tf files from the folder and processes them to create the execution plan. We can separate the resources in a logical way, and easily add/substract a file with new resources for testing purposes.
 
-<h1 id="command-overview">Command overview.</h1>
-<p>There are four basic commands that you must know to work with Terraform: refresh, plan, apply and destroy. <strong>Refresh</strong> updates the <em>terraform.state</em> file to match the provider’s state, <strong>plan</strong> outputs the changes that would be applied and <strong>apply</strong> performs the changes. <strong>Destroy</strong> does what you would expect: destroys the remote resources.</p>
-
-<blockquote>
-  <p>Apply does not prompt for confirmation. Any discrepancy between the remote state and the local definition will be fixed irreversibly. It’s important to double-check the plan to make sure it matches our expectations.</p>
-</blockquote>
-
-<h1 id="installing-terraform">Installing Terraform</h1>
-<p>Terraform is available for a variety of operating systems, though we’ll use Ubuntu throughout this post. While it could be available on the repositories of your favourite OS, there are no guarantees it will be up to date. The latest version can be downloaded from <a href="https://www.terraform.io/downloads.html">its website</a>.</p>
-
-<p>It does not need to be installed, unpacking the downloaded file is all that is required.</p>
-
-<h1 id="first-steps-creating-an-instance-on-amazon-aws">First steps: Creating an instance on Amazon AWS.</h1>
-<p>The objective is to deploy Ubuntu 16.04 on a t2.micro instance, with as little configuration as possible to enable SSH connections.</p>
-
-<p>To enable Terraform to communicate with the remote provider, we will need API keys. In the case of Amazon AWS, they can be obtained from <a href="https://console.aws.amazon.com/iam/home#security_credential">the console</a>.</p>
-
-<p><img src="/assets/images/aws-credentials-console.png" alt="Managing credentials on Amazon AWS" /></p>
-
-<p>What follows is the <em>instance.tf</em> file we are going to use.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Contains the API keys for AWS access.</span>
-<span class="n">provider</span> <span class="s2">"aws"</span> <span class="p">{</span>
-  <span class="n">access_key</span> <span class="o">=</span> <span class="s2">"AWS_KEY"</span>
-  <span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"AWS_KEY"</span>
-  <span class="n">region</span>     <span class="o">=</span> <span class="s2">"us-east-1"</span>
-<span class="p">}</span>
-
-<span class="c1"># Instance details</span>
-
-<span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"example"</span> <span class="p">{</span>
-  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># This AMI contains Ubuntu 16.04</span>
-  <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
-<span class="p">}</span>
-<span class="c1"># SSH key we are going to use to connect to the instance.</span>
-<span class="c1"># It goes without saying that this key was created specifically for this blog post and has already been revoked.</span>
-<span class="n">resource</span> <span class="s2">"aws_key_pair"</span> <span class="s2">"ssh-keys"</span> <span class="p">{</span>
-  <span class="n">key_name</span>   <span class="o">=</span> <span class="s2">"terraform"</span>
-  <span class="n">public_key</span> <span class="o">=</span> <span class="s2">"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFOuj5NcQMwA4v5E/qcbsN0NsyR0BmdWU9VeIr9BFlE8/R4jnUMS6Sa9tf52omzJyRlr6M64GykzHmSnp8Aro7CK9dM+8PuktmJF+/EEuDsj/5ynyK+JQ9VlrbspJBXJhUs84LQK+1DngxVuyj1dxFSTvFVVafl0uuYmJOgzhS5MkFa16G/P9PiV44tEsq8wjnVbNBpKmom06f85uPaqegM45gbzGmE7PEjxkDaw/7DD3UatBYJ1oA8JaCUCfr4LishPbuT+lWEIDROnhGOhzz7GlnSgOxyhDnhteVFQzMBQLIGKzwG1uNL+1OaPJ5j4jXplShe7kmfMrmC6hOtdmp josue@pruebaTerraform"</span>
-<span class="p">}</span>
-<span class="c1"># A virtual private network for the instance.</span>
-<span class="n">resource</span> <span class="s2">"aws_vpc"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">cidr_block</span> <span class="o">=</span> <span class="s2">"10.0.0.0/16"</span>
-<span class="p">}</span>
-
-<span class="c1"># A gateway that provides internet access.</span>
-<span class="n">resource</span> <span class="s2">"aws_internet_gateway"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-<span class="p">}</span>
-<span class="c1"># We whitelist the entire internet on this vpc. Note that this does not open any ports, it merely enables us to receive traffic from the outside.</span>
-<span class="n">resource</span> <span class="s2">"aws_route"</span> <span class="s2">"internet_access"</span> <span class="p">{</span>
-  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">"${aws_vpc.default.main_route_table_id}"</span>
-  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">"0.0.0.0/0"</span>
-  <span class="n">gateway_id</span>             <span class="o">=</span> <span class="s2">"${aws_internet_gateway.default.id}"</span>
-<span class="p">}</span>
-
-<span class="c1"># A subnet.</span>
-<span class="n">resource</span> <span class="s2">"aws_subnet"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">vpc_id</span>                  <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-  <span class="n">cidr_block</span>              <span class="o">=</span> <span class="s2">"10.0.1.0/24"</span>
-  <span class="n">map_public_ip_on_launch</span> <span class="o">=</span> <span class="kp">true</span>
-<span class="p">}</span>
-
-<span class="c1"># We create a security group to be able to apply port policies on this vpc.</span>
-<span class="n">resource</span> <span class="s2">"aws_security_group"</span> <span class="s2">"elb"</span> <span class="p">{</span>
-  <span class="nb">name</span>        <span class="o">=</span> <span class="s2">"terraform_example_elb"</span>
-  <span class="n">description</span> <span class="o">=</span> <span class="s2">"First Steps Security Group"</span>
-  <span class="n">vpc_id</span>      <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-
-  <span class="c1"># We enable initiating outgoing traffic on any port.</span>
-  <span class="c1"># “-1” means both TCP and UDP.</span>
-  <span class="n">egress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"-1"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-  <span class="c1"># We allow incoming SSH traffic from anywhere.</span>
-  <span class="n">ingress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"tcp"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-  </code></pre></figure>
-
-<p>Inspecting the generated plan, we can clearly see that the above operations are going to be performed.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform plan
-+ aws_instance.example
-    ami:                          "ami-2757f631"
-    associate_public_ip_address:  "&lt;computed&gt;"
-    availability_zone:            "&lt;computed&gt;"
-    ebs_block_device.#:           "&lt;computed&gt;"
-    ephemeral_block_device.#:     "&lt;computed&gt;"
-    instance_state:               "&lt;computed&gt;"
-    instance_type:                "t2.micro"
-    ipv6_address_count:           "&lt;computed&gt;"
-    ipv6_addresses.#:             "&lt;computed&gt;"
-    key_name:                     "&lt;computed&gt;"
-    network_interface.#:          "&lt;computed&gt;"
-    network_interface_id:         "&lt;computed&gt;"
-    placement_group:              "&lt;computed&gt;"
-    primary_network_interface_id: "&lt;computed&gt;"
-    private_dns:                  "&lt;computed&gt;"
-    private_ip:                   "&lt;computed&gt;"
-    public_dns:                   "&lt;computed&gt;"
-    public_ip:                    "&lt;computed&gt;"
-    root_block_device.#:          "&lt;computed&gt;"
-    security_groups.#:            "&lt;computed&gt;"
-    source_dest_check:            "true"
-    subnet_id:                    "&lt;computed&gt;"
-    tenancy:                      "&lt;computed&gt;"
-    volume_tags.%:                "&lt;computed&gt;"
-    vpc_security_group_ids.#:     "&lt;computed&gt;"
-
-Plan: 1 to add, 0 to change, 0 to destroy.</code></pre></figure>
-
-<p>Note: this plan is not saved anywhere, and only exists in memory at this time. When using <strong>apply</strong> , Terraform will generate the plan again and it might be different if circumstances have changed.</p>
-
-<blockquote>
-  <p>The plan can be saved to disk using the <strong>-out</strong> switch, and <strong>apply</strong> can be instructed to load the plan from a file instead of generating it at runtime.</p>
-</blockquote>
-
-<p>Let’s apply the plan.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform apply
-aws_instance.example: Creating...
-  ami:                          "" =&gt; "ami-2757f631"
-  associate_public_ip_address:  "" =&gt; "&lt;computed&gt;"
-  availability_zone:            "" =&gt; "&lt;computed&gt;"
-  ebs_block_device.#:           "" =&gt; "&lt;computed&gt;"
-  ephemeral_block_device.#:     "" =&gt; "&lt;computed&gt;"
-  instance_state:               "" =&gt; "&lt;computed&gt;"
-  instance_type:                "" =&gt; "t2.micro"
-  ipv6_address_count:           "" =&gt; "&lt;computed&gt;"
-  ipv6_addresses.#:             "" =&gt; "&lt;computed&gt;"
-  key_name:                     "" =&gt; "&lt;computed&gt;"
-  network_interface.#:          "" =&gt; "&lt;computed&gt;"
-  network_interface_id:         "" =&gt; "&lt;computed&gt;"
-  placement_group:              "" =&gt; "&lt;computed&gt;"
-  primary_network_interface_id: "" =&gt; "&lt;computed&gt;"
-  private_dns:                  "" =&gt; "&lt;computed&gt;"
-  private_ip:                   "" =&gt; "&lt;computed&gt;"
-  public_dns:                   "" =&gt; "&lt;computed&gt;"
-  public_ip:                    "" =&gt; "&lt;computed&gt;"
-  root_block_device.#:          "" =&gt; "&lt;computed&gt;"
-  security_groups.#:            "" =&gt; "&lt;computed&gt;"
-  source_dest_check:            "" =&gt; "true"
-  subnet_id:                    "" =&gt; "subnet-3fd11213"
-  tenancy:                      "" =&gt; "&lt;computed&gt;"
-  volume_tags.%:                "" =&gt; "&lt;computed&gt;"
-  vpc_security_group_ids.#:     "" =&gt; "&lt;computed&gt;"
-aws_instance.example: Still creating... (10s elapsed)
-aws_instance.example: Still creating... (20s elapsed)
-aws_instance.example: Creation complete (ID: i-02fbb95386573f5ec)
-
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed.</code></pre></figure>
-
-<p>Now we can inspect the state of our infrastructure using <em>terraform show</em>. Among other things, it shows us the public IP of the newly created instance.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.example:
-  id = i-02fbb95386573f5ec
-  ami = ami-2757f631
-  associate_public_ip_address = true
-  availability_zone = us-east-1a
-  disable_api_termination = false
-  ebs_block_device.# = 0
-  ebs_optimized = false
-  ephemeral_block_device.# = 0
-  iam_instance_profile = 
-  instance_state = running
-  instance_type = t2.micro
-  ipv6_address_count = 0
-  ipv6_addresses.# = 0
-  key_name = 
-  monitoring = false
-  network_interface.# = 0
-  network_interface_id = eni-0aaf6ac3
-  primary_network_interface_id = eni-0aaf6ac3
-  private_dns = ip-10-0-0-149.ec2.internal
-  private_ip = 10.0.0.149
-  public_dns = ec2-107-21-158-184.compute-1.amazonaws.com
-  public_ip = 107.21.158.184
-  root_block_device.# = 1
-  root_block_device.0.delete_on_termination = true
-  root_block_device.0.iops = 100
-  root_block_device.0.volume_size = 8
-  root_block_device.0.volume_type = gp2
-  security_groups.# = 0
-  source_dest_check = true
-  subnet_id = subnet-3fd11213
-  tags.% = 0
-  tenancy = default
-  volume_tags.% = 0
-  vpc_security_group_ids.# = 1
-  vpc_security_group_ids.713989925 = sg-535d3d2d</code></pre></figure>
-
-<p>Let’s delete this instance with the <strong>destroy</strong> command.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform destroy
-Do you really want to destroy?
-  Terraform will delete all your managed infrastructure.
-  There is no undo. Only 'yes' will be accepted to confirm.
-
-  Enter a value: yes
-
-aws_instance.example: Refreshing state... (ID: i-02fbb95386573f5ec)
-aws_instance.example: Destroying... (ID: i-02fbb95386573f5ec)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 10s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 20s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 30s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 41s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 51s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m1s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m11s elapsed)
-aws_instance.example: Destruction complete</code></pre></figure>
-
-<h1 id="basic-provisioning-of-instances">Basic provisioning of instances.</h1>
-<p>Terraform can transfer files and folders to the newly created instance, and it provides a number of facilities to execute software remotely. Using the <em>remote-exec</em> directive, we are going to deploy a script that writes “Hello” to a file in the /tmp/ folder.</p>
-
-<p>The script will be called <em>bootstrap.sh</em>, and these are its contents.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="nb">echo</span> <span class="s1">'hello’ &gt; /tmp/output.txt</span></code></pre></figure>
-
-<p>We modify the instance definition to add the provisioner directive, and the SSH it will use to remotely login to the instance.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"instancia1"</span> <span class="p">{</span>
-  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-b374d5a5"</span>
-  <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">key_name</span> <span class="o">=</span> <span class="s2">"terraform"</span>
-
-  <span class="n">provisioner</span> <span class="s2">"remote-exec"</span> <span class="p">{</span>
-    <span class="n">scripts</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="s2">"bootstrap.sh"</span>
-    <span class="p">]</span>
-    <span class="n">connection</span> <span class="p">{</span>
-      <span class="n">type</span>     <span class="o">=</span> <span class="s2">"ssh"</span>
-      <span class="n">user</span>     <span class="o">=</span> <span class="s2">"ubuntu"</span>
-      <span class="n">private_key</span> <span class="o">=</span> <span class="s2">"${file("</span><span class="o">~</span><span class="sr">/.ssh/</span><span class="n">clave</span><span class="o">-</span><span class="n">terraform</span><span class="o">-</span><span class="n">blog</span><span class="s2">")}"</span>
-    <span class="p">}</span>  
-  <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>After applying the plan, we can see that Terraform has logged-in to the instance and executed the script.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
-aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
-aws_instance.instancia1 (remote-exec):   User: ubuntu
-aws_instance.instancia1 (remote-exec):   Password: false
-aws_instance.instancia1 (remote-exec):   Private key: true
-aws_instance.instancia1 (remote-exec):   SSH Agent: true
-aws_instance.instancia1 (remote-exec): Connected!
-aws_instance.instancia1: Creation complete (ID: i-03cbd14db6ba0a896)</code></pre></figure>
-
-<p>And after logging in manually ourselves, we can verify that it did run the script correctly.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>ssh -i ~/.ssh/terraform-proyecto ubuntu@54.234.144.181 <span class="s2">"cat /tmp/output.txt’”
-Hello</span></code></pre></figure>
-
-<p>In a future post we will explore how to use this functionality to provision instances automatically.</p>
-
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/terraform/2017/08/11/Terraform-101.html">View full post.</a>
+	  				</li>
+				</ul>
+			    
 		    
 		  </div>
 
@@ -520,7 +249,7 @@ Hello</span></code></pre></figure>
 
 		  <div>
 		    
-		    <p>Welcome to my blog. Here I will publish technical posts and general thoughts about technology, with the hope that it can be useful for you.</p>
+		    	<p>Welcome to my blog. Here I will publish technical posts and general thoughts about technology, with the hope that it can be useful for you.</p>
 
 <p>My native language is Spanish, but the translation efforts are underway. If you can understand the language, the Spanish section of the blog has more content at the moment.</p>
 

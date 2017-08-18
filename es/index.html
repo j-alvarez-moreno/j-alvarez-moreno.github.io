@@ -183,41 +183,43 @@
 
 		  <div>
 		    
-		    <p>En este post aprenderemos a monitorizar nuestras máquinas y servicios con Nagios. Gracias a este software, recibiremos alertas detalladas y accionables sobre nuestra insfraestructura.</p>
+		    	
+		    		
+  					<p>En este post aprenderemos a monitorizar nuestras máquinas y servicios con Nagios. Gracias a este software, recibiremos alertas detalladas y accionables sobre nuestra insfraestructura.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#qué-es-nagios" id="markdown-toc-qué-es-nagios">Qué es Nagios.</a></li>
-  <li><a href="#conceptos-básicos-para-trabajar-con-nagios" id="markdown-toc-conceptos-básicos-para-trabajar-con-nagios">Conceptos básicos para trabajar con Nagios.</a>    <ul>
-      <li><a href="#posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
-          <li><a href="#qué-significa-que-un-servicio-o-recurso-está-flapping" id="markdown-toc-qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#qué-es-nagios" id="markdown-toc-qué-es-nagios">Qué es Nagios.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#conceptos-básicos-para-trabajar-con-nagios" id="markdown-toc-conceptos-básicos-para-trabajar-con-nagios">Conceptos básicos para trabajar con Nagios.</a>    <ul>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#qué-significa-que-un-servicio-o-recurso-está-flapping" id="markdown-toc-qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</a></li>
         </ul>
       </li>
     </ul>
   </li>
-  <li><a href="#escenario-sobre-el-cual-trabajaremos-en-este-post" id="markdown-toc-escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</a></li>
-  <li><a href="#instalación-de-nagios" id="markdown-toc-instalación-de-nagios">Instalación de Nagios.</a></li>
-  <li><a href="#monitorización-de-servicios-y-equipos" id="markdown-toc-monitorización-de-servicios-y-equipos">Monitorización de servicios y equipos.</a>    <ul>
-      <li><a href="#configuración-común-a-los-tres-hosts" id="markdown-toc-configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</a>        <ul>
-          <li><a href="#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#escenario-sobre-el-cual-trabajaremos-en-este-post" id="markdown-toc-escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#instalación-de-nagios" id="markdown-toc-instalación-de-nagios">Instalación de Nagios.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#monitorización-de-servicios-y-equipos" id="markdown-toc-monitorización-de-servicios-y-equipos">Monitorización de servicios y equipos.</a>    <ul>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-común-a-los-tres-hosts" id="markdown-toc-configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
         </ul>
       </li>
-      <li><a href="#configuración-específica" id="markdown-toc-configuración-específica">Configuración específica</a>        <ul>
-          <li><a href="#nagioshost" id="markdown-toc-nagioshost">nagiosHost</a></li>
-          <li><a href="#servidorlamp" id="markdown-toc-servidorlamp">servidorLamp</a></li>
-          <li><a href="#escritoriousuario" id="markdown-toc-escritoriousuario">escritorioUsuario</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-específica" id="markdown-toc-configuración-específica">Configuración específica</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#nagioshost" id="markdown-toc-nagioshost">nagiosHost</a></li>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#servidorlamp" id="markdown-toc-servidorlamp">servidorLamp</a></li>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#escritoriousuario" id="markdown-toc-escritoriousuario">escritorioUsuario</a></li>
         </ul>
       </li>
-      <li><a href="#monitorización-de-mongodb" id="markdown-toc-monitorización-de-mongodb">Monitorización de MongoDB</a>        <ul>
-          <li><a href="#configuración-del-envio-de-alertas-por-correo" id="markdown-toc-configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#monitorización-de-mongodb" id="markdown-toc-monitorización-de-mongodb">Monitorización de MongoDB</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-del-envio-de-alertas-por-correo" id="markdown-toc-configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</a></li>
         </ul>
       </li>
     </ul>
   </li>
-  <li><a href="#comprobar-el-mapa-de-nuestros-equipos-y-servicios" id="markdown-toc-comprobar-el-mapa-de-nuestros-equipos-y-servicios">Comprobar el mapa de nuestros equipos y servicios.</a></li>
-  <li><a href="#comprobación-de-funcionamiento-y-notificaciones" id="markdown-toc-comprobación-de-funcionamiento-y-notificaciones">Comprobación de funcionamiento y notificaciones.</a>    <ul>
-      <li><a href="#equipo-fuera-de-línea" id="markdown-toc-equipo-fuera-de-línea">Equipo fuera de línea.</a></li>
-      <li><a href="#proceso-zombie" id="markdown-toc-proceso-zombie">Proceso Zombie.</a></li>
-      <li><a href="#base-de-datos-mongodb-fuera-de-línea" id="markdown-toc-base-de-datos-mongodb-fuera-de-línea">Base de datos MongoDB fuera de línea.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#comprobar-el-mapa-de-nuestros-equipos-y-servicios" id="markdown-toc-comprobar-el-mapa-de-nuestros-equipos-y-servicios">Comprobar el mapa de nuestros equipos y servicios.</a></li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#comprobación-de-funcionamiento-y-notificaciones" id="markdown-toc-comprobación-de-funcionamiento-y-notificaciones">Comprobación de funcionamiento y notificaciones.</a>    <ul>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#equipo-fuera-de-línea" id="markdown-toc-equipo-fuera-de-línea">Equipo fuera de línea.</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#proceso-zombie" id="markdown-toc-proceso-zombie">Proceso Zombie.</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#base-de-datos-mongodb-fuera-de-línea" id="markdown-toc-base-de-datos-mongodb-fuera-de-línea">Base de datos MongoDB fuera de línea.</a></li>
     </ul>
   </li>
 </ul>
@@ -240,355 +242,13 @@
   </li>
 </ul>
 
-<h2 id="posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</h2>
 
-<p>El estado de un servicio o recurso se determina a través de dos componentes:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>- El estado del servicio o recurso: OK, WARNING, UP, DOWN...
-- El _tipo_ de estado en el que se encuentra el servicio.
-</code></pre>
-</div>
-
-<p>Hay dos tipos de estado en Nagios: <em>soft</em> y <em>hard</em>. Para prevenir falsas alarmas provocadas por problemas transitorios, Nagios realiza un número de reintentos antes de considerar que un problema es “real”. El número de reintentos se define en la variable <em>max_check_attempts</em>, y cuando se supera el límite especificado el problema pasa de <em>soft</em> a <em>hard</em>. De la misma forma, para considerar un problema como <em>solucionado</em> se efectúa el mismo número de comprobaciones antes de transicionar el estado de <em>hard</em> a solucionado.</p>
-
-<p>Salvo que hayamos especificado lo contrario, las notificaciones sólo se envían cuando el servicio entra en estado <em>hard down</em>.</p>
-
-<p>Nagios nos permite escribir nuestro propio script que determine la acción a tomar según el estado del recurso monitorizado. Por ejemplo, si un servidor web está en estado <em>soft down</em> y se ha reintentado 4 veces la comprobación, podríamos iniciar el despliegue de otro servidor web anticipándonos a la posible caída del servicio.</p>
-
-<p>Los estados se describen en mucho más detalle <a href="https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/statetypes.html">en la web del programa (en inglés)</a>.</p>
-
-<h3 id="qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</h3>
-
-<p><em>Flapping</em> es una palabra inglesa que describe el aleteo frenético de un pájaro cuando intenta mantener el vuelo en condiciones adversas.</p>
-
-<p>Volviendo a Nagios: cuando un servicio cambia rápidamente entre disponible y algún estado de error, se considera que el servicio está <em>flapping</em>. Esto puede deberse a circunstancias transitorias perfectamente normales (por ejemplo, alta carga de CPU durante operaciones específicas en la base de datos que no afectan al funcionamiento de la aplicación), y puede generar una lluvia de notificaciones sobre un falso problema.</p>
-
-<p>La manera de mitigar el problema es observar el comportamiento habitual del servicio o recurso y configurar <em>max_check_attempts</em> a un valor suficientemente alto para que estas circunstancias de funcionamiento <em>correctas</em> no generen falsas alertas. Dado que cada entorno y condiciones de uso son diferentes, los ajustes por defecto de detección de <em>flapping</em> de Nagios pueden ser inadecuados para nuestra infraestructura.</p>
-
-<h1 id="escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</h1>
-
-<p>Tendremos 3 máquinas virtuales en la misma red, con el sistema operativo Debian en su versión 8 (Jessie).</p>
-
-<ul>
-  <li>nagios-host: 192.168.100.1, actuará de host para Nagios. Tendrá instalado un servidor SSH y una base de datos MongoDB.</li>
-  <li>servidor-lamp: 192.168.100.2, tendrá instalado una stack LAMP.</li>
-  <li>escritorio-usuario: 192.168.100.3, es un cliente Debian estándar.</li>
-</ul>
-
-<p>Este escenario está recogido en este <a href="/assets/vagrantfiles/2017-08-18-Nagios/es/Vagrantfile.zip">Vagrantfile</a>, incluyendo el despliegue de los servicios y la configuración del servidor Nagios y los clientes.</p>
-
-<h1 id="instalación-de-nagios">Instalación de Nagios.</h1>
-<p><em>nrpe-server</em> es un agente instalado en las máquinas cliente que se encarga de comunicar con el host Nagios para informar de estado y ejecución de comandos de forma remota. Estos comando pueden ser definidos de forma manual por el administrador, aunque un conjunto de comandos de uso frecuente se encuentra pre-empaquetado en nagios-plugins. Más adelante veremos cómo instalar plugins adicionales para monitorizar MongoDB, y cómo definir nuestros propios comandos (usaremos como ejemplo comprobar si existen procesos zombie).</p>
-
-<p>Para instalar estos dos componentes y el núcleo de Nagios en nagios-host, podemos hacerlo desde los repositorios.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo DEBIAN_FRONTEND=noninteractive apt-get -y install nagios-plugins nagios3 nagios-nrpe-plugin</code></pre></figure>
-
-<p>Para poder forzar chequeos sobre los servicios y hosts de forma manual, debemos cambiar el valor de la directiva check_external_commands a 1 en el archivo <em>/etc/nagios3/nagios.cfg</em>.
-También debemos cambiar el usuario y modo de dos directorios para permitir la ejecución de estos, ya que Nagios ejecuta estos chequeos a través de un archivo temporal que debe poder ser ejecutable por el usuario del servidor web. Dado que el archivo se recrea en cada ejecución, vamos a fijar los permisos a nivel del directorio.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
-sudo dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3</code></pre></figure>
-
-<p>Para habilitar el acceso web, creamos un usuario llamado ‘nagiosadmin’ con contraseña ‘nagios’ y reiniciamos el servicio:</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">htpasswd -b -c /etc/nagios3/htpasswd.users nagiosadmin nagios
-service nagios3 restart</code></pre></figure>
-
-<h1 id="monitorización-de-servicios-y-equipos">Monitorización de servicios y equipos.</h1>
-
-<p>Los servicios están asociados a equipos. Para poder añadirlos debemos instalar el agente de monitorización en él. Realizaré este proceso en nagiosHost, siendo idéntico en servidorLamp y en escritorioUsuario.</p>
-
-<h2 id="configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</h2>
-
-<h3 id="instalación-del-agente-de-monitorización">Instalación del agente de monitorización</h3>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --force-yes build-essential nagios-nrpe-server nagios-plugins</code></pre></figure>
-
-<p>Habilitamos la ejecución de comandos de forma remota.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo sed -i "s/.*dont_blame_nrpe.*/dont_blame_nrpe = 1/" /etc/nagios/nrpe.cfg</code></pre></figure>
-
-<p>Y damos permiso al servidor Nagios, en este caso nosotros mismos, para hacerlo.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo sed -i "s/.*allowed_hosts.*/allowed_hosts = 127.0.0.1 192.168.100.1/" /etc/nagios/nrpe.cfg</code></pre></figure>
-
-<h2 id="configuración-específica">Configuración específica</h2>
-
-<blockquote>
-  <p>El directorio <em>conf.d</em> es procesado en su totalidad al construir la configuración final. Podemos almacenar la configuración en archivos cfg con diferentes nombres que respondan a la organización logica de nuestra infraestructura, sin tener que seguir el patrón establecido en este post.</p>
-</blockquote>
-
-<h3 id="nagioshost">nagiosHost</h3>
-
-<p><em>/etc/nagios3/conf.d/nodes.cfg</em></p>
-
-<p>Aquí añadimos los equipos a monitorizar. En nuestro caso, el archivo tendrá el siguiente contenido.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define host{
-        use                     generic-host
-        host_name               nagiosHost
-        alias                   nagiosHost
-        address                 127.0.0.1
-}
-
-define host{
-        use                     generic-host        
-        host_name               servidorLamp
-        alias                   servidorLamp
-        address                 192.168.100.2
-}
-
-define host{
-        use                     generic-host            
-        host_name               escritorioUsuario
-        alias                   escritorioUsuario
-        address                 192.168.100.3
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/hostgroups_nagios2.cfg</em></p>
-
-<p>Aquí se describen los grupos de equipos, de forma que los ajustes de monitorización se apliquen a todos los elementos de una misma categoría.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define hostgroup {
-        hostgroup_name  all
-        alias           All Servers
-        members         *
-}
-
-define hostgroup {
-        hostgroup_name  debian-servers
-        alias           Debian GNU/Linux Servers
-        members         nagiosHost,escritorioUsuario
-}
-
-define hostgroup {
-        hostgroup_name  http-servers
-        alias           HTTP servers
-        members         nagiosHost, servidorLamp
-}
-
-define hostgroup {
-        hostgroup_name  ssh-servers
-        alias           SSH servers
-        members         nagiosHost
-}
-
-define hostgroup {
-        hostgroup_name  mongo-servers
-        alias           Mongo servers
-        members         nagiosHost
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/contacts_nagios2.cfg</em></p>
-
-<p>Aquí debemos definir nuestra dirección de contacto, para las notificaciones de email.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define contact{
-        contact_name                    root
-        alias                           Root
-        service_notification_period     24x7
-        host_notification_period        24x7
-        service_notification_options    w,u,c,r,f
-        host_notification_options       d,r,f
-        service_notification_commands   notify-service-by-email
-        host_notification_commands      notify-host-by-email
-        email                           correo@servidor.com
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/services_nagios2.cfg</em></p>
-
-<p>Este archivo contendrá los servicios a monitorizar. Por defecto no tiene entradas para MongoDB, así que las añadimos. También añadimos la línea “contact_groups admins” a las categorías de las cuales queremos recibir notificaciones de email.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define service {
-        hostgroup_name                  http-servers
-        service_description             HTTP
-        check_command                   check_http
-        use                             generic-service
-        notification_interval           0 ; set &gt; 0 if you want to be renotified
-}
-
-define service {
-           hostgroup_name                  ssh-servers
-           service_description             SSH
-           check_command                   check_ssh
-           use                             generic-service
-           notification_interval           0 ; set &gt; 0 if you want to be renotified
-           contact_groups admins
-}
-
-define service {
-use                 generic-service
-hostgroup_name          mongo-servers
-service_description     Mongo Connect Check
-check_command           check_mongodb!connect!27017!2!4
-contact_groups admins
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/nagiosHost.cfg</em></p>
-
-<p>Aquí incluiremos definiciones de servicios para monitorizar los usuarios que se loguean en la máquina, el número de procesos y la carga de cpu.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define service{
-        use                             generic-service         
-        host_name                       nagiosHost
-        service_description             Current Users
-        check_command                   check_users!20!50
-}
-
-define service{
-        use                             generic-service         
-        host_name                       nagiosHost
-        service_description             Total Processes
-                check_command                   check_procs!250!400
-}
-
-define service{
-        use                             generic-service         
-        host_name                       nagiosHost
-        service_description             Current Load
-                check_command                   check_load!5.0!4.0!3.0!10.0!6.0!4.0
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/escritorioUsuario.cfg</em></p>
-
-<p>Aquí incorporamos definiciones de espacio libre en disco y de procesos zombie.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define service{
-        use                             generic-service         ; Name of service template to use
-        host_name                       escritorioUsuario
-        service_description             Disk Space
-        check_command                   check_all_disks!20%!10%
-}
-
-define service{
-        use                             generic-service         ; Name of service template to use
-        host_name                       escritorioUsuario
-        service_description             Zombie processes
-                check_command           check_host_for_zombies
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/commands.cfg</em></p>
-
-<p>Aquí se encuentran la definición de check_zombies, para que sean ejecutadas por el agente nrpe. Añadimos el siguiente contenido al archivo de configuración:</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define command {
-    command_name    check_host_for_zombies
-    command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_zombies
-}</code></pre></figure>
-
-<h3 id="servidorlamp">servidorLamp</h3>
-
-<p>No se necesita configuración adicional.</p>
-
-<h3 id="escritoriousuario">escritorioUsuario</h3>
-
-<p>Añadimos la definición del comando para comprobar la existencia de procesos zombie.</p>
-
-<p><em>/etc/nagios/nrpe_local.cfg</em></p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">command[check_zombies]=/usr/lib/nagios/plugins/check_procs -w 0 -s Z+</code></pre></figure>
-
-<h2 id="monitorización-de-mongodb">Monitorización de MongoDB</h2>
-
-<p>Para comprobar el estado del servicio de MongoDB en nagiosHost, vamos a utilizar [nagios-plugin-mongodb]https://github.com/mzupan/nagios-plugin-mongodb).</p>
-
-<p>En nagiosHost, clonamos el repositorio git del plugin e instalamos sus requisitos.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">cd /usr/lib/nagios/plugins
-git clone git://github.com/mzupan/nagios-plugin-mongodb.git
-pip install requirements
-python -m pip install pymongo</code></pre></figure>
-
-<p>Definimos el servicio en /etc/nagios3/conf.d/services_nagios2.cfg de manera que se aplique a todos los servidores del grupo mongo-servers.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define service {
-    use                 generic-service
-    hostgroup_name          mongo-servers
-    service_description     Mongo Connect Check
-    check_command           check_mongodb!connect!27017!2!4
-    contact_groups admins
-}</code></pre></figure>
-
-<p>Y definimos el comando check_mongodb en commands.cfg.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define command {
-    command_name    check_mongodb
-    command_line $USER1$/nagios-plugin-mongodb/check_mongodb.py -H $HOSTADDRESS$ -A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$
-}</code></pre></figure>
-
-<h3 id="configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</h3>
-<p>En mi caso particular, voy a utilizar <em>sendemail</em> para enviar correo a través del servidor SMTP de GMail. Lo instalamos en nagiosHost con la siguiente línea</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install sendemail</code></pre></figure>
-
-<p>Modificamos el comando de envío de correo en commands.cfg para que se adecúe a la sintaxis del comando sendemail.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none"># 'notify-host-by-email' command definition
-define command{
-	command_name	notify-host-by-email
-        command_line /usr/bin/printf "%b" "***** Nagios *****nnNotification Type: $NOTIFICATIONTYPE$nHost: $HOSTNAME$nState: $HOSTSTATE$nAddress: $HOSTADDRESS$nInfo: $HOSTOUTPUT$nnDate/Time: $LONGDATETIME$n" | /usr/bin/sendEmail -xu $USER4$ -xp $USER5$ -t $CONTACTEMAIL$ -f $CONTACTEMAIL$ -o tls=auto -s smtp.gmail.com  -u "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" -m "***** Nagios *****nnNotification Type: $NOTIFICATIONTYPE$nHost: $HOSTNAME$nState: $HOSTSTATE$nAddress: $HOSTADDRESS$nInfo: $HOSTOUTPUT$nnDate/Time: $LONGDATETIME$n" 
-}
-
-# 'notify-service-by-email' command definition
-define command{
-	command_name	notify-service-by-email
-        command_line /usr/bin/printf "%b" "***** Nagios *****nnNotification Type: $NOTIFICATIONTYPE$nnService: $SERVICEDESC$nHost: $HOSTALIAS$nAddress: $HOSTADDRESS$nState: $SERVICESTATE$nnDate/Time: $LONGDATETIME$nnAdditional Info:nn$SERVICEOUTPUT$" | /usr/bin/sendEmail -s smtp.gmail.com -xu $USER4$ -xp $USER5$ -t $CONTACTEMAIL$ -f $CONTACTEMAIL$ -u "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" -m "***** Nagios *****nnNotification Type: $NOTIFICATIONTYPE$nnService: $SERVICEDESC$nHost: $HOSTALIAS$nAddress: $HOSTADDRESS$nState: $SERVICESTATE$nnDate/Time: $LONGDATETIME$nnAdditional Info:nn$SERVICEOUTPUT$" 
-}</code></pre></figure>
-
-<p>Añadimos las definiciones de las variables $USER4 y $USER5, que corresponden respectivamente a nuestro usuario y contraseña de GMail, en el archivo /etc/nagios3/resource.cfg.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$USER4$=usuario
-$USER5$=contraseña</code></pre></figure>
-
-<blockquote>
-  <p>Estos datos se almacenan en texto plano. Por seguridad, es conveniente generar credenciales propias para Nagios.
-En el caso de GMail, esto puede hacerse activando <a href="https://www.google.com/landing/2step/">autenticación en dos pasos</a> y <a href="https://support.google.com/accounts/answer/185833">generando una contraseña de aplicación</a>.</p>
-</blockquote>
-
-<h1 id="comprobar-el-mapa-de-nuestros-equipos-y-servicios">Comprobar el mapa de nuestros equipos y servicios.</h1>
-
-<p>A través de la interfaz web, en la sección “Map” podemos ver una representación gráfica de nuestra infraestructura.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_map.png" alt="Mapa de la infraestructura en Nagios" /></p>
-
-<p>Si hacemos click en cualquiera de los equipos, podemos ver a simple vista su estado de salud.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_machine_detail_view.png" alt="Detalles de un equipo específico en Nagios" /></p>
-
-<h1 id="comprobación-de-funcionamiento-y-notificaciones">Comprobación de funcionamiento y notificaciones.</h1>
-
-<h2 id="equipo-fuera-de-línea">Equipo fuera de línea.</h2>
-
-<p>Vamos a simular un fallo apagando la máquina escritorioUsuario.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_map_machine_offline_soft.png" alt="Equipo fuera de linea, vista de mapa." />
-<img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_soft.png" alt="Equipo fuera de linea, vista de detalles." /></p>
-
-<p>Pasado el número de reintentos especificado la máquina pasa a estar fuera de línea <em>oficialmente</em> y se envía la notificación correspondiente.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_hard.png" alt="Equipo fuera de linea, vista de detalles." />
-<img src="/assets/images/2017-08-18-Nagios/nagios_email_machine_offline_hard.png" alt="Equipo fuera de linea, email notificación." /></p>
-
-<p>Tras volver a encender la máquina, vemos que Nagios detecta que se ha resuelto el problema, y nos envía una notificación al respecto.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_email_machine_back_online.png" alt="Equipo vuelve a estar disponible, email de notificación." /></p>
-
-<h2 id="proceso-zombie">Proceso Zombie.</h2>
-
-<p>Generamos un proceso zombie usando la siguiente línea en la terminal de escritorioUsuario.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">sleep 1 &amp; exec /bin/sleep 600</code></pre></figure>
-
-<p>Y observamos que Nagios lo detecta, y nos envia el email correspondiente.</p>
-
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_zombie_process.png" alt="Proceso zombie detectado." /></p>
-
-<h2 id="base-de-datos-mongodb-fuera-de-línea">Base de datos MongoDB fuera de línea.</h2>
-
-<p>Si detenemos el servicio de MongoDB, comprobamos que efectivamente falla el chequeo de Nagios y nos notifica adecuadamente.
-<img src="/assets/images/2017-08-18-Nagios/nagios_mongodb.png" alt="Servidor MongoDB fuera de línea." /></p>
-
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/es/nagios/2017/08/18/Nagios.html">Ver post completo.</a>
+	  				</li>
+				</ul>
+			    
 		    
 		  </div>
 
@@ -614,19 +274,21 @@ En el caso de GMail, esto puede hacerse activando <a href="https://www.google.co
 
 		  <div>
 		    
-		    <p>En este post exploraremos la herramienta Terraform, sus ventajas y desventajas; y desplegaremos una instancia de prueba en Amazon AWS.</p>
+		    	
+		    		
+  					<p>En este post exploraremos la herramienta Terraform, sus ventajas y desventajas; y desplegaremos una instancia de prueba en Amazon AWS.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#qué-es-terraform" id="markdown-toc-qué-es-terraform">Qué es Terraform.</a></li>
-  <li><a href="#funcionamiento-básico-de-terraform" id="markdown-toc-funcionamiento-básico-de-terraform">Funcionamiento básico de Terraform.</a></li>
-  <li><a href="#ventajas-e-inconvenientes-de-terraform" id="markdown-toc-ventajas-e-inconvenientes-de-terraform">Ventajas e inconvenientes de Terraform.</a>    <ul>
-      <li><a href="#pros" id="markdown-toc-pros">Pros</a></li>
-      <li><a href="#inconvenientes-y-detalles-a-tener-en-cuenta" id="markdown-toc-inconvenientes-y-detalles-a-tener-en-cuenta">Inconvenientes y detalles a tener en cuenta.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#qué-es-terraform" id="markdown-toc-qué-es-terraform">Qué es Terraform.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#funcionamiento-básico-de-terraform" id="markdown-toc-funcionamiento-básico-de-terraform">Funcionamiento básico de Terraform.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#ventajas-e-inconvenientes-de-terraform" id="markdown-toc-ventajas-e-inconvenientes-de-terraform">Ventajas e inconvenientes de Terraform.</a>    <ul>
+      <li><a href="/es/terraform/2017/08/11/Terraform-101.html#pros" id="markdown-toc-pros">Pros</a></li>
+      <li><a href="/es/terraform/2017/08/11/Terraform-101.html#inconvenientes-y-detalles-a-tener-en-cuenta" id="markdown-toc-inconvenientes-y-detalles-a-tener-en-cuenta">Inconvenientes y detalles a tener en cuenta.</a></li>
     </ul>
   </li>
-  <li><a href="#instalación" id="markdown-toc-instalación">Instalación.</a></li>
-  <li><a href="#primeros-pasos-desplegar-una-instancia-en-amazon-aws" id="markdown-toc-primeros-pasos-desplegar-una-instancia-en-amazon-aws">Primeros pasos: Desplegar una instancia en Amazon AWS.</a></li>
-  <li><a href="#provisionamiento-simple-de-instancias" id="markdown-toc-provisionamiento-simple-de-instancias">Provisionamiento simple de instancias.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#instalación" id="markdown-toc-instalación">Instalación.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#primeros-pasos-desplegar-una-instancia-en-amazon-aws" id="markdown-toc-primeros-pasos-desplegar-una-instancia-en-amazon-aws">Primeros pasos: Desplegar una instancia en Amazon AWS.</a></li>
+  <li><a href="/es/terraform/2017/08/11/Terraform-101.html#provisionamiento-simple-de-instancias" id="markdown-toc-provisionamiento-simple-de-instancias">Provisionamiento simple de instancias.</a></li>
 </ul>
 
 <h1 id="qué-es-terraform">Qué es Terraform.</h1>
@@ -637,298 +299,13 @@ En el caso de GMail, esto puede hacerse activando <a href="https://www.google.co
 
 <p>Terraform tiene soporte para los principales proveedores de infraestructura local o en la nube como Amazon AWS, Microsoft Azure, Openstack, VMware vSphere y Digital Ocean. La lista completa se encuentra, en inglés, en la <a href="https://www.terraform.io/docs/providers/index.html">web de Terraform</a>.</p>
 
-<h1 id="funcionamiento-básico-de-terraform">Funcionamiento básico de Terraform.</h1>
-<p>Terraform tiene principalmente cuatro comandos: <strong>refresh</strong>, <strong>plan</strong>, <strong>apply</strong> y <strong>destroy</strong>. Refresh refresca la caché actual del estado de la infraestructura definida en el código, plan muestra los cambios que se realizarían comparando el estado del código con el del proveedor, y apply aplica los cambios. Destroy es evidente, y pide confirmación antes de borrar nada.</p>
 
-<blockquote>
-  <p>Apply no pide confirmación. Cualquier diferencia entre el estado remoto y el definido localmente será solucionada de forma irreversible. Es conveniente visualizar el plan antes de ejecutar cambios.</p>
-</blockquote>
-
-<h1 id="ventajas-e-inconvenientes-de-terraform">Ventajas e inconvenientes de Terraform.</h1>
-
-<h2 id="pros">Pros</h2>
-
-<ul>
-  <li>Infraestructura como código (IaC): Podremos versionar/revertir/redimensionar nuestra infraestructura de forma no destructiva. Esto nos permite, por ejemplo: mantener un historial <em>reversible</em> de la configuración de la red incluyendo reglas de cortafuegos y VLANs, desplegar un centro de datos 100% idéntico al principal de forma automatizada en una situación de emergencia o recrear nuestra infraestructura de forma parcial o total en un entorno de desarrollo o pruebas.</li>
-  <li>Velocidad: Terraform es muy, muy rápido. Si el proveedor de infraestructura lo soporta, Terraform es capaz de generar los recursos especificados de forma paralela. En la práctica, esto posibilita que el tiempo de despliegue de 1 máquina sea el mismo que el requerido para 10.</li>
-  <li>Agnóstico: A diferencia de Heat o CloudFormation, Terraform es capaz de trabajar de forma simultánea con todos sus diferentes proveedores de infraestructura.</li>
-  <li>Flexibilidad: Terraform procesa todos los ficheros <em>.tf</em> del directorio y los combina en memoria para generar el plan de ejecución, lo que nos permite separar los recursos de manera lógica y manejable.</li>
-</ul>
-
-<h2 id="inconvenientes-y-detalles-a-tener-en-cuenta">Inconvenientes y detalles a tener en cuenta.</h2>
-
-<ul>
-  <li>Depende enteramente de la API de cada proveedor: Aunque la herramienta intenta mitigar posibles fallos mediante reintentos, timeouts y el uso de una caché local que contiene el estado de la infraestructura, está a merced de la fiabilidad de la API. Una respuesta inconsistente por parte del proveedor puede ocasionar que Terraform no reconozca un recurso concreto, y dado que no forma parte del plan declarado en los ficheros, dicho recurso por defecto será eliminado.
-    <ul>
-      <li>Podemos mitigar esta circunstancia especificando una solución alternativa al conflicto <a href="https://www.terraform.io/docs/configuration/resources.html#lifecycle">mediante la directiva lifecycle</a>.</li>
-    </ul>
-  </li>
-  <li>Terraform almacena el estado de los recursos en el fichero <em>terraform.state</em>, y esta es el punto de referencia a la hora de generar planes de ejecución. Si se modifica la infraestructura remota desde fuera de Terraform, el comportamiento de la herramienta puede no ser el deseado.</li>
-  <li>La sintáxis declarativa de los ficheros no es agnóstica respecto al proveedor utilizado. Por tanto, debemos mantener diferentes versiones de nuestra infraestructura según dónde vayamos a desplegarla.</li>
-</ul>
-
-<h1 id="instalación">Instalación.</h1>
-<p>Aunque nosotros utilizaremos Terraform en Linux, también está disponible para otras plataformas como Windows o OSX.</p>
-
-<p>Descargaremos la versión de Terraform deseada <a href="https://www.terraform.io/downloads.html">desde su página web</a>. Terraform no necesita instalación, basta con descomprimir el archivo.</p>
-
-<h1 id="primeros-pasos-desplegar-una-instancia-en-amazon-aws">Primeros pasos: Desplegar una instancia en Amazon AWS.</h1>
-<p>Para que Terraform pueda acceder a los recursos del proveedor que hayamos elegido, necesitaremos claves API. En el caso de Amazon AWS, podemos obtenerlas <a href="https://console.aws.amazon.com/iam/home#security_credential">en la consola de AWS</a>.</p>
-
-<p><img src="/assets/images/aws-credentials-console.png" alt="Gestión de credenciales de Amazon AWS" /></p>
-
-<p>A continuación vamos a generar un fichero <em>ejemplo.tf</em> que contendrá la definición de una máquina Ubuntu 16.04 en una instancia t2.micro, con la configuración mínima necesaria para poder conectarnos por SSH.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Definimos las claves de acceso a la API de AWS</span>
-<span class="n">provider</span> <span class="s2">"aws"</span> <span class="p">{</span>
-  <span class="n">access_key</span> <span class="o">=</span> <span class="s2">"ESCRIBE_TU_CLAVE"</span>
-  <span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"ESCRIBE_TU_CLAVE"</span>
-  <span class="n">region</span>     <span class="o">=</span> <span class="s2">"us-east-1"</span>
-<span class="p">}</span>
-
-<span class="c1"># Detalles de la instancia</span>
-
-<span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"ejemplo"</span> <span class="p">{</span>
-  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># Esta es la ami de Ubuntu Server 16.04</span>
-  <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
-<span class="p">}</span>
-<span class="c1"># Clave pública SSH que usaremos para conectarnos a la instancia.</span>
-<span class="c1"># Evidentemente, esta clave de ejemplo no es una clave válida.</span>
-<span class="n">resource</span> <span class="s2">"aws_key_pair"</span> <span class="s2">"ssh-keys"</span> <span class="p">{</span>
-  <span class="n">key_name</span>   <span class="o">=</span> <span class="s2">"terraform"</span>
-  <span class="n">public_key</span> <span class="o">=</span> <span class="s2">"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFOuj5NcQMwA4v5E/qcbsN0NsyR0BmdWU9VeIr9BFlE8/R4jnUMS6Sa9tf52omzJyRlr6M64GykzHmSnp8Aro7CK9dM+8PuktmJF+/EEuDsj/5ynyK+JQ9VlrbspJBXJhUs84LQK+1DngxVuyj1dxFSTvFVVafl0uuYmJOgzhS5MkFa16G/P9PiV44tEsq8wjnVbNBpKmom06f85uPaqegM45gbzGmE7PEjxkDaw/7DD3UatBYJ1oA8JaCUCfr4LishPbuT+lWEIDROnhGOhzz7GlnSgOxyhDnhteVFQzMBQLIGKzwG1uNL+1OaPJ5j4jXplShe7kmfMrmC6hOtdmp josue@pruebaTerraform"</span>
-<span class="p">}</span>
-<span class="c1"># Creamos una red virtual privada para la instancia</span>
-<span class="n">resource</span> <span class="s2">"aws_vpc"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">cidr_block</span> <span class="o">=</span> <span class="s2">"10.0.0.0/16"</span>
-<span class="p">}</span>
-
-<span class="c1"># Un gateway para que la máquina tenga acceso a internet</span>
-<span class="n">resource</span> <span class="s2">"aws_internet_gateway"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-<span class="p">}</span>
-<span class="c1"># Damos acceso a internet a la vpc</span>
-<span class="n">resource</span> <span class="s2">"aws_route"</span> <span class="s2">"internet_access"</span> <span class="p">{</span>
-  <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">"${aws_vpc.default.main_route_table_id}"</span>
-  <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">"0.0.0.0/0"</span>
-  <span class="n">gateway_id</span>             <span class="o">=</span> <span class="s2">"${aws_internet_gateway.default.id}"</span>
-<span class="p">}</span>
-
-<span class="c1"># Una subnet para nuestra máquina</span>
-<span class="n">resource</span> <span class="s2">"aws_subnet"</span> <span class="s2">"default"</span> <span class="p">{</span>
-  <span class="n">vpc_id</span>                  <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-  <span class="n">cidr_block</span>              <span class="o">=</span> <span class="s2">"10.0.1.0/24"</span>
-  <span class="n">map_public_ip_on_launch</span> <span class="o">=</span> <span class="kp">true</span>
-<span class="p">}</span>
-
-<span class="c1"># Creamos un grupo de seguridad para poder abrir puertos en la vpc</span>
-<span class="n">resource</span> <span class="s2">"aws_security_group"</span> <span class="s2">"elb"</span> <span class="p">{</span>
-  <span class="nb">name</span>        <span class="o">=</span> <span class="s2">"terraform_example_elb"</span>
-  <span class="n">description</span> <span class="o">=</span> <span class="s2">"Grupo de seguridad de ejemplo"</span>
-  <span class="n">vpc_id</span>      <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
-
-  <span class="c1"># Abrimos el puerto 80 desde y hacia todas partes</span>
-  <span class="n">ingress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">80</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">80</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"tcp"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-
-  <span class="c1"># “-1” significa TCP y UDP</span>
-  <span class="n">egress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"-1"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-  <span class="c1"># Permitimos acceso SSH desde cualquier IP. Sin esto, no podremos conectarnos tras desplegar la máquina.</span>
-  <span class="n">ingress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"tcp"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-  </code></pre></figure>
-
-<p>Si inspeccionamos el plan generado por Terraform, observamos que va a crear la instancia especificada.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform plan
-+ aws_instance.example
-    ami:                          "ami-2757f631"
-    associate_public_ip_address:  "&lt;computed&gt;"
-    availability_zone:            "&lt;computed&gt;"
-    ebs_block_device.#:           "&lt;computed&gt;"
-    ephemeral_block_device.#:     "&lt;computed&gt;"
-    instance_state:               "&lt;computed&gt;"
-    instance_type:                "t2.micro"
-    ipv6_address_count:           "&lt;computed&gt;"
-    ipv6_addresses.#:             "&lt;computed&gt;"
-    key_name:                     "&lt;computed&gt;"
-    network_interface.#:          "&lt;computed&gt;"
-    network_interface_id:         "&lt;computed&gt;"
-    placement_group:              "&lt;computed&gt;"
-    primary_network_interface_id: "&lt;computed&gt;"
-    private_dns:                  "&lt;computed&gt;"
-    private_ip:                   "&lt;computed&gt;"
-    public_dns:                   "&lt;computed&gt;"
-    public_ip:                    "&lt;computed&gt;"
-    root_block_device.#:          "&lt;computed&gt;"
-    security_groups.#:            "&lt;computed&gt;"
-    source_dest_check:            "true"
-    subnet_id:                    "&lt;computed&gt;"
-    tenancy:                      "&lt;computed&gt;"
-    volume_tags.%:                "&lt;computed&gt;"
-    vpc_security_group_ids.#:     "&lt;computed&gt;"
-
-Plan: 1 to add, 0 to change, 0 to destroy.</code></pre></figure>
-
-<p>Nota: este plan sólo existe en memoria. Al realizar <em>terraform apply</em> Terraform volverá a refrescar y el plan generado puede ser diferente si las circunstancias son diferentes.</p>
-
-<blockquote>
-  <p>Nota: Es posible almacenar el plan con el switch <strong>-out</strong> y pasárselo a apply.</p>
-</blockquote>
-
-<p>Vamos a aplicar los cambios.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform apply
-aws_instance.example: Creating...
-  ami:                          "" =&gt; "ami-2757f631"
-  associate_public_ip_address:  "" =&gt; "&lt;computed&gt;"
-  availability_zone:            "" =&gt; "&lt;computed&gt;"
-  ebs_block_device.#:           "" =&gt; "&lt;computed&gt;"
-  ephemeral_block_device.#:     "" =&gt; "&lt;computed&gt;"
-  instance_state:               "" =&gt; "&lt;computed&gt;"
-  instance_type:                "" =&gt; "t2.micro"
-  ipv6_address_count:           "" =&gt; "&lt;computed&gt;"
-  ipv6_addresses.#:             "" =&gt; "&lt;computed&gt;"
-  key_name:                     "" =&gt; "&lt;computed&gt;"
-  network_interface.#:          "" =&gt; "&lt;computed&gt;"
-  network_interface_id:         "" =&gt; "&lt;computed&gt;"
-  placement_group:              "" =&gt; "&lt;computed&gt;"
-  primary_network_interface_id: "" =&gt; "&lt;computed&gt;"
-  private_dns:                  "" =&gt; "&lt;computed&gt;"
-  private_ip:                   "" =&gt; "&lt;computed&gt;"
-  public_dns:                   "" =&gt; "&lt;computed&gt;"
-  public_ip:                    "" =&gt; "&lt;computed&gt;"
-  root_block_device.#:          "" =&gt; "&lt;computed&gt;"
-  security_groups.#:            "" =&gt; "&lt;computed&gt;"
-  source_dest_check:            "" =&gt; "true"
-  subnet_id:                    "" =&gt; "subnet-3fd11213"
-  tenancy:                      "" =&gt; "&lt;computed&gt;"
-  volume_tags.%:                "" =&gt; "&lt;computed&gt;"
-  vpc_security_group_ids.#:     "" =&gt; "&lt;computed&gt;"
-aws_instance.example: Still creating... (10s elapsed)
-aws_instance.example: Still creating... (20s elapsed)
-aws_instance.example: Creation complete (ID: i-02fbb95386573f5ec)
-
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed.</code></pre></figure>
-
-<p>Ahora podemos comprobar el estado (cacheado) de nuestra infraestructura con <em>terraform show</em>. Entre otros datos, tenemos la IP pública de la instancia.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.example:
-  id = i-02fbb95386573f5ec
-  ami = ami-2757f631
-  associate_public_ip_address = true
-  availability_zone = us-east-1a
-  disable_api_termination = false
-  ebs_block_device.# = 0
-  ebs_optimized = false
-  ephemeral_block_device.# = 0
-  iam_instance_profile = 
-  instance_state = running
-  instance_type = t2.micro
-  ipv6_address_count = 0
-  ipv6_addresses.# = 0
-  key_name = 
-  monitoring = false
-  network_interface.# = 0
-  network_interface_id = eni-0aaf6ac3
-  primary_network_interface_id = eni-0aaf6ac3
-  private_dns = ip-10-0-0-149.ec2.internal
-  private_ip = 10.0.0.149
-  public_dns = ec2-107-21-158-184.compute-1.amazonaws.com
-  public_ip = 107.21.158.184
-  root_block_device.# = 1
-  root_block_device.0.delete_on_termination = true
-  root_block_device.0.iops = 100
-  root_block_device.0.volume_size = 8
-  root_block_device.0.volume_type = gp2
-  security_groups.# = 0
-  source_dest_check = true
-  subnet_id = subnet-3fd11213
-  tags.% = 0
-  tenancy = default
-  volume_tags.% = 0
-  vpc_security_group_ids.# = 1
-  vpc_security_group_ids.713989925 = sg-535d3d2d</code></pre></figure>
-
-<p>Vamos a deshacernos de esta instancia de ejemplo con el comando destroy.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform destroy
-Do you really want to destroy?
-  Terraform will delete all your managed infrastructure.
-  There is no undo. Only 'yes' will be accepted to confirm.
-
-  Enter a value: yes
-
-aws_instance.example: Refreshing state... (ID: i-02fbb95386573f5ec)
-aws_instance.example: Destroying... (ID: i-02fbb95386573f5ec)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 10s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 20s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 30s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 41s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 51s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m1s elapsed)
-aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m11s elapsed)
-aws_instance.example: Destruction complete</code></pre></figure>
-
-<h1 id="provisionamiento-simple-de-instancias">Provisionamiento simple de instancias.</h1>
-<p>Tras crear la instancia, podemos copiar ficheros y directorios a la misma. Así mismo, con la directiva <em>remote-exec</em> podemos indicarle la ruta de un script local y Terraform lo copiará a la instancia y lo ejecutará.</p>
-
-<p>Vamos a probarlo con un sencillo “Hola”. Creamos un fichero llamado <em>bootstrap.sh</em> que contendrá el comando de prueba.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="nb">echo</span> <span class="s1">'hello’ &gt; /tmp/output.txt</span></code></pre></figure>
-
-<p>Modificamos la definición de la instancia para añadir el provisionador, y la clave SSH que debe usar para conectarse.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"instancia1"</span> <span class="p">{</span>
-  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-b374d5a5"</span>
-  <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
-  <span class="n">key_name</span> <span class="o">=</span> <span class="s2">"terraform"</span>
-
-  <span class="n">provisioner</span> <span class="s2">"remote-exec"</span> <span class="p">{</span>
-    <span class="n">scripts</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="s2">"bootstrap.sh"</span>
-    <span class="p">]</span>
-    <span class="n">connection</span> <span class="p">{</span>
-      <span class="n">type</span>     <span class="o">=</span> <span class="s2">"ssh"</span>
-      <span class="n">user</span>     <span class="o">=</span> <span class="s2">"ubuntu"</span>
-      <span class="n">private_key</span> <span class="o">=</span> <span class="s2">"${file("</span><span class="o">~</span><span class="sr">/.ssh/</span><span class="n">clave</span><span class="o">-</span><span class="n">terraform</span><span class="o">-</span><span class="n">blog</span><span class="s2">")}"</span>
-    <span class="p">}</span>  
-  <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>Tras aplicar el plan, observamos que Terraform se conecta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
-aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
-aws_instance.instancia1 (remote-exec):   User: ubuntu
-aws_instance.instancia1 (remote-exec):   Password: false
-aws_instance.instancia1 (remote-exec):   Private key: true
-aws_instance.instancia1 (remote-exec):   SSH Agent: true
-aws_instance.instancia1 (remote-exec): Connected!
-aws_instance.instancia1: Creation complete (ID: i-03cbd14db6ba0a896)</code></pre></figure>
-
-<p>Y comprobamos que funciona.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>ssh -i ~/.ssh/terraform-proyecto ubuntu@54.234.144.181 <span class="s2">"cat /tmp/output.txt’”
-Hola</span></code></pre></figure>
-
-<p>En un futuro post exploraremos como utilizar esta funcionalidad para provisionar máquinas de forma completamente automática.</p>
-
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/es/terraform/2017/08/11/Terraform-101.html">Ver post completo.</a>
+	  				</li>
+				</ul>
+			    
 		    
 		  </div>
 
@@ -954,10 +331,18 @@ Hola</span></code></pre></figure>
 
 		  <div>
 		    
-		    <p>Bienvenidos. En este blog iré escribiendo artículos técnicos y manuales sobre tecnología, con el objetivo de que sean útiles para cualquier visitante.</p>
+		    	
+		    		
+  					<p>Bienvenidos. En este blog iré escribiendo artículos técnicos y manuales sobre tecnología, con el objetivo de que sean útiles para cualquier visitante.</p>
 
 <p>En este momento está en construcción. Mientras tanto, te invito a visitar mi <a href="https://github.com/j-alvarez-moreno">GitHub</a> y a que eches un vistazo a mis proyectos personales. Uno de ellos <a href="https://github.com/j-alvarez-moreno/proyecto-2ASIR">es un estudio sobre auto-escalado horizontal en la nube de un servidor web, dependiendo del número de visitantes</a> utilizando Terraform.</p>
 
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/es/placeholder/2017/08/01/hello-world.html">Ver post completo.</a>
+	  				</li>
+				</ul>
+			    
 		    
 		  </div>
 

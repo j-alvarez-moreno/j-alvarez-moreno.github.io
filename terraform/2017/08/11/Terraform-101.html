@@ -181,7 +181,6 @@
   <li><a href="#terraform-what-is-it" id="markdown-toc-terraform-what-is-it">Terraform: What is it?</a></li>
   <li><a href="#advantages-and-disadvantages-of-using-terraform" id="markdown-toc-advantages-and-disadvantages-of-using-terraform">Advantages and disadvantages of using Terraform.</a>    <ul>
       <li><a href="#pros" id="markdown-toc-pros">Pros</a></li>
-      <li><a href="#cons-and-caveats" id="markdown-toc-cons-and-caveats">Cons and caveats</a></li>
     </ul>
   </li>
   <li><a href="#command-overview" id="markdown-toc-command-overview">Command overview.</a></li>
@@ -204,12 +203,12 @@
   <li><strong>Infrastructure as code (IaC)</strong>: This enables us to treat our infrastructure as a file. In plain English this means the following: we can back it up, keep a history of our hardware and configuration (including the associated firewall rules, VLANs and security policies) and rollback changes quickly and efficiently. Our datacenter is <em>stored on a file</em>, thus we can re-deploy our entire infrastructure in a few keystrokes. We are now able to set-up a testing or development environment that is guaranteed to be an exact replica of the actual production environment, or quickly spin-up a second datacenter in a disaster recovery scenario.</li>
   <li><strong>Speed</strong>: Terraform is fast, very fast. If the infrastructure provider supports it, Terraform parallelizes the generation and modification of resources. The result is: it takes literally a minute to provision one instance, <em>and it takes the exact same time to provision 20 of them</em>.</li>
   <li><strong>Supports multiple providers</strong>: Unlike Heat or CloudFormation, Terraform supports a variety of providers and can mix and match resources from any of them simultaneously. For example: We could keep the database in our local datacenter to comply with PII regulations, while hosting the frontend of the application somewhere else.</li>
-  <li><strong>Flexibility</strong>: Our infrastructure is declared in <em>.tf</em> files. Terraform consumes all the .tf files from the folder and processes them to create the execution plan. We can separate the resources in a logical way, and easily add/substract a file with new resources for testing purposes.</li>
-</ul>
-
-<h2 id="cons-and-caveats">Cons and caveats</h2>
-
-<ul>
+  <li>
+    <p><strong>Flexibility</strong>: Our infrastructure is declared in <em>.tf</em> files. Terraform consumes all the .tf files from the folder and processes them to create the execution plan. We can separate the resources in a logical way, and easily add/substract a file with new resources for testing purposes.
+<!--more-->
+Cons and caveats
+——————————————–</p>
+  </li>
   <li>
     <p>Terraform stores the state of the deployed resources in a local file called <em>terraform.state</em>, and that is the canonical source of truth. If the file is corrupted or the state described in it no longer matches the deployed infrastructure (for example, a remote resource is modified manually), Terraform will fix the discrepancy by destroying the remote resource and recreating it according to the local definition.</p>
   </li>
