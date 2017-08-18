@@ -3,7 +3,7 @@ layout: post
 title: Hello World!
 categories: [placeholder]
 tags: [placeholder]
-fullview: true
+fullview: false
 comments: false
 published: true
 
