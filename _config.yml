@@ -4,7 +4,7 @@ languages: ["es", "en"]
 languages_long_names:
   es: Español
   en: English
-default_lang: "es"
+default_lang: "en"
 exclude_from_localization: ["assets"]
 
 paginate: 10 # pagination based on number of posts
