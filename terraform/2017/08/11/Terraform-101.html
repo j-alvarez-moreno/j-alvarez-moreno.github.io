@@ -75,12 +75,12 @@
 			<ul class="nav navbar-nav">
 				
 					<li><a 
-							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
-						 href=" /terraform/2017/08/11/Terraform-101.html ">Español</a></li>
+							style="font-size: 16px; color: grey"
+						 href=" /es/terraform/2017/08/11/Terraform-101.html ">Español</a></li>
 	  			
 					<li><a 
-							style="font-size: 16px; color: grey"
-						 href=" /en/terraform/2017/08/11/Terraform-101.html ">English</a></li>
+							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+						 href=" /terraform/2017/08/11/Terraform-101.html ">English</a></li>
 	  			
 			</ul>
 		</div>
@@ -113,7 +113,7 @@
 
 
 <div id="bio" class="text-center">
-	Administrador de Sistemas.
+	
 </div>
 
 
@@ -144,13 +144,13 @@
 	<div id="language-switcher">
   		
 			<a 
-					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
-				 href=" /terraform/2017/08/11/Terraform-101.html ">Español</a>
+					style="font-size: 16px; color: white"
+				 href=" /es/terraform/2017/08/11/Terraform-101.html ">Español</a>
 			 | 
   		
 			<a 
-					style="font-size: 16px; color: white"
-				 href=" /en/terraform/2017/08/11/Terraform-101.html ">English</a>
+					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+				 href=" /terraform/2017/08/11/Terraform-101.html ">English</a>
 			
   		
   	</div>
@@ -161,7 +161,7 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Primeros pasos con Terraform </h1>
+  <h1>Terraform 101 </h1>
 </div>
 	
 <article>
@@ -175,136 +175,131 @@
 	   2017
 	 </span>
 	  <div class="article_body">
-	  <p>En este post exploraremos la herramienta Terraform, sus ventajas y desventajas; y desplegaremos una instancia de prueba en Amazon AWS.</p>
+	  <p>In this post we’ll explore a tool called Terraform, its advantages and disadvantages; and we’ll use it to spin up a test instance on Amazon AWS.</p>
 
 <ul id="markdown-toc">
-  <li><a href="#qué-es-terraform" id="markdown-toc-qué-es-terraform">Qué es Terraform.</a></li>
-  <li><a href="#funcionamiento-básico-de-terraform" id="markdown-toc-funcionamiento-básico-de-terraform">Funcionamiento básico de Terraform.</a></li>
-  <li><a href="#ventajas-e-inconvenientes-de-terraform" id="markdown-toc-ventajas-e-inconvenientes-de-terraform">Ventajas e inconvenientes de Terraform.</a>    <ul>
+  <li><a href="#terraform-what-is-it" id="markdown-toc-terraform-what-is-it">Terraform: What is it?</a></li>
+  <li><a href="#advantages-and-disadvantages-of-using-terraform" id="markdown-toc-advantages-and-disadvantages-of-using-terraform">Advantages and disadvantages of using Terraform.</a>    <ul>
       <li><a href="#pros" id="markdown-toc-pros">Pros</a></li>
-      <li><a href="#inconvenientes-y-detalles-a-tener-en-cuenta" id="markdown-toc-inconvenientes-y-detalles-a-tener-en-cuenta">Inconvenientes y detalles a tener en cuenta.</a></li>
+      <li><a href="#cons-and-caveats" id="markdown-toc-cons-and-caveats">Cons and caveats</a></li>
     </ul>
   </li>
-  <li><a href="#instalación" id="markdown-toc-instalación">Instalación.</a></li>
-  <li><a href="#primeros-pasos-desplegar-una-instancia-en-amazon-aws" id="markdown-toc-primeros-pasos-desplegar-una-instancia-en-amazon-aws">Primeros pasos: Desplegar una instancia en Amazon AWS.</a></li>
-  <li><a href="#provisionamiento-simple-de-instancias" id="markdown-toc-provisionamiento-simple-de-instancias">Provisionamiento simple de instancias.</a></li>
+  <li><a href="#command-overview" id="markdown-toc-command-overview">Command overview.</a></li>
+  <li><a href="#installing-terraform" id="markdown-toc-installing-terraform">Installing Terraform</a></li>
+  <li><a href="#first-steps-creating-an-instance-on-amazon-aws" id="markdown-toc-first-steps-creating-an-instance-on-amazon-aws">First steps: Creating an instance on Amazon AWS.</a></li>
+  <li><a href="#basic-provisioning-of-instances" id="markdown-toc-basic-provisioning-of-instances">Basic provisioning of instances.</a></li>
 </ul>
 
-<h1 id="qué-es-terraform">Qué es Terraform.</h1>
+<h1 id="terraform-what-is-it">Terraform: What is it?</h1>
 
-<p>Desarrollado por Hashicorp, creadores de Vagrant y Packer, Terraform es software que nos permite definir nuestra infraestructura como código. Terraform procesa nuestro código, lo compara con el estado del proveedor de servicios especificado y construye un plan de ejecución para que el estado de la infraestructura desplegada sea el definido en el código.</p>
+<p>Developed by Hashicorp, creators of Vagrant and Packer, Terraform is a tool that enables us to define our infrastructure as code (formally known as <a href="https://en.wikipedia.org/wiki/Infrastructure_as_Code">IaC</a>). We can add or modify resources such as computing instances, ssh-keys, network topology or firewall rules and Terraform takes care of generating and performing the necessary operations so the infrastructure provider’s state matches the one described in the code.</p>
 
-<p>Explicado de forma práctica: podemos añadir nuevas instancias o modificar instancias y recursos en nuestro código (claves ssh, conectividad de red, reglas de firewall…) y aplicarlos a la infraestructura remota sin preocuparnos del <em>cómo</em>.</p>
+<p>Terraform supports a wide range of on-site and cloud infrastructure such as Amazon AWS, Microsoft Azure, Openstack, VMware vSphere and Digital Ocean. A full list of supported providers <a href="https://www.terraform.io/docs/providers/index.html">is located on the tool’s website</a>.</p>
 
-<p>Terraform tiene soporte para los principales proveedores de infraestructura local o en la nube como Amazon AWS, Microsoft Azure, Openstack, VMware vSphere y Digital Ocean. La lista completa se encuentra, en inglés, en la <a href="https://www.terraform.io/docs/providers/index.html">web de Terraform</a>.</p>
-
-<h1 id="funcionamiento-básico-de-terraform">Funcionamiento básico de Terraform.</h1>
-<p>Terraform tiene principalmente cuatro comandos: <strong>refresh</strong>, <strong>plan</strong>, <strong>apply</strong> y <strong>destroy</strong>. Refresh refresca la caché actual del estado de la infraestructura definida en el código, plan muestra los cambios que se realizarían comparando el estado del código con el del proveedor, y apply aplica los cambios. Destroy es evidente, y pide confirmación antes de borrar nada.</p>
-
-<blockquote>
-  <p>Apply no pide confirmación. Cualquier diferencia entre el estado remoto y el definido localmente será solucionada de forma irreversible. Es conveniente visualizar el plan antes de ejecutar cambios.</p>
-</blockquote>
-
-<h1 id="ventajas-e-inconvenientes-de-terraform">Ventajas e inconvenientes de Terraform.</h1>
+<h1 id="advantages-and-disadvantages-of-using-terraform">Advantages and disadvantages of using Terraform.</h1>
 
 <h2 id="pros">Pros</h2>
 
 <ul>
-  <li>Infraestructura como código (IaC): Podremos versionar/revertir/redimensionar nuestra infraestructura de forma no destructiva. Esto nos permite, por ejemplo: mantener un historial <em>reversible</em> de la configuración de la red incluyendo reglas de cortafuegos y VLANs, desplegar un centro de datos 100% idéntico al principal de forma automatizada en una situación de emergencia o recrear nuestra infraestructura de forma parcial o total en un entorno de desarrollo o pruebas.</li>
-  <li>Velocidad: Terraform es muy, muy rápido. Si el proveedor de infraestructura lo soporta, Terraform es capaz de generar los recursos especificados de forma paralela. En la práctica, esto posibilita que el tiempo de despliegue de 1 máquina sea el mismo que el requerido para 10.</li>
-  <li>Agnóstico: A diferencia de Heat o CloudFormation, Terraform es capaz de trabajar de forma simultánea con todos sus diferentes proveedores de infraestructura.</li>
-  <li>Flexibilidad: Terraform procesa todos los ficheros <em>.tf</em> del directorio y los combina en memoria para generar el plan de ejecución, lo que nos permite separar los recursos de manera lógica y manejable.</li>
+  <li><strong>Infrastructure as code (IaC)</strong>: This enables us to treat our infrastructure as a file. In plain English this means the following: we can back it up, keep a history of our hardware and configuration (including the associated firewall rules, VLANs and security policies) and rollback changes quickly and efficiently. Our datacenter is <em>stored on a file</em>, thus we can re-deploy our entire infrastructure in a few keystrokes. We are now able to set-up a testing or development environment that is guaranteed to be an exact replica of the actual production environment, or quickly spin-up a second datacenter in a disaster recovery scenario.</li>
+  <li><strong>Speed</strong>: Terraform is fast, very fast. If the infrastructure provider supports it, Terraform parallelizes the generation and modification of resources. The result is: it takes literally a minute to provision one instance, <em>and it takes the exact same time to provision 20 of them</em>.</li>
+  <li><strong>Supports multiple providers</strong>: Unlike Heat or CloudFormation, Terraform supports a variety of providers and can mix and match resources from any of them simultaneously. For example: We could keep the database in our local datacenter to comply with PII regulations, while hosting the frontend of the application somewhere else.</li>
+  <li><strong>Flexibility</strong>: Our infrastructure is declared in <em>.tf</em> files. Terraform consumes all the .tf files from the folder and processes them to create the execution plan. We can separate the resources in a logical way, and easily add/substract a file with new resources for testing purposes.</li>
 </ul>
 
-<h2 id="inconvenientes-y-detalles-a-tener-en-cuenta">Inconvenientes y detalles a tener en cuenta.</h2>
+<h2 id="cons-and-caveats">Cons and caveats</h2>
 
 <ul>
-  <li>Depende enteramente de la API de cada proveedor: Aunque la herramienta intenta mitigar posibles fallos mediante reintentos, timeouts y el uso de una caché local que contiene el estado de la infraestructura, está a merced de la fiabilidad de la API. Una respuesta inconsistente por parte del proveedor puede ocasionar que Terraform no reconozca un recurso concreto, y dado que no forma parte del plan declarado en los ficheros, dicho recurso por defecto será eliminado.
+  <li>
+    <p>Terraform stores the state of the deployed resources in a local file called <em>terraform.state</em>, and that is the canonical source of truth. If the file is corrupted or the state described in it no longer matches the deployed infrastructure (for example, a remote resource is modified manually), Terraform will fix the discrepancy by destroying the remote resource and recreating it according to the local definition.</p>
+  </li>
+  <li>Terraform depends entirely on the provider’s API: The tool tries to mitigate potential failures by retrying and verifying API calls. Inconsistencies on the provider side can cause a situation in which Terraform is not able to match a specific remote resource to its local definition of said resource, thus generating an execution plan that <em>destroys</em> the remote resource and then creates another instance according to the local <em>.tf</em> files.
     <ul>
-      <li>Podemos mitigar esta circunstancia especificando una solución alternativa al conflicto <a href="https://www.terraform.io/docs/configuration/resources.html#lifecycle">mediante la directiva lifecycle</a>.</li>
+      <li>We can specify an alternate solution to this kind of conflict <a href="https://www.terraform.io/docs/configuration/resources.html#lifecycle">with the lifecycle directive</a>.</li>
     </ul>
   </li>
-  <li>Terraform almacena el estado de los recursos en el fichero <em>terraform.state</em>, y esta es el punto de referencia a la hora de generar planes de ejecución. Si se modifica la infraestructura remota desde fuera de Terraform, el comportamiento de la herramienta puede no ser el deseado.</li>
-  <li>La sintáxis declarativa de los ficheros no es agnóstica respecto al proveedor utilizado. Por tanto, debemos mantener diferentes versiones de nuestra infraestructura según dónde vayamos a desplegarla.</li>
+  <li>The declarative sintax of the <em>.tf</em> files is provider-specific. That means we will need to rewrite the definition of our infrastructure if we were to switch providers.</li>
 </ul>
 
-<h1 id="instalación">Instalación.</h1>
-<p>Aunque nosotros utilizaremos Terraform en Linux, también está disponible para otras plataformas como Windows o OSX.</p>
+<h1 id="command-overview">Command overview.</h1>
+<p>There are four basic commands that you must know to work with Terraform: refresh, plan, apply and destroy. <strong>Refresh</strong> updates the <em>terraform.state</em> file to match the provider’s state, <strong>plan</strong> outputs the changes that would be applied and <strong>apply</strong> performs the changes. <strong>Destroy</strong> does what you would expect: destroys the remote resources.</p>
 
-<p>Descargaremos la versión de Terraform deseada <a href="https://www.terraform.io/downloads.html">desde su página web</a>. Terraform no necesita instalación, basta con descomprimir el archivo.</p>
+<blockquote>
+  <p>Apply does not prompt for confirmation. Any discrepancy between the remote state and the local definition will be fixed irreversibly. It’s important to double-check the plan to make sure it matches our expectations.</p>
+</blockquote>
 
-<h1 id="primeros-pasos-desplegar-una-instancia-en-amazon-aws">Primeros pasos: Desplegar una instancia en Amazon AWS.</h1>
-<p>Para que Terraform pueda acceder a los recursos del proveedor que hayamos elegido, necesitaremos claves API. En el caso de Amazon AWS, podemos obtenerlas <a href="https://console.aws.amazon.com/iam/home#security_credential">en la consola de AWS</a>.</p>
+<h1 id="installing-terraform">Installing Terraform</h1>
+<p>Terraform is available for a variety of operating systems, though we’ll use Ubuntu throughout this post. While it could be available on the repositories of your favourite OS, there are no guarantees it will be up to date. The latest version can be downloaded from <a href="https://www.terraform.io/downloads.html">its website</a>.</p>
 
-<p><img src="/assets/images/aws-credentials-console.png" alt="Gestión de credenciales de Amazon AWS" /></p>
+<p>It does not need to be installed, unpacking the downloaded file is all that is required.</p>
 
-<p>A continuación vamos a generar un fichero <em>ejemplo.tf</em> que contendrá la definición de una máquina Ubuntu 16.04 en una instancia t2.micro, con la configuración mínima necesaria para poder conectarnos por SSH.</p>
+<h1 id="first-steps-creating-an-instance-on-amazon-aws">First steps: Creating an instance on Amazon AWS.</h1>
+<p>The objective is to deploy Ubuntu 16.04 on a t2.micro instance, with as little configuration as possible to enable SSH connections.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Definimos las claves de acceso a la API de AWS</span>
+<p>To enable Terraform to communicate with the remote provider, we will need API keys. In the case of Amazon AWS, they can be obtained from <a href="https://console.aws.amazon.com/iam/home#security_credential">the console</a>.</p>
+
+<p><img src="/assets/images/aws-credentials-console.png" alt="Managing credentials on Amazon AWS" /></p>
+
+<p>What follows is the <em>instance.tf</em> file we are going to use.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Contains the API keys for AWS access.</span>
 <span class="n">provider</span> <span class="s2">"aws"</span> <span class="p">{</span>
-  <span class="n">access_key</span> <span class="o">=</span> <span class="s2">"ESCRIBE_TU_CLAVE"</span>
-  <span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"ESCRIBE_TU_CLAVE"</span>
+  <span class="n">access_key</span> <span class="o">=</span> <span class="s2">"AWS_KEY"</span>
+  <span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"AWS_KEY"</span>
   <span class="n">region</span>     <span class="o">=</span> <span class="s2">"us-east-1"</span>
 <span class="p">}</span>
 
-<span class="c1"># Detalles de la instancia</span>
+<span class="c1"># Instance details</span>
 
-<span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"ejemplo"</span> <span class="p">{</span>
-  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># Esta es la ami de Ubuntu Server 16.04</span>
+<span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-2757f631"</span> <span class="c1"># This AMI contains Ubuntu 16.04</span>
   <span class="n">instance_type</span> <span class="o">=</span> <span class="s2">"t2.micro"</span>
   <span class="n">subnet_id</span>     <span class="o">=</span> <span class="s2">"${aws_subnet.default.id}"</span>
 <span class="p">}</span>
-<span class="c1"># Clave pública SSH que usaremos para conectarnos a la instancia.</span>
-<span class="c1"># Evidentemente, esta clave de ejemplo no es una clave válida.</span>
+<span class="c1"># SSH key we are going to use to connect to the instance.</span>
+<span class="c1"># It goes without saying that this key was created specifically for this blog post and has already been revoked.</span>
 <span class="n">resource</span> <span class="s2">"aws_key_pair"</span> <span class="s2">"ssh-keys"</span> <span class="p">{</span>
   <span class="n">key_name</span>   <span class="o">=</span> <span class="s2">"terraform"</span>
   <span class="n">public_key</span> <span class="o">=</span> <span class="s2">"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFOuj5NcQMwA4v5E/qcbsN0NsyR0BmdWU9VeIr9BFlE8/R4jnUMS6Sa9tf52omzJyRlr6M64GykzHmSnp8Aro7CK9dM+8PuktmJF+/EEuDsj/5ynyK+JQ9VlrbspJBXJhUs84LQK+1DngxVuyj1dxFSTvFVVafl0uuYmJOgzhS5MkFa16G/P9PiV44tEsq8wjnVbNBpKmom06f85uPaqegM45gbzGmE7PEjxkDaw/7DD3UatBYJ1oA8JaCUCfr4LishPbuT+lWEIDROnhGOhzz7GlnSgOxyhDnhteVFQzMBQLIGKzwG1uNL+1OaPJ5j4jXplShe7kmfMrmC6hOtdmp josue@pruebaTerraform"</span>
 <span class="p">}</span>
-<span class="c1"># Creamos una red virtual privada para la instancia</span>
+<span class="c1"># A virtual private network for the instance.</span>
 <span class="n">resource</span> <span class="s2">"aws_vpc"</span> <span class="s2">"default"</span> <span class="p">{</span>
   <span class="n">cidr_block</span> <span class="o">=</span> <span class="s2">"10.0.0.0/16"</span>
 <span class="p">}</span>
 
-<span class="c1"># Un gateway para que la máquina tenga acceso a internet</span>
+<span class="c1"># A gateway that provides internet access.</span>
 <span class="n">resource</span> <span class="s2">"aws_internet_gateway"</span> <span class="s2">"default"</span> <span class="p">{</span>
   <span class="n">vpc_id</span> <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
 <span class="p">}</span>
-<span class="c1"># Damos acceso a internet a la vpc</span>
+<span class="c1"># We whitelist the entire internet on this vpc. Note that this does not open any ports, it merely enables us to receive traffic from the outside.</span>
 <span class="n">resource</span> <span class="s2">"aws_route"</span> <span class="s2">"internet_access"</span> <span class="p">{</span>
   <span class="n">route_table_id</span>         <span class="o">=</span> <span class="s2">"${aws_vpc.default.main_route_table_id}"</span>
   <span class="n">destination_cidr_block</span> <span class="o">=</span> <span class="s2">"0.0.0.0/0"</span>
   <span class="n">gateway_id</span>             <span class="o">=</span> <span class="s2">"${aws_internet_gateway.default.id}"</span>
 <span class="p">}</span>
 
-<span class="c1"># Una subnet para nuestra máquina</span>
+<span class="c1"># A subnet.</span>
 <span class="n">resource</span> <span class="s2">"aws_subnet"</span> <span class="s2">"default"</span> <span class="p">{</span>
   <span class="n">vpc_id</span>                  <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
   <span class="n">cidr_block</span>              <span class="o">=</span> <span class="s2">"10.0.1.0/24"</span>
   <span class="n">map_public_ip_on_launch</span> <span class="o">=</span> <span class="kp">true</span>
 <span class="p">}</span>
 
-<span class="c1"># Creamos un grupo de seguridad para poder abrir puertos en la vpc</span>
+<span class="c1"># We create a security group to be able to apply port policies on this vpc.</span>
 <span class="n">resource</span> <span class="s2">"aws_security_group"</span> <span class="s2">"elb"</span> <span class="p">{</span>
   <span class="nb">name</span>        <span class="o">=</span> <span class="s2">"terraform_example_elb"</span>
-  <span class="n">description</span> <span class="o">=</span> <span class="s2">"Grupo de seguridad de ejemplo"</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">"First Steps Security Group"</span>
   <span class="n">vpc_id</span>      <span class="o">=</span> <span class="s2">"${aws_vpc.default.id}"</span>
 
-  <span class="c1"># Abrimos el puerto 80 desde y hacia todas partes</span>
-  <span class="n">ingress</span> <span class="p">{</span>
-    <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">80</span>
-    <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">80</span>
-    <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"tcp"</span>
-    <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
-  <span class="p">}</span>
-
-  <span class="c1"># “-1” significa TCP y UDP</span>
+  <span class="c1"># We enable initiating outgoing traffic on any port.</span>
+  <span class="c1"># “-1” means both TCP and UDP.</span>
   <span class="n">egress</span> <span class="p">{</span>
     <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">0</span>
     <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">0</span>
     <span class="n">protocol</span>    <span class="o">=</span> <span class="s2">"-1"</span>
     <span class="n">cidr_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0.0.0.0/0"</span><span class="p">]</span>
   <span class="p">}</span>
-  <span class="c1"># Permitimos acceso SSH desde cualquier IP. Sin esto, no podremos conectarnos tras desplegar la máquina.</span>
+  <span class="c1"># We allow incoming SSH traffic from anywhere.</span>
   <span class="n">ingress</span> <span class="p">{</span>
     <span class="n">from_port</span>   <span class="o">=</span> <span class="mi">22</span>
     <span class="n">to_port</span>     <span class="o">=</span> <span class="mi">22</span>
@@ -313,7 +308,7 @@
   <span class="p">}</span>
   </code></pre></figure>
 
-<p>Si inspeccionamos el plan generado por Terraform, observamos que va a crear la instancia especificada.</p>
+<p>Inspecting the generated plan, we can clearly see that the above operations are going to be performed.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform plan
 + aws_instance.example
@@ -345,13 +340,13 @@
 
 Plan: 1 to add, 0 to change, 0 to destroy.</code></pre></figure>
 
-<p>Nota: este plan sólo existe en memoria. Al realizar <em>terraform apply</em> Terraform volverá a refrescar y el plan generado puede ser diferente si las circunstancias son diferentes.</p>
+<p>Note: this plan is not saved anywhere, and only exists in memory at this time. When using <strong>apply</strong> , Terraform will generate the plan again and it might be different if circumstances have changed.</p>
 
 <blockquote>
-  <p>Nota: Es posible almacenar el plan con el switch <strong>-out</strong> y pasárselo a apply.</p>
+  <p>The plan can be saved to disk using the <strong>-out</strong> switch, and <strong>apply</strong> can be instructed to load the plan from a file instead of generating it at runtime.</p>
 </blockquote>
 
-<p>Vamos a aplicar los cambios.</p>
+<p>Let’s apply the plan.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform apply
 aws_instance.example: Creating...
@@ -386,7 +381,7 @@ aws_instance.example: Creation complete (ID: i-02fbb95386573f5ec)
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.</code></pre></figure>
 
-<p>Ahora podemos comprobar el estado (cacheado) de nuestra infraestructura con <em>terraform show</em>. Entre otros datos, tenemos la IP pública de la instancia.</p>
+<p>Now we can inspect the state of our infrastructure using <em>terraform show</em>. Among other things, it shows us the public IP of the newly created instance.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.example:
   id = i-02fbb95386573f5ec
@@ -425,7 +420,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.</code></pre></figure
   vpc_security_group_ids.# = 1
   vpc_security_group_ids.713989925 = sg-535d3d2d</code></pre></figure>
 
-<p>Vamos a deshacernos de esta instancia de ejemplo con el comando destroy.</p>
+<p>Let’s delete this instance with the <strong>destroy</strong> command.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">$ terraform destroy
 Do you really want to destroy?
@@ -445,15 +440,15 @@ aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m1s elapsed
 aws_instance.example: Still destroying... (ID: i-02fbb95386573f5ec, 1m11s elapsed)
 aws_instance.example: Destruction complete</code></pre></figure>
 
-<h1 id="provisionamiento-simple-de-instancias">Provisionamiento simple de instancias.</h1>
-<p>Tras crear la instancia, podemos copiar ficheros y directorios a la misma. Así mismo, con la directiva <em>remote-exec</em> podemos indicarle la ruta de un script local y Terraform lo copiará a la instancia y lo ejecutará.</p>
+<h1 id="basic-provisioning-of-instances">Basic provisioning of instances.</h1>
+<p>Terraform can transfer files and folders to the newly created instance, and it provides a number of facilities to execute software remotely. Using the <em>remote-exec</em> directive, we are going to deploy a script that writes “Hello” to a file in the /tmp/ folder.</p>
 
-<p>Vamos a probarlo con un sencillo “Hola”. Creamos un fichero llamado <em>bootstrap.sh</em> que contendrá el comando de prueba.</p>
+<p>The script will be called <em>bootstrap.sh</em>, and these are its contents.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 <span class="nb">echo</span> <span class="s1">'hello’ &gt; /tmp/output.txt</span></code></pre></figure>
 
-<p>Modificamos la definición de la instancia para añadir el provisionador, y la clave SSH que debe usar para conectarse.</p>
+<p>We modify the instance definition to add the provisioner directive, and the SSH it will use to remotely login to the instance.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">resource</span> <span class="s2">"aws_instance"</span> <span class="s2">"instancia1"</span> <span class="p">{</span>
   <span class="n">ami</span>           <span class="o">=</span> <span class="s2">"ami-b374d5a5"</span>
@@ -472,7 +467,7 @@ aws_instance.example: Destruction complete</code></pre></figure>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Tras aplicar el plan, observamos que Terraform se conecta a la instancia y ejecuta <em>bootstrap.sh</em>:</p>
+<p>After applying the plan, we can see that Terraform has logged-in to the instance and executed the script.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">aws_instance.instancia1 (remote-exec): Connecting to remote host via SSH...
 aws_instance.instancia1 (remote-exec):   Host: 54.90.2.13
@@ -483,12 +478,12 @@ aws_instance.instancia1 (remote-exec):   SSH Agent: true
 aws_instance.instancia1 (remote-exec): Connected!
 aws_instance.instancia1: Creation complete (ID: i-03cbd14db6ba0a896)</code></pre></figure>
 
-<p>Y comprobamos que funciona.</p>
+<p>And after logging in manually ourselves, we can verify that it did run the script correctly.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>ssh -i ~/.ssh/terraform-proyecto ubuntu@54.234.144.181 <span class="s2">"cat /tmp/output.txt’”
-Hola</span></code></pre></figure>
+Hello</span></code></pre></figure>
 
-<p>En un futuro post exploraremos como utilizar esta funcionalidad para provisionar máquinas de forma completamente automática.</p>
+<p>In a future post we will explore how to use this functionality to provision instances automatically.</p>
 
 	  </div>
 
@@ -521,8 +516,8 @@ Hola</span></code></pre></figure>
 				</li>
 			 
 				<li>
-					<a href="/tags.html#primeros pasos-ref">
-					primeros pasos <span>(1)</span>
+					<a href="/tags.html#first steps-ref">
+					first steps <span>(1)</span>
 					,
 					</a>
 				</li>
@@ -544,7 +539,7 @@ Hola</span></code></pre></figure>
 		<div>
       <section class="share col-sm-6">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Primeros pasos con Terraform"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Terraform 101"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -561,13 +556,14 @@ Hola</span></code></pre></figure>
         </a>
       </section>
 
+<!-- Shows author's bio at the end of the post. 
       <section class="col-sm-6 author">
         <img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956" class="img-rounded author-image" />
         <h4 class="section-title author-name">Josué Álvarez Moreno</h4>
-        <p class="author-bio">{"es"=>"Administrador de Sistemas.", "en"=>"System Administrator."}</p>
+        <p class="author-bio">System Administrator.</p>
       </section>
     </div>
-
+-->
     <div class="clearfix"></div>
 
 		<ul class="pager">
@@ -575,7 +571,7 @@ Hola</span></code></pre></figure>
 		  <li class="previous"><a href="/placeholder/2017/08/01/hello-world.html" title="Hello World!">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/nagios/2017/08/18/Nagios.html" title="Monitorización de sistemas y redes con Nagios">Next &rarr;</a></li>
 		  
 		</ul>
 
