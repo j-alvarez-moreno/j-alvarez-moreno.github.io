@@ -7,6 +7,9 @@ a {
 body{
 	color: #2c3e50;
 }
+.separator {
+  border-top: 0.5px solid black;
+}
 
 .sidebar {
 	position: fixed;
