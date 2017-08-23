@@ -180,7 +180,7 @@
 <ul id="markdown-toc">
   <li><a href="#qué-es-nagios" id="markdown-toc-qué-es-nagios">Qué es Nagios.</a></li>
   <li><a href="#conceptos-básicos-para-trabajar-con-nagios" id="markdown-toc-conceptos-básicos-para-trabajar-con-nagios">Conceptos básicos para trabajar con Nagios.</a>    <ul>
-      <li><a href="#posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
+      <li><a href="#posibles-estados-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estados-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estados y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
           <li><a href="#qué-significa-que-un-servicio-o-recurso-está-flapping" id="markdown-toc-qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</a></li>
         </ul>
       </li>
@@ -189,18 +189,23 @@
   <li><a href="#escenario-sobre-el-cual-trabajaremos-en-este-post" id="markdown-toc-escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</a></li>
   <li><a href="#instalación-de-nagios" id="markdown-toc-instalación-de-nagios">Instalación de Nagios.</a></li>
   <li><a href="#monitorización-de-servicios-y-equipos" id="markdown-toc-monitorización-de-servicios-y-equipos">Monitorización de servicios y equipos.</a>    <ul>
-      <li><a href="#configuración-común-a-los-tres-hosts" id="markdown-toc-configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</a>        <ul>
-          <li><a href="#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
+      <li><a href="#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
+      <li><a href="#añadir-dispositivos-a-la-lista-de-monitorización" id="markdown-toc-añadir-dispositivos-a-la-lista-de-monitorización">Añadir dispositivos a la lista de monitorización.</a></li>
+      <li><a href="#monitorizando-servicios" id="markdown-toc-monitorizando-servicios">Monitorizando servicios.</a></li>
+      <li><a href="#añadiendo-chequeos-de-servicio-personalizados" id="markdown-toc-añadiendo-chequeos-de-servicio-personalizados">Añadiendo chequeos de servicio personalizados.</a>        <ul>
+          <li><a href="#comprobando-la-existencia-de-procesos-zombie" id="markdown-toc-comprobando-la-existencia-de-procesos-zombie">Comprobando la existencia de procesos zombie.</a>            <ul>
+              <li><a href="#servidor-nagios" id="markdown-toc-servidor-nagios">Servidor Nagios.</a></li>
+              <li><a href="#dispositivo-monitorizado" id="markdown-toc-dispositivo-monitorizado">Dispositivo monitorizado.</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li><a href="#configuración-específica" id="markdown-toc-configuración-específica">Configuración específica</a>        <ul>
-          <li><a href="#nagioshost" id="markdown-toc-nagioshost">nagiosHost</a></li>
-          <li><a href="#servidorlamp" id="markdown-toc-servidorlamp">servidorLamp</a></li>
-          <li><a href="#escritoriousuario" id="markdown-toc-escritoriousuario">escritorioUsuario</a></li>
+      <li><a href="#instalando-plugins-adicionales-para-monitorizar-otros-servicios" id="markdown-toc-instalando-plugins-adicionales-para-monitorizar-otros-servicios">Instalando plugins adicionales para monitorizar otros servicios.</a>        <ul>
+          <li><a href="#instalando-nagios-plugin-mongodb" id="markdown-toc-instalando-nagios-plugin-mongodb">Instalando nagios-plugin-mongodb</a></li>
         </ul>
       </li>
-      <li><a href="#monitorización-de-mongodb" id="markdown-toc-monitorización-de-mongodb">Monitorización de MongoDB</a>        <ul>
-          <li><a href="#configuración-del-envio-de-alertas-por-correo" id="markdown-toc-configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</a></li>
+      <li><a href="#configurando-las-notificaciones-por-email" id="markdown-toc-configurando-las-notificaciones-por-email">Configurando las notificaciones por email.</a>        <ul>
+          <li><a href="#personalizando-el-contenido-de-los-emails-y-los-medios-de-envío" id="markdown-toc-personalizando-el-contenido-de-los-emails-y-los-medios-de-envío">Personalizando el contenido de los emails y los medios de envío.</a></li>
         </ul>
       </li>
     </ul>
@@ -212,6 +217,7 @@
       <li><a href="#base-de-datos-mongodb-fuera-de-línea" id="markdown-toc-base-de-datos-mongodb-fuera-de-línea">Base de datos MongoDB fuera de línea.</a></li>
     </ul>
   </li>
+  <li><a href="#conclusiones" id="markdown-toc-conclusiones">Conclusiones.</a></li>
 </ul>
 
 <h1 id="qué-es-nagios">Qué es Nagios.</h1>
@@ -234,12 +240,12 @@
 
 <!--more-->
 
-<h2 id="posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</h2>
+<h2 id="posibles-estados-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estados y flujo de transición entre estados de un servicio o recurso monitorizados.</h2>
 
 <p>El estado de un servicio o recurso se determina a través de dos componentes:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>- El estado del servicio o recurso: OK, WARNING, UP, DOWN...
-- El _tipo_ de estado en el que se encuentra el servicio.
+- El tipo de estado en el que se encuentra el servicio.
 </code></pre>
 </div>
 
@@ -253,7 +259,9 @@
 
 <h3 id="qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</h3>
 
-<p><em>Flapping</em> es una palabra inglesa que describe el aleteo frenético de un pájaro cuando intenta mantener el vuelo en condiciones adversas.</p>
+<blockquote>
+  <p><em>Flapping</em> es una palabra inglesa que describe el aleteo frenético de un pájaro. Se utiliza habitualmente para describir el intento de mantener el vuelo en condiciones adversas.</p>
+</blockquote>
 
 <p>Volviendo a Nagios: cuando un servicio cambia rápidamente entre disponible y algún estado de error, se considera que el servicio está <em>flapping</em>. Esto puede deberse a circunstancias transitorias perfectamente normales (por ejemplo, alta carga de CPU durante operaciones específicas en la base de datos que no afectan al funcionamiento de la aplicación), y puede generar una lluvia de notificaciones sobre un falso problema.</p>
 
@@ -261,27 +269,29 @@
 
 <h1 id="escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</h1>
 
-<p>Tendremos 3 máquinas virtuales en la misma red, con el sistema operativo Debian en su versión 8 (Jessie).</p>
+<p>Tenemos 3 máquinas virtuales en la misma red, con el sistema operativo Debian en su versión 8 (Jessie).</p>
 
 <ul>
-  <li>nagios-host: 192.168.100.1, actuará de host para Nagios. Tendrá instalado un servidor SSH y una base de datos MongoDB.</li>
-  <li>servidor-lamp: 192.168.100.2, tendrá instalado una stack LAMP.</li>
-  <li>escritorio-usuario: 192.168.100.3, es un cliente Debian estándar.</li>
+  <li>nagiosHost: 192.168.100.1, actuará de host para Nagios. Tendrá instalado un servidor SSH y una base de datos MongoDB.</li>
+  <li>servidorLamp: 192.168.100.2, tendrá instalado una stack LAMP.</li>
+  <li>escritorioUsuario: 192.168.100.3, es un cliente Debian estándar.</li>
 </ul>
-
-<p>Vamos a monitorizar el estado del servidor Web, la base de datos y que el escritorio del usuario esté encendido.</p>
 
 <p>Este escenario está recogido en este <a href="/assets/vagrantfiles/2017-08-18-Nagios/es/Vagrantfile.zip">Vagrantfile</a>, incluyendo el despliegue de los servicios y la configuración del servidor Nagios y los clientes.</p>
 
 <h1 id="instalación-de-nagios">Instalación de Nagios.</h1>
-<p><em>nrpe-server</em> es un agente instalado en las máquinas cliente que se encarga de comunicar con el host Nagios para informar de estado y ejecución de comandos de forma remota. Estos comando pueden ser definidos de forma manual por el administrador, aunque un conjunto de comandos de uso frecuente se encuentra pre-empaquetado en nagios-plugins. Más adelante veremos cómo instalar plugins adicionales para monitorizar MongoDB, y cómo definir nuestros propios comandos (usaremos como ejemplo comprobar si existen procesos zombie).</p>
-
-<p>Para instalar estos dos componentes y el núcleo de Nagios en nagios-host, podemos hacerlo desde los repositorios.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">sudo DEBIAN_FRONTEND=noninteractive apt-get -y install nagios-plugins nagios3 nagios-nrpe-plugin</code></pre></figure>
 
-<p>Para poder forzar chequeos sobre los servicios y hosts de forma manual, debemos cambiar el valor de la directiva check_external_commands a 1 en el archivo <em>/etc/nagios3/nagios.cfg</em>.
-También debemos cambiar el usuario y modo de dos directorios para permitir la ejecución de estos, ya que Nagios ejecuta estos chequeos a través de un archivo temporal que debe poder ser ejecutable por el usuario del servidor web. Dado que el archivo se recrea en cada ejecución, vamos a fijar los permisos a nivel del directorio.</p>
+<p><em>nrpe-server</em> es un agente instalado en las máquinas cliente que se encarga de comunicar con el host Nagios para informar de estado y ejecución de comandos de forma remota. Estos comando pueden ser definidos de forma manual por el administrador, aunque un conjunto de comandos de uso frecuente se encuentra pre-empaquetado en nagios-plugins. Más adelante veremos cómo instalar plugins adicionales para monitorizar MongoDB, y cómo definir nuestros propios comandos (usaremos como ejemplo comprobar si existen procesos zombie).</p>
+
+<p>Para poder forzar chequeos sobre los servicios y hosts de forma manual, debemos realizar el siguiente cambio en el archivo <em>/etc/nagios3/nagios.cfg</em></p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">check_external_commands = 1</code></pre></figure>
+
+<p>También debemos cambiar el usuario y modo de dos directorios para permitir que el servicio de nagios pueda escribir archivos temporales en ellos. En caso de no hacerlo, recibiremos un mensaje de error de tipo <em>Could not stat() command file ‘/var/lib/nagios3/rw/nagios.cmd’</em>.</p>
+
+<p>Este cambio lo implementaremos a través del gestor de paquetes, para que se preserve en caso de actualizaciones.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
 sudo dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3</code></pre></figure>
@@ -295,9 +305,7 @@ service nagios3 restart</code></pre></figure>
 
 <p>Los servicios están asociados a equipos. Para poder añadirlos debemos instalar el agente de monitorización en él. Realizaré este proceso en nagiosHost, siendo idéntico en servidorLamp y en escritorioUsuario.</p>
 
-<h2 id="configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</h2>
-
-<h3 id="instalación-del-agente-de-monitorización">Instalación del agente de monitorización</h3>
+<h2 id="instalación-del-agente-de-monitorización">Instalación del agente de monitorización</h2>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --force-yes build-essential nagios-nrpe-server nagios-plugins</code></pre></figure>
 
@@ -305,21 +313,19 @@ service nagios3 restart</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">sudo sed -i "s/.*dont_blame_nrpe.*/dont_blame_nrpe = 1/" /etc/nagios/nrpe.cfg</code></pre></figure>
 
-<p>Y damos permiso al servidor Nagios, en este caso nosotros mismos, para hacerlo.</p>
+<p>Y damos permiso al servidor Nagios para ejecutarlos.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">sudo sed -i "s/.*allowed_hosts.*/allowed_hosts = 127.0.0.1 192.168.100.1/" /etc/nagios/nrpe.cfg</code></pre></figure>
 
-<h2 id="configuración-específica">Configuración específica</h2>
+<h2 id="añadir-dispositivos-a-la-lista-de-monitorización">Añadir dispositivos a la lista de monitorización.</h2>
 
 <blockquote>
   <p>El directorio <em>conf.d</em> es procesado en su totalidad al construir la configuración final. Podemos almacenar la configuración en archivos cfg con diferentes nombres que respondan a la organización logica de nuestra infraestructura, sin tener que seguir el patrón establecido en este post.</p>
 </blockquote>
 
-<h3 id="nagioshost">nagiosHost</h3>
+<p>Los siguientes pasos deben realizarse en el servidor Nagios, que en este escenario <em>nagiosHost</em>.</p>
 
-<p><em>/etc/nagios3/conf.d/nodes.cfg</em></p>
-
-<p>Aquí añadimos los equipos a monitorizar. En nuestro caso, el archivo tendrá el siguiente contenido.</p>
+<p><em>/etc/nagios3/conf.d/nodes.cfg</em> contiene la lista de equipos a monitorizar. En nuestro caso, el archivo tendrá el siguiente contenido.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define host{
         use                     generic-host
@@ -342,9 +348,7 @@ define host{
         address                 192.168.100.3
 }</code></pre></figure>
 
-<p><em>/etc/nagios3/conf.d/hostgroups_nagios2.cfg</em></p>
-
-<p>Aquí se describen los grupos de equipos, de forma que los ajustes de monitorización se apliquen a todos los elementos de una misma categoría.</p>
+<p>Los dispositivos se organizan en grupos, de forma que las politicas de monitorización puedan aplicarse a todos los equipos que pertenezcan a una de esas categorias. Estas definiciones serán guardadas en <em>/etc/nagios3/conf.d/hostgroups_nagios2.cfg</em>.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define hostgroup {
         hostgroup_name  all
@@ -376,25 +380,9 @@ define hostgroup {
         members         nagiosHost
 }</code></pre></figure>
 
-<p><em>/etc/nagios3/conf.d/contacts_nagios2.cfg</em></p>
+<h2 id="monitorizando-servicios">Monitorizando servicios.</h2>
 
-<p>Aquí debemos definir nuestra dirección de contacto, para las notificaciones de email.</p>
-
-<figure class="highlight"><pre><code class="language-none" data-lang="none">define contact{
-        contact_name                    root
-        alias                           Root
-        service_notification_period     24x7
-        host_notification_period        24x7
-        service_notification_options    w,u,c,r,f
-        host_notification_options       d,r,f
-        service_notification_commands   notify-service-by-email
-        host_notification_commands      notify-host-by-email
-        email                           correo@servidor.com
-}</code></pre></figure>
-
-<p><em>/etc/nagios3/conf.d/services_nagios2.cfg</em></p>
-
-<p>Este archivo contendrá los servicios a monitorizar. Por defecto no tiene entradas para MongoDB, así que las añadimos. También añadimos la línea “contact_groups admins” a las categorías de las cuales queremos recibir notificaciones de email.</p>
+<p><em>/etc/nagios3/conf.d/services_nagios2.cfg</em> contiene las definiciones de los servicios a monitorizar.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define service {
         hostgroup_name                  http-servers
@@ -410,15 +398,6 @@ define service {
            check_command                   check_ssh
            use                             generic-service
            notification_interval           0 ; set &gt; 0 if you want to be renotified
-           contact_groups admins
-}
-
-define service {
-use                 generic-service
-hostgroup_name          mongo-servers
-service_description     Mongo Connect Check
-check_command           check_mongodb!connect!27017!2!4
-contact_groups admins
 }</code></pre></figure>
 
 <p><em>/etc/nagios3/conf.d/nagiosHost.cfg</em></p>
@@ -448,55 +427,64 @@ define service{
 
 <p><em>/etc/nagios3/conf.d/escritorioUsuario.cfg</em></p>
 
-<p>Aquí incorporamos definiciones de espacio libre en disco y de procesos zombie.</p>
+<p>De la misma forma, aquí incorporamos la definicion de procesos zombie.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define service{
-        use                             generic-service         ; Name of service template to use
-        host_name                       escritorioUsuario
-        service_description             Disk Space
-        check_command                   check_all_disks!20%!10%
-}
-
-define service{
         use                             generic-service         ; Name of service template to use
         host_name                       escritorioUsuario
         service_description             Zombie processes
                 check_command           check_host_for_zombies
 }</code></pre></figure>
 
-<p><em>/etc/nagios3/commands.cfg</em></p>
+<p>Dado que este es un check personalizado, debemos definirlo de forma explícita. Lo haremos en la siguiente sección.</p>
 
-<p>Aquí se encuentran la definición de check_zombies, para que sean ejecutadas por el agente nrpe. Añadimos el siguiente contenido al archivo de configuración:</p>
+<h2 id="añadiendo-chequeos-de-servicio-personalizados">Añadiendo chequeos de servicio personalizados.</h2>
+
+<p>Los chequeos personalizados se definen en dos partes: Una declaración obligatoria en el servidor de Nagios, y una declaración opcional en el dispositivo monitorizado.</p>
+
+<p>En el servidor de Nagios definimos el comando que se va a ejecutar desde el mismo servidor.</p>
+
+<p>En el dispositivo monitorizado, definimos el comando que va a ejecutarse <em>desde el mismo dispositivo monitorizado</em>.</p>
+
+<blockquote>
+  <p>Si necesitamos obtener información acerca del estado de un dispositivo, y esta información solo puede obtener mediante la ejecución de código en el mismo; debemos declarar ambos comandos.</p>
+</blockquote>
+
+<p>Por ejemplo, en este escenario queremos comprobar la existencia de procesos zombie y la disponibilidad del servicio de MongoDB. Para poder acceder a la lista de procesos de la máquina monitorizada, debemos ejecutar código en la máquina. Mientras que si queremos comprobar que el servidor MongoDB está aceptando conexiones, podemos comprobarlo desde el servidor Nagios iniciando una nueva conexión <em>como si fuésemos otro cliente cualquiera</em>.</p>
+
+<h3 id="comprobando-la-existencia-de-procesos-zombie">Comprobando la existencia de procesos zombie.</h3>
+
+<h4 id="servidor-nagios">Servidor Nagios.</h4>
+
+<p><em>/etc/nagios3/commands.cfg</em></p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define command {
     command_name    check_host_for_zombies
     command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_zombies
 }</code></pre></figure>
 
-<h3 id="servidorlamp">servidorLamp</h3>
-
-<p>No se necesita configuración adicional.</p>
-
-<h3 id="escritoriousuario">escritorioUsuario</h3>
-
-<p>Añadimos la definición del comando para comprobar la existencia de procesos zombie.</p>
+<h4 id="dispositivo-monitorizado">Dispositivo monitorizado.</h4>
 
 <p><em>/etc/nagios/nrpe_local.cfg</em></p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">command[check_zombies]=/usr/lib/nagios/plugins/check_procs -w 0 -s Z+</code></pre></figure>
 
-<h2 id="monitorización-de-mongodb">Monitorización de MongoDB</h2>
+<h2 id="instalando-plugins-adicionales-para-monitorizar-otros-servicios">Instalando plugins adicionales para monitorizar otros servicios.</h2>
 
-<p>Para comprobar el estado del servicio de MongoDB en nagiosHost, vamos a utilizar [nagios-plugin-mongodb]https://github.com/mzupan/nagios-plugin-mongodb).</p>
+<p>Para comprobar el estado del servicio de MongoDB en nagiosHost, vamos a utilizar <a href="https://github.com/mzupan/nagios-plugin-mongodb">nagios-plugin-mongodb</a>. El proceso es muy parecido a añadir un chequeo personalizado; la única diferencia es que al no tener ya disponible el comando <em>check_mongodb</em> tenemos que instalarlo previamente.</p>
 
-<p>En nagiosHost, clonamos el repositorio git del plugin e instalamos sus requisitos.</p>
+<h3 id="instalando-nagios-plugin-mongodb">Instalando nagios-plugin-mongodb</h3>
+
+<p>Dado que el plugin está programado en Python, el proceso de instalación es muy sencillo. Clonamos el repositorio git del plugin en el servidor de nagios, instalamos los requisitos y a por último el conector python de MongoDB.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">cd /usr/lib/nagios/plugins
 git clone git://github.com/mzupan/nagios-plugin-mongodb.git
 pip install requirements
 python -m pip install pymongo</code></pre></figure>
 
-<p>Definimos el servicio en /etc/nagios3/conf.d/services_nagios2.cfg de manera que se aplique a todos los servidores del grupo mongo-servers.</p>
+<p>Añadimos la definición del servicio a la configuración. Dado que es posible que añadiésemos servidores de MongoDB adicionales en un futuro, definimos el servicio como aplicable al grupo de hosts <em>mongo-servers</em>.</p>
+
+<p><em>/etc/nagios3/conf.d/services_nagios2.cfg</em></p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define service {
     use                 generic-service
@@ -506,15 +494,55 @@ python -m pip install pymongo</code></pre></figure>
     contact_groups admins
 }</code></pre></figure>
 
-<p>Y definimos el comando check_mongodb en commands.cfg.</p>
+<p><em>commands.cfg</em></p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define command {
     command_name    check_mongodb
     command_line $USER1$/nagios-plugin-mongodb/check_mongodb.py -H $HOSTADDRESS$ -A $ARG1$ -P $ARG2$ -W $ARG3$ -C $ARG4$
 }</code></pre></figure>
 
-<h3 id="configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</h3>
-<p>En mi caso particular, voy a utilizar <em>sendemail</em> para enviar correo a través del servidor SMTP de GMail. Lo instalamos en nagiosHost con la siguiente línea</p>
+<p>La sintáxis de <em>check_mongodb.py</em> está explicada en la <a href="https://github.com/mzupan/nagios-plugin-mongodb">documentación</a>, y cada plugin que instalemos suele tener su propia sintáxis.</p>
+
+<h2 id="configurando-las-notificaciones-por-email">Configurando las notificaciones por email.</h2>
+
+<p>Nagios tiene la capacidad de enviar notificaciones de email a grupos de contactos, que <em>obviamente</em> contienen contactos. Vamos a crear un contacto de nombre <em>root</em> que pertecenerá al grupo de contactos <em>admins</em>.</p>
+
+<p><em>/etc/nagios3/conf.d/contacts_nagios2.cfg</em> contendrá la lista de contactos. También contendrá el comando que se ejecutará al realizar el envio de notificaciones, que definiremos más adelante.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">define contact{
+        contact_name                    root
+        alias                           Root
+        service_notification_period     24x7
+        host_notification_period        24x7
+        service_notification_options    w,u,c,r,f
+        host_notification_options       d,r,f
+        service_notification_commands   notify-service-by-email
+        host_notification_commands      notify-host-by-email
+        email                           correo@servidor.com
+}</code></pre></figure>
+
+<p>Y <em>/etc/nagios3/conf.d/contact_groups_nagios2.cfg</em> contendrá la lista de grupos, junto con los miembros de cada grupo.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">define contactgroup {
+        contactgroup_name       admins
+        alias                   Level 7 Administrators
+        members                 root
+        }</code></pre></figure>
+
+<p>Ahora añadimos a cada servicio los grupos que deben ser notificados en caso de incidencia usando la variable <em>contact_groups</em>. Por ejemplo, para el servicio SSH se haría así.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">define service {
+           hostgroup_name                  ssh-servers
+           service_description             SSH
+           check_command                   check_ssh
+           use                             generic-service
+           notification_interval           0 ; set &gt; 0 if you want to be renotified
+           contact_groups admins
+}</code></pre></figure>
+
+<h3 id="personalizando-el-contenido-de-los-emails-y-los-medios-de-envío">Personalizando el contenido de los emails y los medios de envío.</h3>
+
+<p>En este post voy a utilizar <em>sendemail</em> para enviar correo a través del servidor SMTP de GMail. Lo instalamos en nagiosHost con la siguiente línea</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install sendemail</code></pre></figure>
 
@@ -530,13 +558,17 @@ define command{
         command_line /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$" | /usr/bin/sendEmail -s smtp.gmail.com -xu $USER4$ -xp $USER5$ -t $CONTACTEMAIL$ -f $CONTACTEMAIL$ -u "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" -m "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$" 
 }</code></pre></figure>
 
+<blockquote>
+  <p>Podríamos personalizar la línea de comando para incluir otros medios de notificación. Por ejemplo, podemos añadir notificaciones por SMS a través de Twilio o mensajes por Slack.</p>
+</blockquote>
+
 <p>Añadimos las definiciones de las variables $USER4 y $USER5, que corresponden respectivamente a nuestro usuario y contraseña de GMail, en el archivo /etc/nagios3/resource.cfg.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">$USER4$=usuario
 $USER5$=contraseña</code></pre></figure>
 
 <blockquote>
-  <p>Estos datos se almacenan en texto plano. Por seguridad, es conveniente generar credenciales propias para Nagios.
+  <p>AVISO: Estos datos se almacenan en texto plano. Por seguridad, es conveniente generar credenciales propias para Nagios.
 En el caso de GMail, esto puede hacerse activando <a href="https://www.google.com/landing/2step/">autenticación en dos pasos</a> y <a href="https://support.google.com/accounts/answer/185833">generando una contraseña de aplicación</a>.</p>
 </blockquote>
 
@@ -556,13 +588,15 @@ En el caso de GMail, esto puede hacerse activando <a href="https://www.google.co
 
 <p>Vamos a simular un fallo apagando la máquina escritorioUsuario.</p>
 
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_map_machine_offline_soft.png" alt="Equipo fuera de linea, vista de mapa." />
-<img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_soft.png" alt="Equipo fuera de linea, vista de detalles." /></p>
+<p><img src="/assets/images/2017-08-18-Nagios/nagios_map_machine_offline_soft.png" alt="Equipo fuera de linea, vista de mapa." /></p>
+
+<p><img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_soft.png" alt="Equipo fuera de linea, vista de detalles." /></p>
 
 <p>Pasado el número de reintentos especificado la máquina pasa a estar fuera de línea <em>oficialmente</em> y se envía la notificación correspondiente.</p>
 
-<p><img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_hard.png" alt="Equipo fuera de linea, vista de detalles." />
-<img src="/assets/images/2017-08-18-Nagios/nagios_email_machine_offline_hard.png" alt="Equipo fuera de linea, email notificación." /></p>
+<p><img src="/assets/images/2017-08-18-Nagios/nagios_details_machine_offline_hard.png" alt="Equipo fuera de linea, vista de detalles." /></p>
+
+<p><img src="/assets/images/2017-08-18-Nagios/nagios_email_machine_offline_hard.png" alt="Equipo fuera de linea, email notificación." /></p>
 
 <p>Tras volver a encender la máquina, vemos que Nagios detecta que se ha resuelto el problema, y nos envía una notificación al respecto.</p>
 
@@ -582,6 +616,12 @@ En el caso de GMail, esto puede hacerse activando <a href="https://www.google.co
 
 <p>Si detenemos el servicio de MongoDB, comprobamos que efectivamente falla el chequeo de Nagios y nos notifica adecuadamente.
 <img src="/assets/images/2017-08-18-Nagios/nagios_mongodb.png" alt="Servidor MongoDB fuera de línea." /></p>
+
+<h1 id="conclusiones">Conclusiones.</h1>
+
+<p>Es de vital importancia que conozcamos potenciales problemas de nuestra infraestructura <em>antes</em> de que nuestros clientes nos lo comuniquen.</p>
+
+<p>Nagios nos permite condensar toda la información sobre el estado de nuestro despliegue en una única pantalla, fácilmente comprensible <em>en un vistazo</em>. La inversión de tiempo que requiere su configuración merece la pena, dado que nos aporta la tranquilidad de saber que nuestra infraestructura está sana, y que si eso cambiase seremos los primeros en saberlo.</p>
 
 	  </div>
 

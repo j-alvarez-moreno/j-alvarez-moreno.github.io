@@ -189,7 +189,7 @@
 <ul id="markdown-toc">
   <li><a href="/es/nagios/2017/08/18/Nagios.html#qué-es-nagios" id="markdown-toc-qué-es-nagios">Qué es Nagios.</a></li>
   <li><a href="/es/nagios/2017/08/18/Nagios.html#conceptos-básicos-para-trabajar-con-nagios" id="markdown-toc-conceptos-básicos-para-trabajar-con-nagios">Conceptos básicos para trabajar con Nagios.</a>    <ul>
-      <li><a href="/es/nagios/2017/08/18/Nagios.html#posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estado-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estado y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#posibles-estados-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados" id="markdown-toc-posibles-estados-y-flujo-de-transición-entre-estados-de-un-servicio-o-recurso-monitorizados">Posibles estados y flujo de transición entre estados de un servicio o recurso monitorizados.</a>        <ul>
           <li><a href="/es/nagios/2017/08/18/Nagios.html#qué-significa-que-un-servicio-o-recurso-está-flapping" id="markdown-toc-qué-significa-que-un-servicio-o-recurso-está-flapping">Qué significa que un servicio o recurso está “flapping”.</a></li>
         </ul>
       </li>
@@ -198,18 +198,23 @@
   <li><a href="/es/nagios/2017/08/18/Nagios.html#escenario-sobre-el-cual-trabajaremos-en-este-post" id="markdown-toc-escenario-sobre-el-cual-trabajaremos-en-este-post">Escenario sobre el cual trabajaremos en este post.</a></li>
   <li><a href="/es/nagios/2017/08/18/Nagios.html#instalación-de-nagios" id="markdown-toc-instalación-de-nagios">Instalación de Nagios.</a></li>
   <li><a href="/es/nagios/2017/08/18/Nagios.html#monitorización-de-servicios-y-equipos" id="markdown-toc-monitorización-de-servicios-y-equipos">Monitorización de servicios y equipos.</a>    <ul>
-      <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-común-a-los-tres-hosts" id="markdown-toc-configuración-común-a-los-tres-hosts">Configuración común a los tres hosts</a>        <ul>
-          <li><a href="/es/nagios/2017/08/18/Nagios.html#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#instalación-del-agente-de-monitorización" id="markdown-toc-instalación-del-agente-de-monitorización">Instalación del agente de monitorización</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#añadir-dispositivos-a-la-lista-de-monitorización" id="markdown-toc-añadir-dispositivos-a-la-lista-de-monitorización">Añadir dispositivos a la lista de monitorización.</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#monitorizando-servicios" id="markdown-toc-monitorizando-servicios">Monitorizando servicios.</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#añadiendo-chequeos-de-servicio-personalizados" id="markdown-toc-añadiendo-chequeos-de-servicio-personalizados">Añadiendo chequeos de servicio personalizados.</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#comprobando-la-existencia-de-procesos-zombie" id="markdown-toc-comprobando-la-existencia-de-procesos-zombie">Comprobando la existencia de procesos zombie.</a>            <ul>
+              <li><a href="/es/nagios/2017/08/18/Nagios.html#servidor-nagios" id="markdown-toc-servidor-nagios">Servidor Nagios.</a></li>
+              <li><a href="/es/nagios/2017/08/18/Nagios.html#dispositivo-monitorizado" id="markdown-toc-dispositivo-monitorizado">Dispositivo monitorizado.</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-específica" id="markdown-toc-configuración-específica">Configuración específica</a>        <ul>
-          <li><a href="/es/nagios/2017/08/18/Nagios.html#nagioshost" id="markdown-toc-nagioshost">nagiosHost</a></li>
-          <li><a href="/es/nagios/2017/08/18/Nagios.html#servidorlamp" id="markdown-toc-servidorlamp">servidorLamp</a></li>
-          <li><a href="/es/nagios/2017/08/18/Nagios.html#escritoriousuario" id="markdown-toc-escritoriousuario">escritorioUsuario</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#instalando-plugins-adicionales-para-monitorizar-otros-servicios" id="markdown-toc-instalando-plugins-adicionales-para-monitorizar-otros-servicios">Instalando plugins adicionales para monitorizar otros servicios.</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#instalando-nagios-plugin-mongodb" id="markdown-toc-instalando-nagios-plugin-mongodb">Instalando nagios-plugin-mongodb</a></li>
         </ul>
       </li>
-      <li><a href="/es/nagios/2017/08/18/Nagios.html#monitorización-de-mongodb" id="markdown-toc-monitorización-de-mongodb">Monitorización de MongoDB</a>        <ul>
-          <li><a href="/es/nagios/2017/08/18/Nagios.html#configuración-del-envio-de-alertas-por-correo" id="markdown-toc-configuración-del-envio-de-alertas-por-correo">Configuración del envio de alertas por correo</a></li>
+      <li><a href="/es/nagios/2017/08/18/Nagios.html#configurando-las-notificaciones-por-email" id="markdown-toc-configurando-las-notificaciones-por-email">Configurando las notificaciones por email.</a>        <ul>
+          <li><a href="/es/nagios/2017/08/18/Nagios.html#personalizando-el-contenido-de-los-emails-y-los-medios-de-envío" id="markdown-toc-personalizando-el-contenido-de-los-emails-y-los-medios-de-envío">Personalizando el contenido de los emails y los medios de envío.</a></li>
         </ul>
       </li>
     </ul>
@@ -221,6 +226,7 @@
       <li><a href="/es/nagios/2017/08/18/Nagios.html#base-de-datos-mongodb-fuera-de-línea" id="markdown-toc-base-de-datos-mongodb-fuera-de-línea">Base de datos MongoDB fuera de línea.</a></li>
     </ul>
   </li>
+  <li><a href="/es/nagios/2017/08/18/Nagios.html#conclusiones" id="markdown-toc-conclusiones">Conclusiones.</a></li>
 </ul>
 
 <h1 id="qué-es-nagios">Qué es Nagios.</h1>

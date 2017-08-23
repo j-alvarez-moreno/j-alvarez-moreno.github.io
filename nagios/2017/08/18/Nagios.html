@@ -186,7 +186,7 @@
       </li>
     </ul>
   </li>
-  <li><a href="#description-of-the-scenario-we-will-work-with-in-this-post" id="markdown-toc-description-of-the-scenario-we-will-work-with-in-this-post">Description of the scenario we will work with in this post.</a></li>
+  <li><a href="#description-of-the-scenario-we-are-working-with-in-this-post" id="markdown-toc-description-of-the-scenario-we-are-working-with-in-this-post">Description of the scenario we are working with in this post.</a></li>
   <li><a href="#installing-nagios" id="markdown-toc-installing-nagios">Installing Nagios.</a></li>
   <li><a href="#monitoring-services-and-computers" id="markdown-toc-monitoring-services-and-computers">Monitoring services and computers.</a>    <ul>
       <li><a href="#installing-the-monitoring-agent" id="markdown-toc-installing-the-monitoring-agent">Installing the monitoring agent.</a></li>
@@ -200,12 +200,12 @@
           </li>
         </ul>
       </li>
-      <li><a href="#installing-additional-plugins-to-monitor-other-services-and-states" id="markdown-toc-installing-additional-plugins-to-monitor-other-services-and-states">Installing additional plugins to monitor other services and states.</a>        <ul>
+      <li><a href="#installing-additional-plugins-to-monitor-other-services" id="markdown-toc-installing-additional-plugins-to-monitor-other-services">Installing additional plugins to monitor other services.</a>        <ul>
           <li><a href="#installing-nagios-plugin-mongodb" id="markdown-toc-installing-nagios-plugin-mongodb">Installing nagios-plugin-mongodb</a></li>
         </ul>
       </li>
       <li><a href="#setting-up-email-notifications" id="markdown-toc-setting-up-email-notifications">Setting up email notifications</a>        <ul>
-          <li><a href="#customizing-the-email-contents-and-the-sending-methods" id="markdown-toc-customizing-the-email-contents-and-the-sending-methods">Customizing the email contents, and the sending methods.</a></li>
+          <li><a href="#customizing-the-email-contents-and-the-sending-methods" id="markdown-toc-customizing-the-email-contents-and-the-sending-methods">Customizing the email contents and the sending methods.</a></li>
         </ul>
       </li>
     </ul>
@@ -217,6 +217,7 @@
       <li><a href="#mongodb-server-availability" id="markdown-toc-mongodb-server-availability">MongoDB server availability.</a></li>
     </ul>
   </li>
+  <li><a href="#closing-thoughts" id="markdown-toc-closing-thoughts">Closing thoughts.</a></li>
 </ul>
 
 <h1 id="what-is-nagios">What is Nagios.</h1>
@@ -249,7 +250,7 @@
 <p>The state of a resource is determined through two components:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>- The state of the service or resource: OK, WARNING, UP, DOWN...
-- The _type_ of state the resource is in: _soft_ or _hard_.
+- The type of state the resource is in: soft or hard.
 </code></pre>
 </div>
 
@@ -267,19 +268,19 @@
 
 <p>In any case, flapping would generate many notifications about the same issue. In order to mitigate this situation, we should increase <em>max_check_attempts</em> to a value that allows these false positives to fall under the threshold and be careful to not increase too much that issues go unreported.</p>
 
-<p>Nagios contains logic that tries to address flapping, but given the nature of the problem it might not be enough for any specific environment.</p>
+<p>Nagios contains logic that tries to address flapping, but given the nature of the problem it might not be enough to eliminate the problem in our specific environment.</p>
 
-<h1 id="description-of-the-scenario-we-will-work-with-in-this-post">Description of the scenario we will work with in this post.</h1>
+<h1 id="description-of-the-scenario-we-are-working-with-in-this-post">Description of the scenario we are working with in this post.</h1>
 
 <p>We have three virtual machines in the same network, all three using Debian 8 (Jessie).</p>
 
 <ul>
   <li>nagiosHost: 192.168.100.1, will function as the Nagios server. It will also host a MongoDB instance, and an SSH server.</li>
   <li>servidorLamp: 192.168.100.2, will have a LAMP stack installed.</li>
-  <li>escritorio-usuario: 192.168.100.3, will be a desktop for the end-user to use.</li>
+  <li>escritorioUsuario: 192.168.100.3, will be a desktop for the end-user to use.</li>
 </ul>
 
-<p>This scenario can be deployed automatically through the use of this <a href="/assets/vagrantfiles/2017-08-18-Nagios/Vagrantfile.zip">Vagrantfile</a>, including all services and configuration.</p>
+<p>This scenario can be deployed automatically through the use of this <a href="/assets/vagrantfiles/2017-08-18-Nagios/en/Vagrantfile.zip">Vagrantfile</a>, including all services and configuration.</p>
 
 <h1 id="installing-nagios">Installing Nagios.</h1>
 
@@ -322,7 +323,7 @@ service nagios3 restart</code></pre></figure>
 <h2 id="adding-devices-to-the-monitoring-list">Adding devices to the monitoring list</h2>
 
 <blockquote>
-  <p><em>conf.d</em> is a folder that is consumed in its entirety to build the runtime configuration. We can split the settings however we see fit, following the criteria that we consider fits our organization best.</p>
+  <p><em>conf.d</em> is a folder that is consumed in its entirety to build the runtime configuration. We can split the settings however we see fit, following the criteria that fits our infrastructure best.</p>
 </blockquote>
 
 <p>These steps are to be perfomed on nagiosHost.</p>
@@ -444,10 +445,9 @@ define service{
 
 <p>Custom service checks are defined in two parts: A mandatory definition in the Nagios server, and an optional second definition in the monitored device.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>- In the Nagios server, we have to define the custom command name that will be run through the agent in the monitored device.
-- In the monitored device, the definition of the custom command itself.
-</code></pre>
-</div>
+<p>In the Nagios server, we have to define the custom command name that will be run through on the server itself.</p>
+
+<p>In the monitored device, the definition of the custom command we are going to run <em>inside</em> the monitorized device itself.</p>
 
 <blockquote>
   <p>If we need to gather information about the state of the monitored device that can only be collected by running code <em>on the device</em>, then the secondary definition becomes necessary.</p>
@@ -472,13 +472,13 @@ define service{
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">command[check_zombies]=/usr/lib/nagios/plugins/check_procs -w 0 -s Z+</code></pre></figure>
 
-<h2 id="installing-additional-plugins-to-monitor-other-services-and-states">Installing additional plugins to monitor other services and states.</h2>
+<h2 id="installing-additional-plugins-to-monitor-other-services">Installing additional plugins to monitor other services.</h2>
 
 <p>To be able to monitor the state of the MongoDB database on nagiosHost, we are going to install <a href="https://github.com/mzupan/nagios-plugin-mongodb">nagios-plugin-mongodb</a>. The process is very similar to adding a custom check: the only explicit difference is that we don’t have a <em>check_mongodb</em> command already available in the PATH, thus we have to install it first.</p>
 
 <h3 id="installing-nagios-plugin-mongodb">Installing nagios-plugin-mongodb</h3>
 
-<p>Since the plugin is coded in Python, the install process is very simple. We are going to clone the repository, install the requirements and then the python MongoDB connector.</p>
+<p>Since the plugin is coded in Python, the install process is very simple. We are going to clone the repository on the Nagios server, install the requirements and then the python MongoDB connector.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">cd /usr/lib/nagios/plugins
 git clone git://github.com/mzupan/nagios-plugin-mongodb.git
@@ -527,9 +527,9 @@ python -m pip install pymongo</code></pre></figure>
 <p>And <em>/etc/nagios3/conf.d/contact_groups_nagios2.cfg</em> will contain the list of groups, along with their memberships.</p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">define contactgroup {
-        contactgroup_name       l2admins
-        alias                   Level 2 Administrators
-        members                 ravia,ramanab
+        contactgroup_name       admins
+        alias                   Level 7 Administrators
+        members                 root
         }</code></pre></figure>
 
 <p>Now, we need to add to each service the groups that we’d like to be notified in case of issues using the <em>contact_groups</em> variable. For the SSH service, it would look like this.</p>
@@ -543,7 +543,7 @@ python -m pip install pymongo</code></pre></figure>
            contact_groups admins
 }</code></pre></figure>
 
-<h3 id="customizing-the-email-contents-and-the-sending-methods">Customizing the email contents, and the sending methods.</h3>
+<h3 id="customizing-the-email-contents-and-the-sending-methods">Customizing the email contents and the sending methods.</h3>
 
 <p>In this post we will use _sendemail, to be able to send the emails through the use of GMail’s SMTP servers.</p>
 
@@ -565,8 +565,9 @@ define command{
   <p>You could further customize the command line to include other channels of communications. We could add SMS notifications through Twilio or messages through Slack, for example.</p>
 </blockquote>
 
-<p>Variables $USER4 and $USER5 will contain our GMail username and password, used to authenticate against the SMTP server.
-<em>/etc/nagios3/resource.cfg</em></p>
+<p>Variables $USER4 and $USER5 will contain our GMail username and password, used to authenticate against the SMTP server.</p>
+
+<p><em>/etc/nagios3/resource.cfg</em></p>
 
 <figure class="highlight"><pre><code class="language-none" data-lang="none">$USER4$=username
 $USER5$=password</code></pre></figure>
@@ -617,6 +618,12 @@ $USER5$=password</code></pre></figure>
 
 <p>If we were to stop the MongoDB service to simulate a failure state, we can see that Nagios detects that new connections are not being established and sends an email notification about the matter.
 <img src="/assets/images/2017-08-18-Nagios/nagios_mongodb.png" alt="MongoDB is refusing new connectionshg." /></p>
+
+<h1 id="closing-thoughts">Closing thoughts.</h1>
+
+<p>It is of vital importance that we are aware of issues in our infrastructure <em>before</em> the customers are.</p>
+
+<p>Nagios allows us to condense down all the information about the state of our deployment into an easily <em>glanceable</em> dashboard, and the time investment required to set it up is worth the peace of mind of knowing our infrastructure is healthy and if that were to change we would be the first ones to know.</p>
 
 	  </div>
 
