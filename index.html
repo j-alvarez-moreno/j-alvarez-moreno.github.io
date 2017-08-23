@@ -166,11 +166,108 @@
 
 
 	
+		
+		<article class="home">
+		  <span class="post-date">
+		    
+		    August
+		    18th,
+		    
+		    2017
+		  </span>
+
+		  <h2>
+		    <a href="/nagios/2017/08/18/Nagios.html">Monitoring our infrastructure with Nagios.</a>
+		  </h2>
+
+		  <div>
+		    
+		    	
+		    		
+  					<p>In this post we will learn how to monitor computers and services with Nagios. This will allow us to receive timely and actionable alerts about issues in our infrastructure.</p>
+
+<ul id="markdown-toc">
+  <li><a href="/nagios/2017/08/18/Nagios.html#what-is-nagios" id="markdown-toc-what-is-nagios">What is Nagios.</a></li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#nagios-how-it-works" id="markdown-toc-nagios-how-it-works">Nagios: How it works.</a>    <ul>
+      <li><a href="/nagios/2017/08/18/Nagios.html#monitored-service-states-and-transition-flow-between-states" id="markdown-toc-monitored-service-states-and-transition-flow-between-states">Monitored service states, and transition flow between states.</a>        <ul>
+          <li><a href="/nagios/2017/08/18/Nagios.html#a-resource-is-flapping-what-does-flapping-mean" id="markdown-toc-a-resource-is-flapping-what-does-flapping-mean">A resource is “flapping”. What does “flapping” mean?</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#description-of-the-scenario-we-will-work-with-in-this-post" id="markdown-toc-description-of-the-scenario-we-will-work-with-in-this-post">Description of the scenario we will work with in this post.</a></li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#installing-nagios" id="markdown-toc-installing-nagios">Installing Nagios.</a></li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#monitoring-services-and-computers" id="markdown-toc-monitoring-services-and-computers">Monitoring services and computers.</a>    <ul>
+      <li><a href="/nagios/2017/08/18/Nagios.html#installing-the-monitoring-agent" id="markdown-toc-installing-the-monitoring-agent">Installing the monitoring agent.</a></li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#adding-devices-to-the-monitoring-list" id="markdown-toc-adding-devices-to-the-monitoring-list">Adding devices to the monitoring list</a></li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#defining-services-to-monitor" id="markdown-toc-defining-services-to-monitor">Defining services to monitor</a></li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#adding-custom-service-checks" id="markdown-toc-adding-custom-service-checks">Adding custom service checks.</a>        <ul>
+          <li><a href="/nagios/2017/08/18/Nagios.html#checking-for-zombie-processes" id="markdown-toc-checking-for-zombie-processes">Checking for zombie processes.</a>            <ul>
+              <li><a href="/nagios/2017/08/18/Nagios.html#nagios-server" id="markdown-toc-nagios-server">Nagios server</a></li>
+              <li><a href="/nagios/2017/08/18/Nagios.html#monitored-device" id="markdown-toc-monitored-device">Monitored device.</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#installing-additional-plugins-to-monitor-other-services-and-states" id="markdown-toc-installing-additional-plugins-to-monitor-other-services-and-states">Installing additional plugins to monitor other services and states.</a>        <ul>
+          <li><a href="/nagios/2017/08/18/Nagios.html#installing-nagios-plugin-mongodb" id="markdown-toc-installing-nagios-plugin-mongodb">Installing nagios-plugin-mongodb</a></li>
+        </ul>
+      </li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#setting-up-email-notifications" id="markdown-toc-setting-up-email-notifications">Setting up email notifications</a>        <ul>
+          <li><a href="/nagios/2017/08/18/Nagios.html#customizing-the-email-contents-and-the-sending-methods" id="markdown-toc-customizing-the-email-contents-and-the-sending-methods">Customizing the email contents, and the sending methods.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#at-a-glance-overview-of-our-devices-and-services" id="markdown-toc-at-a-glance-overview-of-our-devices-and-services">At-a-glance overview of our devices and services.</a></li>
+  <li><a href="/nagios/2017/08/18/Nagios.html#testing-notifications" id="markdown-toc-testing-notifications">Testing notifications.</a>    <ul>
+      <li><a href="/nagios/2017/08/18/Nagios.html#device-offline" id="markdown-toc-device-offline">Device offline.</a></li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#zombie-process" id="markdown-toc-zombie-process">Zombie process.</a></li>
+      <li><a href="/nagios/2017/08/18/Nagios.html#mongodb-server-availability" id="markdown-toc-mongodb-server-availability">MongoDB server availability.</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="what-is-nagios">What is Nagios.</h1>
+<p>Nagios is an application that monitors computers, services, networks and infrastructure. It sends alerts in case of trouble, and it sends notifications when the issue is resolved.</p>
+
+<p>Unlike other commercial alternatives like SolarWinds, Nagios is both free and Open Source and <a href="https://support.nagios.com/support-plans/">it also offers the option of purchasing a support plan</a>.</p>
+
+<h1 id="nagios-how-it-works">Nagios: How it works.</h1>
+
+<p>Nagios can obtain information about the monitored resources in two different ways:</p>
+
+<ul>
+  <li>
+    <p>Using the Nagios Agent: After deploying the Agent to the computers you want to monitor, these agents collect the information and perform the checks by themselves before sending them to the Nagios server.
+  -The main advantage of this method is the flexbility it offers, since we can define custom checks and write code to monitor any resource we can think of. The disadvantage would be that we have to push the definition of these custom checks to the clients.</p>
+  </li>
+  <li>
+    <p><em>Agentless</em> : The Nagios server uses the facilities provided by the device that is being monitored (for example, VMI or SNMP).</p>
+    <ul>
+      <li>The main advantage of this mode is that it reduces the complexity of our deployment, and it allows us to centralize all the configuration in the Nagios server. The disadvantage would be that it does not allow for custom checks, so if the device does not provide a facility for monitoring a resource we can’t monitor it this way.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Nagios is able to use both modes at the same time, combining the results from agent checks and from agentless checks.
+
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/nagios/2017/08/18/Nagios.html">View full post.</a>
+	  				</li>
+				</ul>
+			    
+		    
+		  </div>
+		<div class="separator"></div>
+		</article>
+		
+	
 
 	
 		
 		<article class="home">
-
 		  <span class="post-date">
 		    
 		    August
@@ -226,7 +323,7 @@
 			    
 		    
 		  </div>
-
+		<div class="separator"></div>
 		</article>
 		
 	
@@ -234,7 +331,6 @@
 	
 		
 		<article class="home">
-
 		  <span class="post-date">
 		    
 		    August
@@ -258,7 +354,7 @@
 
 		    
 		  </div>
-
+		<div class="separator"></div>
 		</article>
 		
 	

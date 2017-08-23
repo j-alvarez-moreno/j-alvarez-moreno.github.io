@@ -7,6 +7,9 @@ a {
 body{
 	color: #2c3e50;
 }
+.separator {
+  border-top: 0.5px solid black;
+}
 
 .sidebar {
 	position: fixed;
@@ -114,7 +117,12 @@ article {
 
 article.home div a, article.home pre a { color: blue; }
 article.home div a:hover, article.home pre a:hover { color: blue }
-article img { max-width: 100%; }
+article img {
+	max-width: 100%;
+	border: 2px solid black;
+	box-shadow: 8px 8px 10px #aaa;
+}
+
 
 h1,h2,h3,h4,h5,h6 { font-family: 'Ubuntu', sans-serif; }
 article.home h1,
