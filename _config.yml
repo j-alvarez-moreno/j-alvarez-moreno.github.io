@@ -52,5 +52,13 @@ gems:
 translations:
   en:
     read_more: "View full post."
+    estimated_read_time: "Estimated read time"
+    read: "Estimated time to read: "
+    minute: "minute"
+    minutes: "minutes"
   es:
     read_more: "Ver post completo."
+    estimated_read_time: "Tiempo de lectura estimado"
+    minute: "minuto"
+    minutes: "minutos"
+    read: "Tiempo estimado de lectura: "

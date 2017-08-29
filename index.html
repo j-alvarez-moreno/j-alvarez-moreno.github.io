@@ -18,6 +18,8 @@ tagline:
 		    {% endcase %}
 		    {{ post.date | date: "%Y" }}
 		  </span>
+		      ·      
+	      {% include read_time.html content=post.content %}
 
 		  <h2>
 		    <a href="{{ site.BASE_PATH }}{{ post.url }}">{{ post.title }}</a>

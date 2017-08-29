@@ -1,0 +1,12 @@
+<span class="reading-time" title="{{ site.translations[site.active_lang].estimated_read_time }}">
+ 	{% if include.content %}
+		{% assign content = include.content %}
+	{% endif %}
+
+	{% assign words = content | number_of_words %}
+	{% if words < 360 %}
+		{{ site.translations[site.active_lang].read }} 1 {{ site.translations[site.active_lang].minute }}.
+		{% else %}
+	{{ site.translations[site.active_lang].read }} {{ words | divided_by:180 }} {{ site.translations[site.active_lang].minutes }}.
+  {% endif %}
+</span>
