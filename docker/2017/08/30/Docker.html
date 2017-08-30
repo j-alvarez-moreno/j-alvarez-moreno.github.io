@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	
+	<meta name="author" content="Josué Álvarez Moreno">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/j-alvarez-moreno">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:blog@josuealvarezmoreno.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="https://linkedin.com/in/josué-álvarez-moreno-b88896144">
+				<i class="fa fa-linkedin fa-lg"></i>
+			</a>
+			
+			<a type="button" class="navbar-toggle nav-link"  data-toggle="collapse" data-target="#language-picker">
+				<i class="fa fa-globe"></i>
+				<span class="sr-only">Language selection.</span>
+			</a>
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956?s=35" class="img-circle" />
+				
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+		<div class="collapse navbar-collapse" id="language-picker">
+			<ul class="nav navbar-nav">
+				
+					<li><a 
+							style="font-size: 16px; color: grey"
+						 href=" /es/docker/2017/08/30/Docker.html ">Español</a></li>
+	  			
+					<li><a 
+							style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+						 href=" /docker/2017/08/30/Docker.html ">English</a></li>
+	  			
+			</ul>
+		</div>
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="">
+		<!-- sidebar.html -->
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/"></a>
+    </h3>
+</header>
+
+
+<div id="bio" class="text-center">
+	
+</div>
+
+
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/j-alvarez-moreno">
+				<i class="fa fa-github-alt fa-lg"></i>
+			</a>
+		</li>
+		
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:blog@josuealvarezmoreno.com">
+				<i class="fa fa-envelope fa-lg"></i>
+			</a>
+		</li>
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://linkedin.com/in/josué-álvarez-moreno-b88896144">
+				<i class="fa fa-linkedin fa-lg"></i>
+			</a>
+		</li>
+	</ul>
+	<br><br><br><br>
+	<div id="language-switcher">
+  		
+			<a 
+					style="font-size: 16px; color: white"
+				 href=" /es/docker/2017/08/30/Docker.html ">Español</a>
+			 | 
+  		
+			<a 
+					style="font-weight: bold; font-size: 20px; color: #ffcb6a"
+				 href=" /docker/2017/08/30/Docker.html ">English</a>
+			
+  		
+  	</div>
+</div>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>Docker 101 - Containerizing our first application. </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   August 
+	   30th,
+	   
+	   2017
+	 </span>    ·      
+	 <span class="reading-time" title="Estimated reading time">
+ 	
+
+	
+	
+	Estimated reading time:  35 minutes.
+  
+</span>
+
+	  <div class="article_body">
+	  <p>In this post we will learn what Docker is, how to use it, when it is appropiate to use it and we’ll make our first docker container based on a real-world production scenario.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#what-is-a-container" id="markdown-toc-what-is-a-container">What is a container?</a>    <ul>
+      <li><a href="#pros-and-cons-of-using-containers" id="markdown-toc-pros-and-cons-of-using-containers">Pros and cons of using containers.</a></li>
+      <li><a href="#real-world-examples-of-containerized-applications" id="markdown-toc-real-world-examples-of-containerized-applications">Real-world examples of containerized applications.</a></li>
+    </ul>
+  </li>
+  <li><a href="#what-is-docker" id="markdown-toc-what-is-docker">What is Docker?</a></li>
+  <li><a href="#what-containers-and-by-extension-docker-are-not" id="markdown-toc-what-containers-and-by-extension-docker-are-not">What containers, and by extension Docker, are not.</a></li>
+  <li><a href="#installing-docker" id="markdown-toc-installing-docker">Installing Docker</a>    <ul>
+      <li><a href="#optional-but-recommended-post-install-steps" id="markdown-toc-optional-but-recommended-post-install-steps">Optional but recommended post-install steps.</a>        <ul>
+          <li><a href="#removing-the-need-for-sudo" id="markdown-toc-removing-the-need-for-sudo">Removing the need for <em>sudo</em>.</a></li>
+          <li><a href="#configure-the-docker-daemon-to-start-on-boot" id="markdown-toc-configure-the-docker-daemon-to-start-on-boot">Configure the Docker daemon to start on boot.</a></li>
+          <li><a href="#auto-completion-of-commands-for-docker" id="markdown-toc-auto-completion-of-commands-for-docker">Auto-completion of commands for Docker.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#running-our-very-first-container-and-a-look-behind-the-scenes" id="markdown-toc-running-our-very-first-container-and-a-look-behind-the-scenes">Running our very first container, and a look behind the scenes.</a>    <ul>
+      <li><a href="#hello-world" id="markdown-toc-hello-world">Hello World.</a></li>
+      <li><a href="#docker-workflow-and-container-lifecycle" id="markdown-toc-docker-workflow-and-container-lifecycle">Docker workflow and container lifecycle.</a></li>
+    </ul>
+  </li>
+  <li><a href="#adding-persistent-storage" id="markdown-toc-adding-persistent-storage">Adding persistent storage.</a>    <ul>
+      <li><a href="#mounts" id="markdown-toc-mounts">Mounts</a></li>
+      <li><a href="#criteria-for-choosing-between-volumes-bind-mounts-or-tmpfs" id="markdown-toc-criteria-for-choosing-between-volumes-bind-mounts-or-tmpfs">Criteria for choosing between volumes, bind mounts or tmpfs.</a></li>
+    </ul>
+  </li>
+  <li><a href="#networking" id="markdown-toc-networking">Networking.</a></li>
+  <li><a href="#a-hypothetical-real-world-production-example" id="markdown-toc-a-hypothetical-real-world-production-example">A hypothetical real-world production example</a>    <ul>
+      <li><a href="#description-of-the-scenario" id="markdown-toc-description-of-the-scenario">Description of the scenario</a></li>
+      <li><a href="#designing-the-container" id="markdown-toc-designing-the-container">Designing the container.</a>        <ul>
+          <li><a href="#determining-the-requirements" id="markdown-toc-determining-the-requirements">Determining the requirements.</a></li>
+          <li><a href="#building-the-base-image" id="markdown-toc-building-the-base-image">Building the base image.</a></li>
+          <li><a href="#applying-the-necessary-customizations-with-a-dockerfile" id="markdown-toc-applying-the-necessary-customizations-with-a-dockerfile">Applying the necessary customizations with a Dockerfile.</a></li>
+        </ul>
+      </li>
+      <li><a href="#building-and-launghing-the-container" id="markdown-toc-building-and-launghing-the-container">Building and launghing the container.</a></li>
+      <li><a href="#sharing-devices-and-folders" id="markdown-toc-sharing-devices-and-folders">Sharing devices and folders</a>        <ul>
+          <li><a href="#adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount" id="markdown-toc-adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount">Adding a shared folder between the host and the container with a bind mount.</a></li>
+          <li><a href="#sharing-a-physical-device-with-the-container" id="markdown-toc-sharing-a-physical-device-with-the-container">Sharing a physical device with the container.</a></li>
+        </ul>
+      </li>
+      <li><a href="#running-the-container" id="markdown-toc-running-the-container">Running the container.</a></li>
+      <li><a href="#running-more-than-one-instance-of-the-app" id="markdown-toc-running-more-than-one-instance-of-the-app">Running more than one instance of the app.</a></li>
+      <li><a href="#debugging-a-container-stepping-inside-through-a-shell" id="markdown-toc-debugging-a-container-stepping-inside-through-a-shell">Debugging a container: Stepping inside through a shell.</a></li>
+    </ul>
+  </li>
+  <li><a href="#cleaning-the-images-and-temporary-files-we-have-created" id="markdown-toc-cleaning-the-images-and-temporary-files-we-have-created">Cleaning the images and temporary files we have created.</a></li>
+  <li><a href="#conclusions" id="markdown-toc-conclusions">Conclusions.</a></li>
+</ul>
+
+<h1 id="what-is-a-container">What is a container?</h1>
+
+<p>Containers can be conceptually thought of as an <em>advanced version of chroot</em> or a lighter <em>alternative</em> to virtualization.</p>
+
+<p>A container is an isolated user-level instance of the OS. From the point of view of the applications running inside these instances the container behaves exactly like a real computer, and the application will have access only to the resources that are explicitly assigned to it.</p>
+
+<p>Containers share the running kernel and general system calls of the host OS, which means that it is significantly less demanding than traditional virtualization resource-wise. The downside to this is that you can’t have an application running in a container with a different OS than the host.</p>
+
+<h2 id="pros-and-cons-of-using-containers">Pros and cons of using containers.</h2>
+
+<p>Using containers has a few inmediate advantages:</p>
+
+<ul>
+  <li>
+    <p><strong>We can package applications along with their dependencies</strong>, creating a portable version of the app and eliminating the dreaded “<em>but it works on my machine</em>“-scenario. This helps eliminate the proverbial walls between the Operations departament and Development’s.</p>
+  </li>
+  <li>
+    <p><strong>It is significantly lighter than traditional OS virtualization</strong>, enabling a higher compute density in the same hardware.</p>
+  </li>
+  <li>
+    <p><strong>Reduced the effort required to maintain the runtime environment, along with its complexity</strong>. Since the applications can be treated as an opaque self-contained bundle, the package and the behaviour are the same in testing and in production.</p>
+  </li>
+  <li>
+    <p><strong>Since the infrastructure is declared as code, we benefit from the advantages of IaC</strong>: Infrastructure versioning, code as reliable documentation and straightforward deployment of new environments.</p>
+  </li>
+</ul>
+
+<p>Of course, we must mention the disadvantages too:</p>
+
+<ul>
+  <li>
+    <p><strong>Containers run on top of an additional abstraction layer compared to bare-metal</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Containers share the running kernel with the host</strong>. A bug/glitch in the running kernel affects all the running containers.</p>
+  </li>
+  <li>
+    <p><strong>Container management is challenging</strong>, though tools like <a href="https://docs.docker.com/engine/swarm">Docker Swarm</a> and <a href="http://kubernetes.io/">Google Kubernetes</a> can mitigate this.</p>
+  </li>
+  <li>
+    <p><strong>GUI applications don’t work well</strong>. While we can work around this using X11 forwarding, it’s not a straightforward solution.</p>
+  </li>
+</ul>
+
+<!--more-->
+
+<h2 id="real-world-examples-of-containerized-applications">Real-world examples of containerized applications.</h2>
+
+<ul>
+  <li>
+    <p>Containerizing a Java App: <a href="https://www.atlassian.com/blog/software-teams/deploy-java-apps-with-docker-awesome">Atlassian’s BitBucket</a></p>
+  </li>
+  <li>
+    <p><a href="https://docs.docker.com/engine/examples/postgresql_service/#installing-postgresql-on-docker">Deploying PostgreSQL via containers</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://www.mongodb.com/blog/post/running-mongodb-as-a-microservice-with-docker-and-kubernetes">MongoDB as a microservice with Docker and Kubernetes</a>.</p>
+  </li>
+</ul>
+
+<h1 id="what-is-docker">What is Docker?</h1>
+
+<p>Docker is a software product that implements container support. Thanks to Docker, we can package applications along with their dependencies and libraries and execute them in an isolated environment.</p>
+
+<p>Among other features, Docker provides support for <a href="https://docs.docker.com/engine/userguide/networking/">isolated networking</a> and <a href="https://docs.docker.com/engine/reference/commandline/run/#add-host-device-to-container-device">directly exposing physical devices to the container</a>. Docker can also download pre-built images from Docker Hub or a private repository.</p>
+
+<h1 id="what-containers-and-by-extension-docker-are-not">What containers, and by extension Docker, are not.</h1>
+
+<p>Containers are not a general-purpose solution to the <em>application packaging</em> problem. While containerizing an application has many advantages, it will often not be a straightforward process and the time and effort invested might prove too high.</p>
+
+<p>To use an obvious example, would it make sense to distribute Skype in a container-like package? No.</p>
+
+<ul>
+  <li>
+    <p>Skype is a monolithic application, and splitting it into separate container-like components makes no practical sense.</p>
+  </li>
+  <li>
+    <p>It would need to have access to the host OS’s audio server. On PulseAudio you could work around it by establising a network audio sink on the host, but we would have to run an additional audio server.</p>
+  </li>
+  <li>
+    <p>A container can not natively communicate with the display server. There are workarounds for this but they involve either X11 forwaring through the network or sharing the X11 socket and breaking the isolation paradigm</p>
+  </li>
+</ul>
+
+<p>If Skype would benefit from the advantages of containerization (ease of deployment, isolation, being incorporated into a  continuous integration pipeline) then these tradeoffs might be worthwile.</p>
+
+<h1 id="installing-docker">Installing Docker</h1>
+
+<p>We are going to be using Docker 17.06.1-ce on Ubuntu 17.04.</p>
+
+<blockquote>
+  <p>The most recent release and installation instructions for Ubuntu are available <a href="https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository">on Docker’s website</a> along <a href="https://docs.docker.com/engine/installation/#server">with the rest of the supported operating systems and architectures</a>.</p>
+</blockquote>
+
+<p>First step is making sure we have the tools to add HTTPS repositories to our package sources.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</code></pre></figure>
+
+<p>Let’s add Docker’s official GPG key so we can verify packages, afterwards we double-check that the GPG key matches.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+
+# At the time of writing this article, the key fingerprint is: 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.</code></pre></figure>
+
+<p>There are three Docker release rings: stable, edge and test. Unless you <em>really</em> need functionality or fixes not present in the stable ring, you should stick to the stable production releases.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</code></pre></figure>
+
+<p>If you would like to switch release rings, add the word <em>edge</em> or <em>test</em> after the word <em>stable</em> in the previous command.</p>
+
+<p>Now, let’s refresh the package list and install docker.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get update
+sudo apt-get install docker-ce</code></pre></figure>
+
+<blockquote>
+  <p>Docker containers currently have to be managed by the <em>root</em> user (or the equivalent in your chosen platform). Due to Docker’s design and capabilities, there is no way around this requirement.
+There are plans to eventually remove this restriction, but at the time of writing this post there is no actual roadmap on this matter.</p>
+</blockquote>
+
+<p>As a result of the above concerns, only trusted users should be allowed to have access to the Docker daemon or any of the related utilities.</p>
+
+<h2 id="optional-but-recommended-post-install-steps">Optional but recommended post-install steps.</h2>
+
+<h3 id="removing-the-need-for-sudo">Removing the need for <em>sudo</em>.</h3>
+
+<p>If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. When the docker daemon starts, it makes its socket read/writable by the docker group.</p>
+
+<blockquote>
+  <p>Warning: The docker group grants privileges equivalent to the root user. For details on how this impacts security in your system, see <a href="https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface">Docker Daemon Attack Surface</a>.</p>
+</blockquote>
+
+<p>Creating the <em>docker</em> group and adding your user to it is a straightforward process.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo groupadd docker
+sudo usermod -aG docker `whoami`</code></pre></figure>
+
+<p>You will need to log out of the session completely, and log back in.</p>
+
+<h3 id="configure-the-docker-daemon-to-start-on-boot">Configure the Docker daemon to start on boot.</h3>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo systemctl enable docker</code></pre></figure>
+
+<h3 id="auto-completion-of-commands-for-docker">Auto-completion of commands for Docker.</h3>
+
+<p>Docker contains a variety of commands and the image and containers are identified by their IDs or, if we manually specify so, their friendly names. It is possible to integrate shell auto-completion with Docker commands and parameters, making our job a little easier.</p>
+
+<p>We are going to implement this for Bash on Ubuntu 16.04.</p>
+
+<p>First of all, we need the bash-completion package. In the rare case that it’s not already installed in our distribution, we can install it via the package manager.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt install bash-completion</code></pre></figure>
+
+<p>Last step is to download the completion script and place it in <em>/etc/bash_completion.d/</em></p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose</code></pre></figure>
+
+<p>Every new instance of bash will make use of the newly extended completion funtionality.</p>
+
+<p>Up-to-date instructions for Bash and other shells <a href="https://docs.docker.com/compose/completion/#installing-command-completion">are available on the website</a>.</p>
+
+<h1 id="running-our-very-first-container-and-a-look-behind-the-scenes">Running our very first container, and a look behind the scenes.</h1>
+
+<h2 id="hello-world">Hello World.</h2>
+
+<p>To test our Docker installation we are going to run a container supplied by Docker, its only function being displaying a welcome message.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo docker run hello-world</code></pre></figure>
+
+<p>It results in the following output in the terminal.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.</code></pre></figure>
+
+<p>To be able to understand what just happened, we need to take a step back and examine the process of creating a container.</p>
+
+<h2 id="docker-workflow-and-container-lifecycle">Docker workflow and container lifecycle.</h2>
+
+<p>A container is composed of two layers: the base isolated environment in which the application or service will be executed, <em>image</em> in Docker parlance; and the application or service themselves that we are going to run. Both of these are specified in a <em>Dockerfile</em>, which is nothing more than a plain-text file named Dockerfile.</p>
+
+<p>For example, let’s examine the hello-world <em>Dockerfile</em>.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">FROM scratch
+COPY hello /
+# Separator, to be used in a few moments.
+CMD ["/hello"]</code></pre></figure>
+
+<p>All instructions in a Dockerfile refer to the process of composing the parent image, except the <em>CMD</em> instruction which specifies the command that will be executed when the container is run.</p>
+
+<p><em>FROM</em> is a reserved keyword that establishes the environment in which the image will be built on. <em>scratch</em> is a minimal Docker environment, but we could specify another Docker image as a base such as an Ubuntu or CentOS environment.</p>
+
+<p><em>COPY</em> copies the specified file to the destination, in this case <em>hello</em> to the root of the filesystem.</p>
+
+<p><em>CMD</em> executes a binary called <em>hello</em> when the container is run.</p>
+
+<p>Let’s examine a more complex example, a Python 3.4.3 <em>only</em> runtime environment based on Debian Jessie.</p>
+
+<blockquote>
+  <p>Be careful to not confuse <em>RUN</em> with <em>CMD</em>. <em>RUN</em> is executed when building the parent image, and <em>CMD</em> is the instruction that is ran when launching the container. Think of <em>CMD</em> as the command that launches your service, and <em>RUN</em> executes image-building steps.</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none"># Builds on top of a Jessie base image.
+FROM buildpack-deps:jessie 
+
+# Remove the bundled python version, and everything related.
+RUN apt-get purge -y python.*
+
+ENV LANG C.UTF-8
+
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 97FC712E4C024BBEA48A61ED3A5CA953F73C700D
+
+ENV PYTHON_VERSION 3.4.3
+
+ENV PYTHON_PIP_VERSION 7.1.0
+
+# Downloads Python 3.4.3 from the official sources, and compiles it.
+RUN set -x \
+	&amp;&amp; mkdir -p /usr/src/python \
+	&amp;&amp; curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
+	&amp;&amp; curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz.asc \
+	&amp;&amp; gpg --verify python.tar.xz.asc \
+	&amp;&amp; tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
+	&amp;&amp; rm python.tar.xz* \
+	&amp;&amp; cd /usr/src/python \
+	&amp;&amp; ./configure --enable-shared --enable-unicode=ucs4 \
+	&amp;&amp; make -j$(nproc) \
+	&amp;&amp; make install \
+	&amp;&amp; ldconfig \
+	&amp;&amp; pip3 install --no-cache-dir --upgrade pip==$PYTHON_PIP_VERSION \
+	&amp;&amp; find /usr/local \
+		\( -type d -a -name test -o -name tests \) \
+		-o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
+		-exec rm -rf '{}' + \
+	&amp;&amp; rm -rf /usr/src/python
+
+RUN cd /usr/local/bin \
+	&amp;&amp; ln -s easy_install-3.4 easy_install \
+	&amp;&amp; ln -s idle3 idle \
+	&amp;&amp; ln -s pydoc3 pydoc \
+	&amp;&amp; ln -s python3 python \
+	&amp;&amp; ln -s python-config3 python-config
+
+# This is the command that will be run when the container is launched.
+CMD python3 -c 'print("Hello World, I am a blog.")'</code></pre></figure>
+
+<p>If we build this image, Docker will include everything in the current directory and then execute these instructions.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">docker build -t python3-hello-world .</code></pre></figure>
+
+<p>After the process finishes, we can create a container based on the image and run it.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker run python3-hello-world
+
+Hello World, I am a blog.</code></pre></figure>
+
+<p>A complete Dockerfile syntax and documentation reference <a href="https://docs.docker.com/engine/reference/builder/">are available on Docker’s website</a>.</p>
+
+<h1 id="adding-persistent-storage">Adding persistent storage.</h1>
+
+<p>As stated previously, container storage is <em>volatile</em> by definition. That is, the changes are not saved and the state is discarded on shutdown. If we were to run a process that needs persistent storage, like a database server, this <em>would not be ideal</em> to say the least.</p>
+
+<p>Docker offers a solution for this problem: mounts.</p>
+
+<h2 id="mounts">Mounts</h2>
+
+<p>There are three kinds of mounts, two of which we can use to offer storage that will persist outside of the container.</p>
+
+<ul>
+  <li>
+    <p>Volumes: are managed by docker, exist outside of the application’s lifecycle and are portable. Good for sharing data among containers, and the preferred way of storing data.	Volumes are stored on the host filesystem, under <em>/var/lib/docker/volumes</em>.</p>
+  </li>
+  <li>
+    <p>Bind mounts are traditional folders on the host machine that are available inside the container on a specific path. Good for sharing data between the host system and the container.</p>
+  </li>
+  <li>
+    <p>tmpfs mounts: These are RAM filesystems that behave exactly like traditional tmpfs mounts and will be discarded on shutdown. Should only be used for temporary files, and it offers the speed advantage of being stored entirely on RAM.</p>
+  </li>
+</ul>
+
+<h2 id="criteria-for-choosing-between-volumes-bind-mounts-or-tmpfs">Criteria for choosing between volumes, bind mounts or tmpfs.</h2>
+
+<blockquote>
+  <p>Note: You may encounter the <em>-v</em> or <em>–volume</em> syntax on older documentation referring to data storage in Docker. This syntax has been deprecated, and it’s oficially replaced by the <em>–mount</em> syntax which we will use throughout this post. An extended explanation is available <a href="https://docs.docker.com/engine/admin/volumes/bind-mounts/#choosing-the--v-or-mount-flag">on the official documentation</a>.</p>
+</blockquote>
+
+<p><strong>Volumes</strong> can be shared between containers, are portable and are easier to back up and restore. They are able to be populated with the appropiate contents on deployment, and can be marked read-only. A common example would be hosting a website, and allowing the user to upload modifications via FTP. By sharing the volume, the apache2 process is able to read /var/www from the same place that the FTP server is able to write; at the same time we are keeping everything isolated.</p>
+
+<blockquote>
+  <p>On a Dockerfile you would declare a Volume with the following syntax: <em>VOLUME /var/log</em>.</p>
+</blockquote>
+
+<p><strong>Bind mounts</strong> work best in a scenario in which we need to preserve data from the container. For example, we need to share source code with the container, keep the container’s /etc/resolf.conf synced with the host’s or keep API secrets up to date inside the container. It could also be used to write the container’s logs into specific folders on the host.</p>
+
+<blockquote>
+  <p>Bind mounts cannot be declared from a Dockerfile, since the directories specified are not portable by definition and might not exist at runtime on the host machine. To use a bind mount, you must launch the container with the –mount parameter <a href="#adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount">as we will see in the example at the end of this post</a>.</p>
+</blockquote>
+
+<p><strong>tmpfs mounts</strong> are best used when the application generates non-persistent state data, and we need to eliminate the disk as a potential bottleneck when storing and accesing these files.</p>
+
+<h1 id="networking">Networking.</h1>
+
+<p>Although we can deploy our own custom networks, Docker installs 3 networks automatically: <em>bridge</em> which is the default network for all containers and is isolated from the host, <em>none</em> which means that the container will have no network connectivity and <em>host</em> will bind the container to the host’s network stack.</p>
+
+<blockquote>
+  <p><em>host</em> networking means that the container will be reachable from outside the host, and that the network is not isolated. For instance, a web server that runs in port 80 inside the container is automatically reachable through the host’s port 80.</p>
+</blockquote>
+
+<p>Docker Engine natively supports two kinds of networks: A bridge network, limited to a single host; and an overlay network, which can span across multiple hosts.</p>
+
+<p>In this post we are going to stick to the default bridge network, to deploy our test application in a isolated form.</p>
+
+<p>A full reference for the networking internals of Docker <a href="https://docs.docker.com/engine/tutorials/networkingcontainers/">is available on the manual</a>.</p>
+
+<h1 id="a-hypothetical-real-world-production-example">A hypothetical real-world production example</h1>
+
+<h2 id="description-of-the-scenario">Description of the scenario</h2>
+
+<p>Our company, WidgetMaker Inc, ships embedded devices that run a custom Linux distribution. To deploy our application code to these devices, we use a legacy app that was custom made for our needs a few years ago. This app requires:</p>
+
+<ul>
+  <li>
+    <p>Ubuntu 12.04 with a specific set of libraries and versions to function properly.</p>
+  </li>
+  <li>
+    <p>The application needs hardware access to a serial device to flash the generated binaries to our physical widgets.</p>
+  </li>
+  <li>
+    <p>It needs network access to show a web control panel, through which the application is controlled. Security was not a concern at the time of the design, which means a malicious actor could easily access the control panel and interfere with the process.</p>
+  </li>
+  <li>
+    <p>It will not work properly if multiple instances of the application are run at the same time, meaning that we can only deploy one widget at the time. The current workaround to perform this process in paralell is to have a few physical machines replicating the required configuration, and to manually operate them.</p>
+  </li>
+  <li>
+    <p>Retooling this app, while technically feasible, would be impractical for both budget and time-to-market reasons and our current budget is better spent elsewhere.</p>
+  </li>
+</ul>
+
+<p>Integrating this application into the general DevOps pipeline would allow us to save time and money:</p>
+
+<ul>
+  <li>
+    <p>The specific environment the app needs is now <em>inmutable</em> and easily recreated. If there is a sudden hardware failure, we are minutes away from having a replacement ready to work.</p>
+  </li>
+  <li>
+    <p>We can isolate the network, and only allow access following secure criteria.</p>
+  </li>
+  <li>
+    <p>We could automate the deploying process: Instead of a human operator triggering the flashing procedures, we could trigger the flashing process when the human plugs the widget into the serial adapter and perform an action to notify the user when the deployment is complete.</p>
+  </li>
+  <li>
+    <p>We can add automated unit testing to the deployment procedure: Through the use of tools like <a href="https://wiki.jenkins.io/display/JENKINS/Unit+Test">Jenkins</a> we can make sure that every single widget operates properly after the deployment, and guarantee that the units we ship to our customers are working correctly.</p>
+  </li>
+</ul>
+
+<h2 id="designing-the-container">Designing the container.</h2>
+
+<h3 id="determining-the-requirements">Determining the requirements.</h3>
+
+<ul>
+  <li>
+    <p>Ubuntu 12.04, with a series of specific libraries and settings.</p>
+  </li>
+  <li>
+    <p>Passthrough of /dev/ttyACM0 from the host OS.</p>
+  </li>
+  <li>
+    <p>Isolated network, with port 80 accessible only from our development machine.</p>
+  </li>
+  <li>
+    <p>The container access to the folder <em>hostOS:/workspace/widgetOS/deployment-image/</em> to get the latest version of the applications files for flashing purposes.</p>
+
+    <ul>
+      <li>A technically better way to do this would be to have the app code and the binaries stored on a repository that we could clone on launch, to ensure that every component is up to date. Since we want to learn how to inject files and folders for this example, we will not.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="building-the-base-image">Building the base image.</h3>
+
+<p>Docker Hub already contains a pre-built Ubuntu 12.04 image, but we are going to build it manually from scratch.</p>
+
+<p>If you wanted to use the Docker Hub image, you would just run <em>docker pull ubuntu:12.04</em> to download it. In this particular case the image does come from Canonical themselves, but Docker Hub offers no guarantees and anyone could upload an image and <em>pretend that it is trustworthy</em>.</p>
+
+<blockquote>
+  <p>Since this is a production scenario, it is not recommended to use Docker Hub unless we can fully certify that the image comes unaltered from a trusted source.</p>
+</blockquote>
+
+<p>We are going to use <a href="https://wiki.debian.org/Debootstrap">debootstrap</a> to install a base Ubuntu system into /tmp/precise-pangolin, and then we’ll make Docker use it as a base image before making any modifications.</p>
+
+<p>First we need to import the relevant GPG keys to be able to authenticate the packages. In this particular case, we need to install the package ubuntu-keyring, and pass a parameter to debootstrap so it used the old keys for Ubuntu releases.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install ubuntu-keyring
+
+mkdir /tmp/precise-pangolin
+cd /tmp/precise-pangolin
+sudo debootstrap --keyring /usr/share/keyrings/ubuntu-archive-removed-keys.gpg  --arch=i386 precise precise http://old-releases.ubuntu.com/ubuntu</code></pre></figure>
+
+<p>Now debootstrap will download all the base packages. After the process is finished, we import this into docker to use it as the base image.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo tar -C precise -c . | docker import - precise
+sha256:08d585429b174a4c27c89c47adf6f7bbb76d7cf3a246ca67562f257a7c66dc2d</code></pre></figure>
+
+<p>If we list the images, we can see that our newly created Precise Pangolin image is ready to use.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+precise             latest              08d585429b17        About a minute ago   168MB</code></pre></figure>
+
+<p>This will become our standard Ubuntu 16.04 base image. We are going to use it as a parent image, and we will customize it to our particular app needs.</p>
+
+<h3 id="applying-the-necessary-customizations-with-a-dockerfile">Applying the necessary customizations with a Dockerfile.</h3>
+
+<p>We are going to write a Dockerfile that will incorporate the necessary requirements for our app, and they will be applied to the base Ubuntu image.</p>
+
+<p>Docker builds the image through layers: think of layers as version-control, if you make a change Docker only has to rebuild from that change onwards since the previous layers remain unchanged.</p>
+
+<blockquote>
+  <p>Two of our requirements can’t be coded into the Dockerfile: shared folders and shared devices. We will instead satisfy them at launch time.</p>
+</blockquote>
+
+<p>For the purposes of recreating this scenario here are the contents of the file requirements.txt, which is present in the same folder as the Dockerfile.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">Flask
+Redis</code></pre></figure>
+
+<p>The following are the Dockerfile contents, along with comments explaining what the different directives are and how they help us fullfil the app’s requirements.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker"># Specify the image we want to build on top on.
+# "Parent image", in Docker-speak.
+FROM precise
+
+# LABEL lets you specify metadata for the container. This metada can be shown with `docker inspect`.
+
+LABEL	maintainer="josue@josuealvarezmoreno" \
+		copyright="WidgetMaker Inc" \
+		deviceSupportStatus.widgy="Stable" \
+		deviceSupportStatus.widgeton="Release Candidate 3" \
+		deviceSupportStatus.fidly="Beta"
+
+# The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime. EXPOSE does not make the ports of the container accessible to the host. To do that, you must use either the -p flag to publish a range of ports or the -P flag to publish all the exposed ports.
+EXPOSE 80
+
+# With the ENV instruction we can set enviroment variables.
+# In our case, the software checks for a specific enviroment variable as a form of license validation before flashing, ensuring that users can't accidentally damage their devices.
+ENV magicNumber="8974c408d831"
+
+# apt-get should be aware that this is not an interactive session, and assume sane defaults.
+ENV DEBIAN_FRONTEND noninteractive
+
+# These RUN commands are executed when building the image, and will mold the enviroment into the shape we need for the application to run.
+
+RUN apt-get update
+RUN apt-get install -y curl
+
+WORKDIR /tmp/
+
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+RUN python get-pip.py
+
+
+# The ADD instruction will copy the file or directory contents into the image.
+# Any change to the specified file will invalidate the cache for all following instructions, causing the image to be rebuilt if changes are detected.
+
+# Copies the latest requirements modifications to the appropiate directory.
+
+ADD requirements.txt /tmp/
+
+# Changes the working directory, equivalent to 'cd'.
+WORKDIR /tmp
+
+# Install the requirements for the python part of the app. This requirements file is located on /tmp/
+RUN pip install -r requirements.txt
+
+# A CMD instruction is only executed when launching the container, and there can be only one in a Dockerfile.
+# Runs the actual deployment program
+CMD python /workspace/widgetOS/deployment-image/flasher.py</code></pre></figure>
+
+<h2 id="building-and-launghing-the-container">Building and launghing the container.</h2>
+
+<p>To build the container, we need to initiate the build process from the <em>Dockerfile</em> directory. We are going to call this container <em>widget-deployer</em>.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo docker build -t widget-deployer .</code></pre></figure>
+
+<p>Note: The build process copies every file in the current directory into the Docker image.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">Sending build context to Docker daemon  6.144kB
+Step 1/14 : FROM precise
+ ---&gt; 0e0cf7094433
+Step 2/14 : LABEL maintainer "josue@josuealvarezmoreno" copyright "WidgetMaker Inc" deviceSupportStatus.widgy "Stable" deviceSupportStatus.widgeton "Release Candidate 3" deviceSupportStatus.fidly "Beta"
+ ---&gt; Running in 545a4bbd6902
+ ---&gt; 1abe7d9bf44e
+Removing intermediate container 545a4bbd6902
+Step 3/14 : EXPOSE 80
+ ---&gt; Running in c72f0bf476ba
+ ---&gt; 82304f3016b5
+Removing intermediate container c72f0bf476ba
+Step 4/14 : ENV magicNumber "8974c408d831"
+ ---&gt; Running in 06560f51ec54
+ ---&gt; 02a10485b58c
+Removing intermediate container 06560f51ec54
+Step 5/14 : ENV DEBIAN_FRONTEND noninteractive
+ ---&gt; Running in 408e767a5a63
+ ---&gt; f6c07c4eafe3
+Removing intermediate container 408e767a5a63
+Step 6/14 : RUN apt-get update
+ ---&gt; Running in 9778028dce0e
+Ign http://old-releases.ubuntu.com precise InRelease
+Hit http://old-releases.ubuntu.com precise Release.gpg
+Hit http://old-releases.ubuntu.com precise Release
+Hit http://old-releases.ubuntu.com precise/main i386 Packages
+Get:1 http://old-releases.ubuntu.com precise/main TranslationIndex [3706 B]
+Get:2 http://old-releases.ubuntu.com precise/main Translation-en [726 kB]
+Fetched 729 kB in 1s (479 kB/s)
+Reading package lists...
+ ---&gt; d7e16bef7aab
+Removing intermediate container 9778028dce0e
+Step 7/14 : RUN apt-get install -y curl
+ ---&gt; Running in 90c016c6034c
+Reading package lists...
+Building dependency tree...
+The following extra packages will be installed:
+  ca-certificates krb5-locales libasn1-8-heimdal libcurl3 libgcrypt11
+  libgnutls26 libgpg-error0 libgssapi-krb5-2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libidn11 libk5crypto3 libkeyutils1 libkrb5-26-heimdal
+  libkrb5-3 libkrb5support0 libldap-2.4-2 libp11-kit0 libroken18-heimdal
+  librtmp0 libsasl2-2 libsasl2-modules libtasn1-3 libwind0-heimdal openssl
+Suggested packages:
+  rng-tools gnutls-bin krb5-doc krb5-user libsasl2-modules-otp
+  libsasl2-modules-ldap libsasl2-modules-sql libsasl2-modules-gssapi-mit
+  libsasl2-modules-gssapi-heimdal
+The following NEW packages will be installed:
+  ca-certificates curl krb5-locales libasn1-8-heimdal libcurl3 libgcrypt11
+  libgnutls26 libgpg-error0 libgssapi-krb5-2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libidn11 libk5crypto3 libkeyutils1 libkrb5-26-heimdal
+  libkrb5-3 libkrb5support0 libldap-2.4-2 libp11-kit0 libroken18-heimdal
+  librtmp0 libsasl2-2 libsasl2-modules libtasn1-3 libwind0-heimdal openssl
+0 upgraded, 29 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3979 kB of archives.
+After this operation, 12.1 MB of additional disk space will be used.
+Get:1 http://old-releases.ubuntu.com/ubuntu/ precise/main libroken18-heimdal i386 1.6~git20120311.dfsg.1-2 [47.4 kB]
+Get:2 http://old-releases.ubuntu.com/ubuntu/ precise/main libasn1-8-heimdal i386 1.6~git20120311.dfsg.1-2 [242 kB]
+Get:3 http://old-releases.ubuntu.com/ubuntu/ precise/main libgpg-error0 i386 1.10-2ubuntu1 [14.4 kB]
+Get:4 http://old-releases.ubuntu.com/ubuntu/ precise/main libgcrypt11 i386 1.5.0-3 [281 kB]
+Get:5 http://old-releases.ubuntu.com/ubuntu/ precise/main libp11-kit0 i386 0.12-2ubuntu1 [33.6 kB]
+Get:6 http://old-releases.ubuntu.com/ubuntu/ precise/main libtasn1-3 i386 2.10-1ubuntu1 [43.7 kB]
+Get:7 http://old-releases.ubuntu.com/ubuntu/ precise/main libgnutls26 i386 2.12.14-5ubuntu3 [448 kB]
+Get:8 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5support0 i386 1.10+dfsg~beta1-2 [23.6 kB]
+Get:9 http://old-releases.ubuntu.com/ubuntu/ precise/main libk5crypto3 i386 1.10+dfsg~beta1-2 [77.1 kB]
+Get:10 http://old-releases.ubuntu.com/ubuntu/ precise/main libkeyutils1 i386 1.5.2-2 [7716 B]
+Get:11 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5-3 i386 1.10+dfsg~beta1-2 [367 kB]
+Get:12 http://old-releases.ubuntu.com/ubuntu/ precise/main libgssapi-krb5-2 i386 1.10+dfsg~beta1-2 [120 kB]
+Get:13 http://old-releases.ubuntu.com/ubuntu/ precise/main libhcrypto4-heimdal i386 1.6~git20120311.dfsg.1-2 [104 kB]
+Get:14 http://old-releases.ubuntu.com/ubuntu/ precise/main libheimbase1-heimdal i386 1.6~git20120311.dfsg.1-2 [33.2 kB]
+Get:15 http://old-releases.ubuntu.com/ubuntu/ precise/main libwind0-heimdal i386 1.6~git20120311.dfsg.1-2 [77.8 kB]
+Get:16 http://old-releases.ubuntu.com/ubuntu/ precise/main libhx509-5-heimdal i386 1.6~git20120311.dfsg.1-2 [127 kB]
+Get:17 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5-26-heimdal i386 1.6~git20120311.dfsg.1-2 [240 kB]
+Get:18 http://old-releases.ubuntu.com/ubuntu/ precise/main libheimntlm0-heimdal i386 1.6~git20120311.dfsg.1-2 [16.8 kB]
+Get:19 http://old-releases.ubuntu.com/ubuntu/ precise/main libgssapi3-heimdal i386 1.6~git20120311.dfsg.1-2 [112 kB]
+Get:20 http://old-releases.ubuntu.com/ubuntu/ precise/main libidn11 i386 1.23-2 [112 kB]
+Get:21 http://old-releases.ubuntu.com/ubuntu/ precise/main libsasl2-2 i386 2.1.25.dfsg1-3 [69.5 kB]
+Get:22 http://old-releases.ubuntu.com/ubuntu/ precise/main libldap-2.4-2 i386 2.4.28-1.1ubuntu4 [186 kB]
+Get:23 http://old-releases.ubuntu.com/ubuntu/ precise/main librtmp0 i386 2.4~20110711.gitc28f1bab-1 [57.7 kB]
+Get:24 http://old-releases.ubuntu.com/ubuntu/ precise/main openssl i386 1.0.1-4ubuntu3 [520 kB]
+Get:25 http://old-releases.ubuntu.com/ubuntu/ precise/main ca-certificates all 20111211 [169 kB]
+Get:26 http://old-releases.ubuntu.com/ubuntu/ precise/main libcurl3 i386 7.22.0-3ubuntu4 [242 kB]
+Get:27 http://old-releases.ubuntu.com/ubuntu/ precise/main krb5-locales all 1.10+dfsg~beta1-2 [8886 B]
+Get:28 http://old-releases.ubuntu.com/ubuntu/ precise/main libsasl2-modules i386 2.1.25.dfsg1-3 [60.5 kB]
+Get:29 http://old-releases.ubuntu.com/ubuntu/ precise/main curl i386 7.22.0-3ubuntu4 [137 kB]
+Preconfiguring packages ...
+Fetched 3979 kB in 1s (2618 kB/s)
+Selecting previously unselected package libroken18-heimdal.
+(Reading database ... 9848 files and directories currently installed.)
+Unpacking libroken18-heimdal (from .../libroken18-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libasn1-8-heimdal.
+Unpacking libasn1-8-heimdal (from .../libasn1-8-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libgpg-error0.
+Unpacking libgpg-error0 (from .../libgpg-error0_1.10-2ubuntu1_i386.deb) ...
+Selecting previously unselected package libgcrypt11.
+Unpacking libgcrypt11 (from .../libgcrypt11_1.5.0-3_i386.deb) ...
+Selecting previously unselected package libp11-kit0.
+Unpacking libp11-kit0 (from .../libp11-kit0_0.12-2ubuntu1_i386.deb) ...
+Selecting previously unselected package libtasn1-3.
+Unpacking libtasn1-3 (from .../libtasn1-3_2.10-1ubuntu1_i386.deb) ...
+Selecting previously unselected package libgnutls26.
+Unpacking libgnutls26 (from .../libgnutls26_2.12.14-5ubuntu3_i386.deb) ...
+Selecting previously unselected package libkrb5support0.
+Unpacking libkrb5support0 (from .../libkrb5support0_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libk5crypto3.
+Unpacking libk5crypto3 (from .../libk5crypto3_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libkeyutils1.
+Unpacking libkeyutils1 (from .../libkeyutils1_1.5.2-2_i386.deb) ...
+Selecting previously unselected package libkrb5-3.
+Unpacking libkrb5-3 (from .../libkrb5-3_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libgssapi-krb5-2.
+Unpacking libgssapi-krb5-2 (from .../libgssapi-krb5-2_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libhcrypto4-heimdal.
+Unpacking libhcrypto4-heimdal (from .../libhcrypto4-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libheimbase1-heimdal.
+Unpacking libheimbase1-heimdal (from .../libheimbase1-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libwind0-heimdal.
+Unpacking libwind0-heimdal (from .../libwind0-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libhx509-5-heimdal.
+Unpacking libhx509-5-heimdal (from .../libhx509-5-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libkrb5-26-heimdal.
+Unpacking libkrb5-26-heimdal (from .../libkrb5-26-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libheimntlm0-heimdal.
+Unpacking libheimntlm0-heimdal (from .../libheimntlm0-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libgssapi3-heimdal.
+Unpacking libgssapi3-heimdal (from .../libgssapi3-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libidn11.
+Unpacking libidn11 (from .../libidn11_1.23-2_i386.deb) ...
+Selecting previously unselected package libsasl2-2.
+Unpacking libsasl2-2 (from .../libsasl2-2_2.1.25.dfsg1-3_i386.deb) ...
+Selecting previously unselected package libldap-2.4-2.
+Unpacking libldap-2.4-2 (from .../libldap-2.4-2_2.4.28-1.1ubuntu4_i386.deb) ...
+Selecting previously unselected package librtmp0.
+Unpacking librtmp0 (from .../librtmp0_2.4~20110711.gitc28f1bab-1_i386.deb) ...
+Selecting previously unselected package openssl.
+Unpacking openssl (from .../openssl_1.0.1-4ubuntu3_i386.deb) ...
+Selecting previously unselected package ca-certificates.
+Unpacking ca-certificates (from .../ca-certificates_20111211_all.deb) ...
+Selecting previously unselected package libcurl3.
+Unpacking libcurl3 (from .../libcurl3_7.22.0-3ubuntu4_i386.deb) ...
+Selecting previously unselected package krb5-locales.
+Unpacking krb5-locales (from .../krb5-locales_1.10+dfsg~beta1-2_all.deb) ...
+Selecting previously unselected package libsasl2-modules.
+Unpacking libsasl2-modules (from .../libsasl2-modules_2.1.25.dfsg1-3_i386.deb) ...
+Selecting previously unselected package curl.
+Unpacking curl (from .../curl_7.22.0-3ubuntu4_i386.deb) ...
+Setting up libroken18-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libasn1-8-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libgpg-error0 (1.10-2ubuntu1) ...
+Setting up libgcrypt11 (1.5.0-3) ...
+Setting up libp11-kit0 (0.12-2ubuntu1) ...
+Setting up libtasn1-3 (2.10-1ubuntu1) ...
+Setting up libgnutls26 (2.12.14-5ubuntu3) ...
+Setting up libkrb5support0 (1.10+dfsg~beta1-2) ...
+Setting up libk5crypto3 (1.10+dfsg~beta1-2) ...
+Setting up libkeyutils1 (1.5.2-2) ...
+Setting up libkrb5-3 (1.10+dfsg~beta1-2) ...
+Setting up libgssapi-krb5-2 (1.10+dfsg~beta1-2) ...
+Setting up libhcrypto4-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libheimbase1-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libwind0-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libhx509-5-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libkrb5-26-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libheimntlm0-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libgssapi3-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libidn11 (1.23-2) ...
+Setting up libsasl2-2 (2.1.25.dfsg1-3) ...
+Setting up libldap-2.4-2 (2.4.28-1.1ubuntu4) ...
+Setting up librtmp0 (2.4~20110711.gitc28f1bab-1) ...
+Setting up openssl (1.0.1-4ubuntu3) ...
+Setting up ca-certificates (20111211) ...
+Updating certificates in /etc/ssl/certs... 152 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d....done.
+Setting up libcurl3 (7.22.0-3ubuntu4) ...
+Setting up krb5-locales (1.10+dfsg~beta1-2) ...
+Setting up libsasl2-modules (2.1.25.dfsg1-3) ...
+Setting up curl (7.22.0-3ubuntu4) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+ ---&gt; 16684411a89e
+Removing intermediate container 90c016c6034c
+Step 8/14 : WORKDIR /tmp/
+ ---&gt; 37e50202d457
+Removing intermediate container 32057cba2fc6
+Step 9/14 : RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+ ---&gt; Running in 17c757483d01
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1558k  100 1558k    0     0  3595k      0 --:--:-- --:--:-- --:--:-- 4793k
+ ---&gt; 383279846608
+Removing intermediate container 17c757483d01
+Step 10/14 : RUN python get-pip.py
+ ---&gt; Running in ac9cbc7aaf7a
+Collecting pip
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:318: SNIMissingWarning: An HTTPS request has been made, but the SNI (Subject Name Indication) extension to TLS is not available on this platform. This may cause the server to present an incorrect TLS certificate, which can cause validation failures. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#snimissingwarning.
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+  Downloading pip-9.0.1-py2.py3-none-any.whl (1.3MB)
+Collecting setuptools
+  Downloading setuptools-36.3.0-py2.py3-none-any.whl (477kB)
+Collecting wheel
+  Downloading wheel-0.29.0-py2.py3-none-any.whl (66kB)
+Installing collected packages: pip, setuptools, wheel
+Successfully installed pip-9.0.1 setuptools-36.3.0 wheel-0.29.0
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+ ---&gt; ae059d740d83
+Removing intermediate container ac9cbc7aaf7a
+Step 11/14 : ADD requirements.txt /tmp/
+ ---&gt; 1f99f596bd4a
+Removing intermediate container 41963c811b1c
+Step 12/14 : WORKDIR /tmp
+ ---&gt; 04ea9ee57bfc
+Removing intermediate container 568de414a28c
+Step 13/14 : RUN pip install -r requirements.txt
+ ---&gt; Running in 43fcb99859f4
+Collecting Flask (from -r requirements.txt (line 1))
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:318: SNIMissingWarning: An HTTPS request has been made, but the SNI (Subject Name Indication) extension to TLS is not available on this platform. This may cause the server to present an incorrect TLS certificate, which can cause validation failures. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#snimissingwarning.
+  SNIMissingWarning
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+  InsecurePlatformWarning
+  Downloading Flask-0.12.2-py2.py3-none-any.whl (83kB)
+Collecting Redis (from -r requirements.txt (line 2))
+  Downloading redis-2.10.6-py2.py3-none-any.whl (64kB)
+Collecting itsdangerous&gt;=0.21 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting click&gt;=2.0 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+Collecting Jinja2&gt;=2.4 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading Jinja2-2.9.6-py2.py3-none-any.whl (340kB)
+Collecting Werkzeug&gt;=0.7 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading Werkzeug-0.12.2-py2.py3-none-any.whl (312kB)
+Collecting MarkupSafe&gt;=0.23 (from Jinja2&gt;=2.4-&gt;Flask-&gt;-r requirements.txt (line 1))
+  Downloading MarkupSafe-1.0.tar.gz
+Building wheels for collected packages: itsdangerous, MarkupSafe
+  Running setup.py bdist_wheel for itsdangerous: started
+  Running setup.py bdist_wheel for itsdangerous: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/fc/a8/66/24d655233c757e178d45dea2de22a04c6d92766abfb741129a
+  Running setup.py bdist_wheel for MarkupSafe: started
+  Running setup.py bdist_wheel for MarkupSafe: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/88/a7/30/e39a54a87bcbe25308fa3ca64e8ddc75d9b3e5afa21ee32d57
+Successfully built itsdangerous MarkupSafe
+Installing collected packages: itsdangerous, click, MarkupSafe, Jinja2, Werkzeug, Flask, Redis
+Successfully installed Flask-0.12.2 Jinja2-2.9.6 MarkupSafe-1.0 Redis-2.10.6 Werkzeug-0.12.2 click-6.7 itsdangerous-0.24
+ ---&gt; 7eae346963a6
+Removing intermediate container 43fcb99859f4
+Step 14/14 : CMD python /workspace/widgetOS/deployment-image/flasher.py
+ ---&gt; Running in 12fd72c01d09
+ ---&gt; 33306df28e7c
+Removing intermediate container 12fd72c01d09
+Successfully built 33306df28e7c
+Successfully tagged widget-deployer:latest</code></pre></figure>
+
+<h2 id="sharing-devices-and-folders">Sharing devices and folders</h2>
+
+<h3 id="adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount">Adding a shared folder between the host and the container with a bind mount.</h3>
+
+<p>As we have seen already, mounts can’t be specified inside the Dockerfile for portability reasons. Thus, we will specify a read/write mount when launching the container. In our case, we want to share the /workspace folder.</p>
+
+<p>Using the following syntax we can mount a folder inside the container.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>--mount type=bind,source=&lt;absolute path on host&gt;,target=&lt;destination on container&gt;
+</code></pre>
+</div>
+
+<h3 id="sharing-a-physical-device-with-the-container">Sharing a physical device with the container.</h3>
+
+<p>To allow passthrough access to a physical device we need to specify it at runtime:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>--device &lt;device path&gt; 
+</code></pre>
+</div>
+
+<h2 id="running-the-container">Running the container.</h2>
+<p>Launching the container is a very straightforward process. Once built, all we have to do is:</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo docker run --device /dev/ttyACM0 --mount type=bind,source=/workspace,target=/workspace  widget-deployer</code></pre></figure>
+
+<p>Once launched, we can inspect the running container’s metadata with the <em>inspect</em> command.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">docker inspect widget-deployer
+[
+    {
+        "Id": "sha256:33306df28e7c87155e70463be8053edb21575500daf74060672397e7c8fb0829",
+        "RepoTags": [
+            "widget-deployer:latest"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+        "Comment": "",
+        "Created": "2017-08-30T07:48:11.591362982Z",
+        "Container": "12fd72c01d093016912455b813cb6e0bd5f72ebc7c2f913f15582f1238af1813",
+        "ContainerConfig": {
+            "Hostname": "12fd72c01d09",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "magicNumber=8974c408d831",
+                "DEBIAN_FRONTEND=noninteractive"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD [\"/bin/sh\" \"-c\" \"python /workspace/widgetOS/deployment-image/flasher.py\"]"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+            "Volumes": null,
+            "WorkingDir": "/tmp",
+            "Entrypoint": null,
+            "OnBuild": [],
+            "Labels": {
+                "copyright": "WidgetMaker Inc",
+                "deviceSupportStatus.fidly": "Beta",
+                "deviceSupportStatus.widgeton": "Release Candidate 3",
+                "deviceSupportStatus.widgy": "Stable",
+                "maintainer": "josue@josuealvarezmoreno"
+            }
+        },
+        "DockerVersion": "17.06.1-ce",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "magicNumber=8974c408d831",
+                "DEBIAN_FRONTEND=noninteractive"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "python /workspace/widgetOS/deployment-image/flasher.py"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+            "Volumes": null,
+            "WorkingDir": "/tmp",
+            "Entrypoint": null,
+            "OnBuild": [],
+            "Labels": {
+                "copyright": "WidgetMaker Inc",
+                "deviceSupportStatus.fidly": "Beta",
+                "deviceSupportStatus.widgeton": "Release Candidate 3",
+                "deviceSupportStatus.widgy": "Stable",
+                "maintainer": "josue@josuealvarezmoreno"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 222672573,
+        "VirtualSize": 222672573,
+        "GraphDriver": {
+            "Data": null,
+            "Name": "aufs"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:3bb86384fde4b1091d120c6d7191e0527bf79ccceb768fde1243b749eceedc33",
+                "sha256:6f1faf2a0e748987c7ee58e24c84bc908eec8ba5a1bdc0c060a402a3b1100480",
+                "sha256:df0d2e8d340c5526f319bb7bab8fb8e298e0bd5445576cec7b16dc8184f99a13",
+                "sha256:3f92e333309b33b824a6252899b24ad1cb864c288da06a3e63f4bb5ba5582124",
+                "sha256:42e6185f24be913557cc64ea688499a9683fee14f299f80be16a9c2540b888e6",
+                "sha256:60fb28685d5f6de80f6afbbd123c77c177e61b3a2a6ba66afd4747e4b8e53b20",
+                "sha256:796de985371edcb6b0dcd0eadd802e3a8f475cd2cb66b12525a6246d97f87ec2"
+            ]
+        }
+    }
+]</code></pre></figure>
+
+<p>Our app is now ready to use.</p>
+
+<h2 id="running-more-than-one-instance-of-the-app">Running more than one instance of the app.</h2>
+
+<p>If we wanted to run many instances of the app in parallel, we would need:</p>
+
+<ul>
+  <li>An individual serial adapter per instance, passed through with the –device parameter. /dev/ttyACM1 for example.</li>
+  <li>To forward the exposed webserver port to a different port on the host, per instance. For example, we forward port 80 to port 1080.</li>
+</ul>
+
+<p>The commandline would look like this.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker run --device /dev/ttyACM1 --mount type=bind,source=/workspace,target=/workspace -p 1080:80 widget-deployer
+</code></pre>
+</div>
+
+<p>And examining the running list of containers would show that the port is forwarded.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker ps
+
+CONTAINER ID        IMAGE               STATUS          PORTS                  
+958b79eed6ca        widget-deployer     Up              127.0.0.1:1080-&gt;80/tcp
+08a264882398        widget-deployer     Up              127.0.0.1:1081-&gt;80/tcp
+92a8df94994b        widget-deployer     Up              127.0.0.1:1082-&gt;80/tcp
+725c581d4dca        widget-deployer     Up              127.0.0.1:1083-&gt;80/tcp</code></pre></figure>
+
+<h2 id="debugging-a-container-stepping-inside-through-a-shell">Debugging a container: Stepping inside through a shell.</h2>
+
+<p>To launch a bash shell inside the container and inspect it’s contents, we can run the container and specify a custom command to run.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker run --device /dev/ttyACM0 --mount type=bind,source=/workspace,target=/workspace -it widget-deployer /bin/bash 
+
+root@44489cae5745:/tmp# ls /workspace/widgetOS/deployment-image/flasher.py 
+/workspace/widgetOS/deployment-image/flasher.py
+
+root@44489cae5745:/tmp# ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+73: eth0@if74: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 scope global eth0
+       valid_lft forever preferred_lft forever</code></pre></figure>
+
+<p>Keep in mind that any manual changes made are lost on container termination, and they do not apply to newly launched instances.</p>
+
+<h1 id="cleaning-the-images-and-temporary-files-we-have-created">Cleaning the images and temporary files we have created.</h1>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker rm <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+docker rmi <span class="k">$(</span>docker images -q<span class="k">)</span>
+docker volume rm <span class="k">$(</span>docker volume ls<span class="k">)</span></code></pre></figure>
+
+<h1 id="conclusions">Conclusions.</h1>
+
+<p>Containers are a powerful and speedy addition to our devops workflow, and while they are not a one-size-fits-all solution, they do offer significant advantages over other application isolation alternatives.</p>
+
+<p>In a future post we will explore how to use Docker Swarm to launch a complex network of containers, including web apps, load balancers and databases.</p>
+
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#docker-ref">
+					docker <span>(1)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#docker-ref">
+					docker <span>(1)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#containers-ref">
+					containers <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Docker 101 - Containerizing our first application."
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+<!-- Shows author's bio at the end of the post. 
+      <section class="col-sm-6 author">
+        <img src="//www.gravatar.com/avatar/da3470a132e93bfe23072dccad7e2956" class="img-rounded author-image" />
+        <h4 class="section-title author-name">Josué Álvarez Moreno</h4>
+        <p class="author-bio">System Administrator.</p>
+      </section>
+    </div>
+-->
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/nagios/2017/08/18/Nagios.html" title="Monitoring our infrastructure with Nagios.">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
+
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104442288-1', 'auto');
+  ga('send', 'pageview');
+</script>
+

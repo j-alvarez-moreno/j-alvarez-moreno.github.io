@@ -171,6 +171,146 @@
 		  <span class="post-date">
 		    
 		    August
+		    30th,
+		    
+		    2017
+		  </span>
+		      ·      
+	      <span class="reading-time" title="Estimated reading time">
+ 	
+
+	
+	
+	Estimated reading time:  35 minutes.
+  
+</span>
+
+
+		  <h2>
+		    <a href="/docker/2017/08/30/Docker.html">Docker 101 - Containerizing our first application.</a>
+		  </h2>
+
+		  <div>
+		    
+		    	
+		    		
+  					<p>In this post we will learn what Docker is, how to use it, when it is appropiate to use it and we’ll make our first docker container based on a real-world production scenario.</p>
+
+<ul id="markdown-toc">
+  <li><a href="/docker/2017/08/30/Docker.html#what-is-a-container" id="markdown-toc-what-is-a-container">What is a container?</a>    <ul>
+      <li><a href="/docker/2017/08/30/Docker.html#pros-and-cons-of-using-containers" id="markdown-toc-pros-and-cons-of-using-containers">Pros and cons of using containers.</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#real-world-examples-of-containerized-applications" id="markdown-toc-real-world-examples-of-containerized-applications">Real-world examples of containerized applications.</a></li>
+    </ul>
+  </li>
+  <li><a href="/docker/2017/08/30/Docker.html#what-is-docker" id="markdown-toc-what-is-docker">What is Docker?</a></li>
+  <li><a href="/docker/2017/08/30/Docker.html#what-containers-and-by-extension-docker-are-not" id="markdown-toc-what-containers-and-by-extension-docker-are-not">What containers, and by extension Docker, are not.</a></li>
+  <li><a href="/docker/2017/08/30/Docker.html#installing-docker" id="markdown-toc-installing-docker">Installing Docker</a>    <ul>
+      <li><a href="/docker/2017/08/30/Docker.html#optional-but-recommended-post-install-steps" id="markdown-toc-optional-but-recommended-post-install-steps">Optional but recommended post-install steps.</a>        <ul>
+          <li><a href="/docker/2017/08/30/Docker.html#removing-the-need-for-sudo" id="markdown-toc-removing-the-need-for-sudo">Removing the need for <em>sudo</em>.</a></li>
+          <li><a href="/docker/2017/08/30/Docker.html#configure-the-docker-daemon-to-start-on-boot" id="markdown-toc-configure-the-docker-daemon-to-start-on-boot">Configure the Docker daemon to start on boot.</a></li>
+          <li><a href="/docker/2017/08/30/Docker.html#auto-completion-of-commands-for-docker" id="markdown-toc-auto-completion-of-commands-for-docker">Auto-completion of commands for Docker.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="/docker/2017/08/30/Docker.html#running-our-very-first-container-and-a-look-behind-the-scenes" id="markdown-toc-running-our-very-first-container-and-a-look-behind-the-scenes">Running our very first container, and a look behind the scenes.</a>    <ul>
+      <li><a href="/docker/2017/08/30/Docker.html#hello-world" id="markdown-toc-hello-world">Hello World.</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#docker-workflow-and-container-lifecycle" id="markdown-toc-docker-workflow-and-container-lifecycle">Docker workflow and container lifecycle.</a></li>
+    </ul>
+  </li>
+  <li><a href="/docker/2017/08/30/Docker.html#adding-persistent-storage" id="markdown-toc-adding-persistent-storage">Adding persistent storage.</a>    <ul>
+      <li><a href="/docker/2017/08/30/Docker.html#mounts" id="markdown-toc-mounts">Mounts</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#criteria-for-choosing-between-volumes-bind-mounts-or-tmpfs" id="markdown-toc-criteria-for-choosing-between-volumes-bind-mounts-or-tmpfs">Criteria for choosing between volumes, bind mounts or tmpfs.</a></li>
+    </ul>
+  </li>
+  <li><a href="/docker/2017/08/30/Docker.html#networking" id="markdown-toc-networking">Networking.</a></li>
+  <li><a href="/docker/2017/08/30/Docker.html#a-hypothetical-real-world-production-example" id="markdown-toc-a-hypothetical-real-world-production-example">A hypothetical real-world production example</a>    <ul>
+      <li><a href="/docker/2017/08/30/Docker.html#description-of-the-scenario" id="markdown-toc-description-of-the-scenario">Description of the scenario</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#designing-the-container" id="markdown-toc-designing-the-container">Designing the container.</a>        <ul>
+          <li><a href="/docker/2017/08/30/Docker.html#determining-the-requirements" id="markdown-toc-determining-the-requirements">Determining the requirements.</a></li>
+          <li><a href="/docker/2017/08/30/Docker.html#building-the-base-image" id="markdown-toc-building-the-base-image">Building the base image.</a></li>
+          <li><a href="/docker/2017/08/30/Docker.html#applying-the-necessary-customizations-with-a-dockerfile" id="markdown-toc-applying-the-necessary-customizations-with-a-dockerfile">Applying the necessary customizations with a Dockerfile.</a></li>
+        </ul>
+      </li>
+      <li><a href="/docker/2017/08/30/Docker.html#building-and-launghing-the-container" id="markdown-toc-building-and-launghing-the-container">Building and launghing the container.</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#sharing-devices-and-folders" id="markdown-toc-sharing-devices-and-folders">Sharing devices and folders</a>        <ul>
+          <li><a href="/docker/2017/08/30/Docker.html#adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount" id="markdown-toc-adding-a-shared-folder-between-the-host-and-the-container-with-a-bind-mount">Adding a shared folder between the host and the container with a bind mount.</a></li>
+          <li><a href="/docker/2017/08/30/Docker.html#sharing-a-physical-device-with-the-container" id="markdown-toc-sharing-a-physical-device-with-the-container">Sharing a physical device with the container.</a></li>
+        </ul>
+      </li>
+      <li><a href="/docker/2017/08/30/Docker.html#running-the-container" id="markdown-toc-running-the-container">Running the container.</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#running-more-than-one-instance-of-the-app" id="markdown-toc-running-more-than-one-instance-of-the-app">Running more than one instance of the app.</a></li>
+      <li><a href="/docker/2017/08/30/Docker.html#debugging-a-container-stepping-inside-through-a-shell" id="markdown-toc-debugging-a-container-stepping-inside-through-a-shell">Debugging a container: Stepping inside through a shell.</a></li>
+    </ul>
+  </li>
+  <li><a href="/docker/2017/08/30/Docker.html#cleaning-the-images-and-temporary-files-we-have-created" id="markdown-toc-cleaning-the-images-and-temporary-files-we-have-created">Cleaning the images and temporary files we have created.</a></li>
+  <li><a href="/docker/2017/08/30/Docker.html#conclusions" id="markdown-toc-conclusions">Conclusions.</a></li>
+</ul>
+
+<h1 id="what-is-a-container">What is a container?</h1>
+
+<p>Containers can be conceptually thought of as an <em>advanced version of chroot</em> or a lighter <em>alternative</em> to virtualization.</p>
+
+<p>A container is an isolated user-level instance of the OS. From the point of view of the applications running inside these instances the container behaves exactly like a real computer, and the application will have access only to the resources that are explicitly assigned to it.</p>
+
+<p>Containers share the running kernel and general system calls of the host OS, which means that it is significantly less demanding than traditional virtualization resource-wise. The downside to this is that you can’t have an application running in a container with a different OS than the host.</p>
+
+<h2 id="pros-and-cons-of-using-containers">Pros and cons of using containers.</h2>
+
+<p>Using containers has a few inmediate advantages:</p>
+
+<ul>
+  <li>
+    <p><strong>We can package applications along with their dependencies</strong>, creating a portable version of the app and eliminating the dreaded “<em>but it works on my machine</em>“-scenario. This helps eliminate the proverbial walls between the Operations departament and Development’s.</p>
+  </li>
+  <li>
+    <p><strong>It is significantly lighter than traditional OS virtualization</strong>, enabling a higher compute density in the same hardware.</p>
+  </li>
+  <li>
+    <p><strong>Reduced the effort required to maintain the runtime environment, along with its complexity</strong>. Since the applications can be treated as an opaque self-contained bundle, the package and the behaviour are the same in testing and in production.</p>
+  </li>
+  <li>
+    <p><strong>Since the infrastructure is declared as code, we benefit from the advantages of IaC</strong>: Infrastructure versioning, code as reliable documentation and straightforward deployment of new environments.</p>
+  </li>
+</ul>
+
+<p>Of course, we must mention the disadvantages too:</p>
+
+<ul>
+  <li>
+    <p><strong>Containers run on top of an additional abstraction layer compared to bare-metal</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Containers share the running kernel with the host</strong>. A bug/glitch in the running kernel affects all the running containers.</p>
+  </li>
+  <li>
+    <p><strong>Container management is challenging</strong>, though tools like <a href="https://docs.docker.com/engine/swarm">Docker Swarm</a> and <a href="http://kubernetes.io/">Google Kubernetes</a> can mitigate this.</p>
+  </li>
+  <li>
+    <p><strong>GUI applications don’t work well</strong>. While we can work around this using X11 forwarding, it’s not a straightforward solution.</p>
+  </li>
+</ul>
+
+
+			    <ul class="pager"> 
+					<li class="next">
+			    		<a style=color:#f55c4f href="/docker/2017/08/30/Docker.html">View full post.</a>
+	  				</li>
+				</ul>
+			    
+		    
+		  </div>
+		<div class="separator"></div>
+		</article>
+		
+	
+
+	
+		
+		<article class="home">
+		  <span class="post-date">
+		    
+		    August
 		    18th,
 		    
 		    2017
