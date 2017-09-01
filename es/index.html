@@ -181,8 +181,8 @@
 
 	
 	
-		Tiempo estimado de lectura:  1 minuto.
-		
+	Tiempo estimado de lectura:  35 minutos.
+  
 </span>
 
 
@@ -194,7 +194,105 @@
 		    
 		    	
 		    		
-  					<p>Este post está en proceso de traducción al castellano. Mientras tanto, <a href="http://josuealvarezmoreno.com/docker/2017/08/30/Docker.html">puedes leerlo en inglés</a>.</p>
+  					<p>En este post vamos a aprender qué es Docker, cómo utilizarlo, cuándo es apropiado hacerlo y crearemos nuestro primer contenedor para aislar una aplicación ficticia basada en un escenario de producción.</p>
+
+<p>Antes de adentrarnos en el mundo de Docker, debemos tener claros unos conceptos básicos.</p>
+
+<ul id="markdown-toc">
+  <li><a href="/es/docker/2017/08/30/Docker.html#qué-es-un-contenedor" id="markdown-toc-qué-es-un-contenedor">¿Qué es un contenedor?</a>    <ul>
+      <li><a href="/es/docker/2017/08/30/Docker.html#ventajas-y-desventajas-de-utilizar-contenedores" id="markdown-toc-ventajas-y-desventajas-de-utilizar-contenedores">Ventajas y desventajas de utilizar contenedores.</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#ejemplos-de-aplicaciones-reales-ejecutándose-en-un-contenedor" id="markdown-toc-ejemplos-de-aplicaciones-reales-ejecutándose-en-un-contenedor">Ejemplos de aplicaciones reales ejecutándose en un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#qué-es-docker" id="markdown-toc-qué-es-docker">¿Qué es Docker?</a></li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#qué-no-es-docker" id="markdown-toc-qué-no-es-docker">Qué no es Docker.</a></li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#instalación-de-docker" id="markdown-toc-instalación-de-docker">Instalación de Docker</a>    <ul>
+      <li><a href="/es/docker/2017/08/30/Docker.html#pasos-opciones-tras-la-instalación" id="markdown-toc-pasos-opciones-tras-la-instalación">Pasos opciones tras la instalación.</a>        <ul>
+          <li><a href="/es/docker/2017/08/30/Docker.html#creación-del-grupo-de-usuarios-docker" id="markdown-toc-creación-del-grupo-de-usuarios-docker">Creación del grupo de usuarios <em>docker</em>.</a></li>
+          <li><a href="/es/docker/2017/08/30/Docker.html#inicio-del-servicio-de-docker-con-el-arranque-del-sistema" id="markdown-toc-inicio-del-servicio-de-docker-con-el-arranque-del-sistema">Inicio del servicio de Docker con el arranque del sistema.</a></li>
+          <li><a href="/es/docker/2017/08/30/Docker.html#auto-completado-de-comandos-y-parámetros-para-docker" id="markdown-toc-auto-completado-de-comandos-y-parámetros-para-docker">Auto-completado de comandos y parámetros para Docker.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#lanzando-nuestro-primer-contenedor-y-un-vistazo-al-interior-de-docker" id="markdown-toc-lanzando-nuestro-primer-contenedor-y-un-vistazo-al-interior-de-docker">Lanzando nuestro primer contenedor, y un vistazo al interior de Docker.</a>    <ul>
+      <li><a href="/es/docker/2017/08/30/Docker.html#hola-mundo" id="markdown-toc-hola-mundo">Hola mundo.</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#flujo-de-trabajo-con-docker-y-ciclo-de-vida-de-un-contenedor" id="markdown-toc-flujo-de-trabajo-con-docker-y-ciclo-de-vida-de-un-contenedor">Flujo de trabajo con Docker, y ciclo de vida de un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#añadiendo-almacenamiento-persistente" id="markdown-toc-añadiendo-almacenamiento-persistente">Añadiendo almacenamiento persistente.</a>    <ul>
+      <li><a href="/es/docker/2017/08/30/Docker.html#mounts" id="markdown-toc-mounts">Mounts</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#qué-tipo-de-mount-debo-elegir-volume-bind-mount-o-tmpfs" id="markdown-toc-qué-tipo-de-mount-debo-elegir-volume-bind-mount-o-tmpfs">Qué tipo de <em>mount</em> debo elegir: volume, bind mount o TMPFS.</a></li>
+    </ul>
+  </li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#redes" id="markdown-toc-redes">Redes.</a></li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#ejemplo-containerizando-una-hipotética-aplicación-en-producción" id="markdown-toc-ejemplo-containerizando-una-hipotética-aplicación-en-producción">Ejemplo: Containerizando una hipotética aplicación en producción.</a>    <ul>
+      <li><a href="/es/docker/2017/08/30/Docker.html#descripción-del-escenario" id="markdown-toc-descripción-del-escenario">Descripción del escenario</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#diseñando-el-contenedor" id="markdown-toc-diseñando-el-contenedor">Diseñando el contenedor.</a>        <ul>
+          <li><a href="/es/docker/2017/08/30/Docker.html#analizando-los-requisitos" id="markdown-toc-analizando-los-requisitos">Analizando los requisitos.</a></li>
+          <li><a href="/es/docker/2017/08/30/Docker.html#contruyendo-la-imagen-base" id="markdown-toc-contruyendo-la-imagen-base">Contruyendo la imagen base.</a></li>
+          <li><a href="/es/docker/2017/08/30/Docker.html#aplicar-modificaciones-a-través-de-un-dockerfile" id="markdown-toc-aplicar-modificaciones-a-través-de-un-dockerfile">Aplicar modificaciones a través de un Dockerfile.</a></li>
+        </ul>
+      </li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#constuyendo-y-ejecutando-el-contenedor" id="markdown-toc-constuyendo-y-ejecutando-el-contenedor">Constuyendo y ejecutando el contenedor.</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#accediendo-carpetas-y-dispositivos-del-anfitrión" id="markdown-toc-accediendo-carpetas-y-dispositivos-del-anfitrión">Accediendo carpetas y dispositivos del anfitrión.</a>        <ul>
+          <li><a href="/es/docker/2017/08/30/Docker.html#compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor" id="markdown-toc-compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor">Compartir una carpeta entre el anfitrión y el contenedor.</a></li>
+          <li><a href="/es/docker/2017/08/30/Docker.html#compartir-un-dispositivo-físico-con-el-contenedor" id="markdown-toc-compartir-un-dispositivo-físico-con-el-contenedor">Compartir un dispositivo físico con el contenedor.</a></li>
+        </ul>
+      </li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#ejecutando-el-contenedor" id="markdown-toc-ejecutando-el-contenedor">Ejecutando el contenedor.</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#ejecutando-más-de-una-instancia-de-la-aplicación" id="markdown-toc-ejecutando-más-de-una-instancia-de-la-aplicación">Ejecutando más de una instancia de la aplicación.</a></li>
+      <li><a href="/es/docker/2017/08/30/Docker.html#abrir-una-shell-dentro-de-un-contenedor" id="markdown-toc-abrir-una-shell-dentro-de-un-contenedor">Abrir una shell dentro de un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#eliminando-todas-las-imágenes-volúmenes-y-contenedores-en-ejecución" id="markdown-toc-eliminando-todas-las-imágenes-volúmenes-y-contenedores-en-ejecución">Eliminando todas las imágenes, volúmenes y contenedores en ejecución.</a></li>
+  <li><a href="/es/docker/2017/08/30/Docker.html#conclusiones" id="markdown-toc-conclusiones">Conclusiones.</a></li>
+</ul>
+
+<h1 id="qué-es-un-contenedor">¿Qué es un contenedor?</h1>
+
+<p>Explicado de forma muy simplificada: Un contenedor es un híbrido entre <em>una versión más avanzada de chroot</em> y una alternativa ligera a la virtualización.</p>
+
+<p>Un contenedor es una instancia aislada a nivel de usuario del sistema operativo. Desde el punto de vista de una aplicación que se ejecuta en un contenedor, esta instancia es un ordenador <em>independiente</em>; y sólo tiene acceso a los recursos explícitamente asignados al contenedor.</p>
+
+<p>Los contenedores comparten el núcleo y la API del sistema con el sistema operativo anfitrión, reduciendo así los recursos necesarios para ejecutar un contenedor comparado con la virtualización tradicional. La desventaja de este diseño es que el contenedor debe <em>ejecutar</em> el mismo sistema operativo que el anfitrión, no puedes lanzar un contenedor de una aplicación Windows en un sistema anfitrión basado en Linux.</p>
+
+<h2 id="ventajas-y-desventajas-de-utilizar-contenedores">Ventajas y desventajas de utilizar contenedores.</h2>
+
+<p>Las principales ventajas del uso de contenedores son las siguientes:</p>
+
+<ul>
+  <li>
+    <p><strong>Podemos empaquetar aplicaciones junto con sus dependencias</strong>, creando así una versión <em>portable</em> de la aplicación y eliminando el temido “pero en mi máquina funciona”. Esto nos ayuda a simplificar el proceso de despliegue de una aplicación, y es un paso más para eliminar el metafórico muro que separa Operaciones y Desarrollo.</p>
+  </li>
+  <li>
+    <p><strong>Requiere de pocos recursos de sistema adicionales</strong>, comparado con ejecutar la aplicación directamente. Esto nos permite conseguir una mayor densidad y aprovechamiento de los recursos de hardware comparado con la virtualización tradicional.</p>
+  </li>
+  <li>
+    <p><strong>Reduce el esfuerzo necesario para mantener el entorno de ejecución, junto con su complejidad</strong>. En un contenedor nuestra aplicación o servicio se <em>convierte</em> en un paquete redistribuible, garantizando así que su ejecución será la misma en un entorno de pruebas que en uno de producción.</p>
+  </li>
+  <li>
+    <p><strong>Dado que el entorno de ejecución se declara en texto plano, nos beneficiamos de las ventajas de IaC</strong>: Ahora podemos <em>versionar</em> el entorno y la configuración de la aplicación, revirtiendo y re-desplegando con alta velocidad y fiabilidad.</p>
+  </li>
+</ul>
+
+<p>Por supuesto, no todo son ventajas:</p>
+
+<ul>
+  <li>
+    <p><strong>Un contenedor consume recursos adicionales</strong> comparado con la ejecución directa tradicional.</p>
+  </li>
+  <li>
+    <p><strong>Los contenedores comparten el núcleo con el anfitrión</strong>. Cualquier bug o glitch en el núcleo afecta a todos los contenedores.</p>
+  </li>
+  <li>
+    <p><strong>La gestión de un alto número de contenedores es compleja</strong>. Existen herramientas para mitigar este aspecto, como <a href="https://docs.docker.com/engine/swarm">Docker Swarm</a> y <a href="http://kubernetes.io/">Google Kubernetes</a>.</p>
+  </li>
+  <li>
+    <p><strong>Las aplicaciones con interfaz gráfico no son fácilmente <em>containerizables</em></strong>. Los contenedores están orientados al aislamiento de servicios. Aunque podemos utilizar soluciones alternativas como redirección de X11, no es fácil y tiene su propio set de desventajas.</p>
+  </li>
+</ul>
+
 
 			    <ul class="pager"> 
 					<li class="next">

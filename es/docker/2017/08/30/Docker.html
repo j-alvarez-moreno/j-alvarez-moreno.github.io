@@ -179,12 +179,1012 @@
 
 	
 	
-		Tiempo estimado de lectura:  1 minuto.
-		
+	Tiempo estimado de lectura:  35 minutos.
+  
 </span>
 
 	  <div class="article_body">
-	  <p>Este post está en proceso de traducción al castellano. Mientras tanto, <a href="http://josuealvarezmoreno.com/docker/2017/08/30/Docker.html">puedes leerlo en inglés</a>.</p>
+	  <p>En este post vamos a aprender qué es Docker, cómo utilizarlo, cuándo es apropiado hacerlo y crearemos nuestro primer contenedor para aislar una aplicación ficticia basada en un escenario de producción.</p>
+
+<p>Antes de adentrarnos en el mundo de Docker, debemos tener claros unos conceptos básicos.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#qué-es-un-contenedor" id="markdown-toc-qué-es-un-contenedor">¿Qué es un contenedor?</a>    <ul>
+      <li><a href="#ventajas-y-desventajas-de-utilizar-contenedores" id="markdown-toc-ventajas-y-desventajas-de-utilizar-contenedores">Ventajas y desventajas de utilizar contenedores.</a></li>
+      <li><a href="#ejemplos-de-aplicaciones-reales-ejecutándose-en-un-contenedor" id="markdown-toc-ejemplos-de-aplicaciones-reales-ejecutándose-en-un-contenedor">Ejemplos de aplicaciones reales ejecutándose en un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="#qué-es-docker" id="markdown-toc-qué-es-docker">¿Qué es Docker?</a></li>
+  <li><a href="#qué-no-es-docker" id="markdown-toc-qué-no-es-docker">Qué no es Docker.</a></li>
+  <li><a href="#instalación-de-docker" id="markdown-toc-instalación-de-docker">Instalación de Docker</a>    <ul>
+      <li><a href="#pasos-opciones-tras-la-instalación" id="markdown-toc-pasos-opciones-tras-la-instalación">Pasos opciones tras la instalación.</a>        <ul>
+          <li><a href="#creación-del-grupo-de-usuarios-docker" id="markdown-toc-creación-del-grupo-de-usuarios-docker">Creación del grupo de usuarios <em>docker</em>.</a></li>
+          <li><a href="#inicio-del-servicio-de-docker-con-el-arranque-del-sistema" id="markdown-toc-inicio-del-servicio-de-docker-con-el-arranque-del-sistema">Inicio del servicio de Docker con el arranque del sistema.</a></li>
+          <li><a href="#auto-completado-de-comandos-y-parámetros-para-docker" id="markdown-toc-auto-completado-de-comandos-y-parámetros-para-docker">Auto-completado de comandos y parámetros para Docker.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#lanzando-nuestro-primer-contenedor-y-un-vistazo-al-interior-de-docker" id="markdown-toc-lanzando-nuestro-primer-contenedor-y-un-vistazo-al-interior-de-docker">Lanzando nuestro primer contenedor, y un vistazo al interior de Docker.</a>    <ul>
+      <li><a href="#hola-mundo" id="markdown-toc-hola-mundo">Hola mundo.</a></li>
+      <li><a href="#flujo-de-trabajo-con-docker-y-ciclo-de-vida-de-un-contenedor" id="markdown-toc-flujo-de-trabajo-con-docker-y-ciclo-de-vida-de-un-contenedor">Flujo de trabajo con Docker, y ciclo de vida de un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="#añadiendo-almacenamiento-persistente" id="markdown-toc-añadiendo-almacenamiento-persistente">Añadiendo almacenamiento persistente.</a>    <ul>
+      <li><a href="#mounts" id="markdown-toc-mounts">Mounts</a></li>
+      <li><a href="#qué-tipo-de-mount-debo-elegir-volume-bind-mount-o-tmpfs" id="markdown-toc-qué-tipo-de-mount-debo-elegir-volume-bind-mount-o-tmpfs">Qué tipo de <em>mount</em> debo elegir: volume, bind mount o TMPFS.</a></li>
+    </ul>
+  </li>
+  <li><a href="#redes" id="markdown-toc-redes">Redes.</a></li>
+  <li><a href="#ejemplo-containerizando-una-hipotética-aplicación-en-producción" id="markdown-toc-ejemplo-containerizando-una-hipotética-aplicación-en-producción">Ejemplo: Containerizando una hipotética aplicación en producción.</a>    <ul>
+      <li><a href="#descripción-del-escenario" id="markdown-toc-descripción-del-escenario">Descripción del escenario</a></li>
+      <li><a href="#diseñando-el-contenedor" id="markdown-toc-diseñando-el-contenedor">Diseñando el contenedor.</a>        <ul>
+          <li><a href="#analizando-los-requisitos" id="markdown-toc-analizando-los-requisitos">Analizando los requisitos.</a></li>
+          <li><a href="#contruyendo-la-imagen-base" id="markdown-toc-contruyendo-la-imagen-base">Contruyendo la imagen base.</a></li>
+          <li><a href="#aplicar-modificaciones-a-través-de-un-dockerfile" id="markdown-toc-aplicar-modificaciones-a-través-de-un-dockerfile">Aplicar modificaciones a través de un Dockerfile.</a></li>
+        </ul>
+      </li>
+      <li><a href="#constuyendo-y-ejecutando-el-contenedor" id="markdown-toc-constuyendo-y-ejecutando-el-contenedor">Constuyendo y ejecutando el contenedor.</a></li>
+      <li><a href="#accediendo-carpetas-y-dispositivos-del-anfitrión" id="markdown-toc-accediendo-carpetas-y-dispositivos-del-anfitrión">Accediendo carpetas y dispositivos del anfitrión.</a>        <ul>
+          <li><a href="#compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor" id="markdown-toc-compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor">Compartir una carpeta entre el anfitrión y el contenedor.</a></li>
+          <li><a href="#compartir-un-dispositivo-físico-con-el-contenedor" id="markdown-toc-compartir-un-dispositivo-físico-con-el-contenedor">Compartir un dispositivo físico con el contenedor.</a></li>
+        </ul>
+      </li>
+      <li><a href="#ejecutando-el-contenedor" id="markdown-toc-ejecutando-el-contenedor">Ejecutando el contenedor.</a></li>
+      <li><a href="#ejecutando-más-de-una-instancia-de-la-aplicación" id="markdown-toc-ejecutando-más-de-una-instancia-de-la-aplicación">Ejecutando más de una instancia de la aplicación.</a></li>
+      <li><a href="#abrir-una-shell-dentro-de-un-contenedor" id="markdown-toc-abrir-una-shell-dentro-de-un-contenedor">Abrir una shell dentro de un contenedor.</a></li>
+    </ul>
+  </li>
+  <li><a href="#eliminando-todas-las-imágenes-volúmenes-y-contenedores-en-ejecución" id="markdown-toc-eliminando-todas-las-imágenes-volúmenes-y-contenedores-en-ejecución">Eliminando todas las imágenes, volúmenes y contenedores en ejecución.</a></li>
+  <li><a href="#conclusiones" id="markdown-toc-conclusiones">Conclusiones.</a></li>
+</ul>
+
+<h1 id="qué-es-un-contenedor">¿Qué es un contenedor?</h1>
+
+<p>Explicado de forma muy simplificada: Un contenedor es un híbrido entre <em>una versión más avanzada de chroot</em> y una alternativa ligera a la virtualización.</p>
+
+<p>Un contenedor es una instancia aislada a nivel de usuario del sistema operativo. Desde el punto de vista de una aplicación que se ejecuta en un contenedor, esta instancia es un ordenador <em>independiente</em>; y sólo tiene acceso a los recursos explícitamente asignados al contenedor.</p>
+
+<p>Los contenedores comparten el núcleo y la API del sistema con el sistema operativo anfitrión, reduciendo así los recursos necesarios para ejecutar un contenedor comparado con la virtualización tradicional. La desventaja de este diseño es que el contenedor debe <em>ejecutar</em> el mismo sistema operativo que el anfitrión, no puedes lanzar un contenedor de una aplicación Windows en un sistema anfitrión basado en Linux.</p>
+
+<h2 id="ventajas-y-desventajas-de-utilizar-contenedores">Ventajas y desventajas de utilizar contenedores.</h2>
+
+<p>Las principales ventajas del uso de contenedores son las siguientes:</p>
+
+<ul>
+  <li>
+    <p><strong>Podemos empaquetar aplicaciones junto con sus dependencias</strong>, creando así una versión <em>portable</em> de la aplicación y eliminando el temido “pero en mi máquina funciona”. Esto nos ayuda a simplificar el proceso de despliegue de una aplicación, y es un paso más para eliminar el metafórico muro que separa Operaciones y Desarrollo.</p>
+  </li>
+  <li>
+    <p><strong>Requiere de pocos recursos de sistema adicionales</strong>, comparado con ejecutar la aplicación directamente. Esto nos permite conseguir una mayor densidad y aprovechamiento de los recursos de hardware comparado con la virtualización tradicional.</p>
+  </li>
+  <li>
+    <p><strong>Reduce el esfuerzo necesario para mantener el entorno de ejecución, junto con su complejidad</strong>. En un contenedor nuestra aplicación o servicio se <em>convierte</em> en un paquete redistribuible, garantizando así que su ejecución será la misma en un entorno de pruebas que en uno de producción.</p>
+  </li>
+  <li>
+    <p><strong>Dado que el entorno de ejecución se declara en texto plano, nos beneficiamos de las ventajas de IaC</strong>: Ahora podemos <em>versionar</em> el entorno y la configuración de la aplicación, revirtiendo y re-desplegando con alta velocidad y fiabilidad.</p>
+  </li>
+</ul>
+
+<p>Por supuesto, no todo son ventajas:</p>
+
+<ul>
+  <li>
+    <p><strong>Un contenedor consume recursos adicionales</strong> comparado con la ejecución directa tradicional.</p>
+  </li>
+  <li>
+    <p><strong>Los contenedores comparten el núcleo con el anfitrión</strong>. Cualquier bug o glitch en el núcleo afecta a todos los contenedores.</p>
+  </li>
+  <li>
+    <p><strong>La gestión de un alto número de contenedores es compleja</strong>. Existen herramientas para mitigar este aspecto, como <a href="https://docs.docker.com/engine/swarm">Docker Swarm</a> y <a href="http://kubernetes.io/">Google Kubernetes</a>.</p>
+  </li>
+  <li>
+    <p><strong>Las aplicaciones con interfaz gráfico no son fácilmente <em>containerizables</em></strong>. Los contenedores están orientados al aislamiento de servicios. Aunque podemos utilizar soluciones alternativas como redirección de X11, no es fácil y tiene su propio set de desventajas.</p>
+  </li>
+</ul>
+
+<!--more-->
+
+<h2 id="ejemplos-de-aplicaciones-reales-ejecutándose-en-un-contenedor">Ejemplos de aplicaciones reales ejecutándose en un contenedor.</h2>
+
+<ul>
+  <li>
+    <p>Atlassian <a href="https://www.atlassian.com/blog/software-teams/deploy-java-apps-with-docker-awesome">BitBucket</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://docs.docker.com/engine/examples/postgresql_service/#installing-postgresql-on-docker">PostgreSQL</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://www.mongodb.com/blog/post/running-mongodb-as-a-microservice-with-docker-and-kubernetes">MongoDB como microservicio con Docker y Kubernetes</a>.</p>
+  </li>
+</ul>
+
+<h1 id="qué-es-docker">¿Qué es Docker?</h1>
+
+<p>Docker es un producto software que proporciona soporte para contenedores. Gracias a Docker, podemos empaquetar aplicaciones junto con sus dependencias, librerías y configuración necesarias para su ejecución de forma segura y aislada.</p>
+
+<p>Entre otras funcionalidades, Docker permite la creación de <a href="https://docs.docker.com/engine/userguide/networking/">redes aisladas</a> y la conexión directa de dispositivos de hardware al entorno del contenedor. Docker también proporciona la descarga de imágenes preparadas desde Docker Hub o repositorios privados.</p>
+
+<h1 id="qué-no-es-docker">Qué no es Docker.</h1>
+
+<p>Docker no es una solución general al problema del empaquetado y distribución de una aplicación. No todas las aplicaciones pueden ser containerizadas de forma efectiva, y no siempre tiene sentido invertir tiempo y esfuerzo y hacerlo.</p>
+
+<p>Un ejemplo obvio, ¿tendría sentido distribuir Skype en un contenedor? No.</p>
+
+<ul>
+  <li>
+    <p>Skype es una aplicación monolítica, y dividirla en pequeños componentes containerizados no proporcionaría beneficios en la práctica.</p>
+  </li>
+  <li>
+    <p>Skype necesita acceso a las facilidades del sistema anfitrión para entrada y salida de audio, y no existe un interfaz que lo proporcione. Si el servidor de sonido lo soporta (PulseAudio, por ejemplo) podríamos ejecutar otra instancia del servidor de sonido dentro del contenedor y redirigir su salida hacia el sistema operativo anfitrión; con la desventaja de un consumo adicional de recursos.</p>
+  </li>
+  <li>
+    <p>Un contenedor no tiene comunicación nativa con el servidor de interfaz gráfica. Podríamos utilizar X11-forwarding a través de la red, o compartir el socket X11 aunque esto rompería el aislamiento del contenedor.</p>
+  </li>
+</ul>
+
+<p>Si tras el estudio preliminar, hubiésemos decidido que distribuir Skype nos proporciona todos o la mayoría de beneficios que proporcionan los contenedores (facilidad de despliegue, aislamiento, incorporación en una pipeline de integración continua) entonces estas desventajas podrían haber sido aceptables.</p>
+
+<h1 id="instalación-de-docker">Instalación de Docker</h1>
+
+<p>Vamos a instalar Docker 17.06.1-ce en Ubuntu 17.04.</p>
+
+<blockquote>
+  <p>La versión más reciente de Docker e instrucciones de instalación actualizadas para Ubuntu se encuentran <a href="https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository">en el sitio web de Docker</a>, junto <a href="https://docs.docker.com/engine/installation/#server">con el resto de sistemas operativos y arquitecturas soportadas</a>.</p>
+</blockquote>
+
+<p>El primer paso es asegurarnos de que disponemos de las utilidades necesarias para añadir repositorios HTTPS a los orígienes de paquetes.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</code></pre></figure>
+
+<p>Vamos a importar la clave GPG de Docker para verificar la integridad de los paquetes, y a continuación comprobamos que la clave es la misma.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+
+# Al redactar este post, la huella de la clave es: 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.</code></pre></figure>
+
+<p>Docker tiene tres posibles ramas dependiendo de la estabilidad deseada: <em>stable</em>, <em>edge</em> y <em>test</em>. A no ser que <strong>realmente</strong> necesitemos funcionalidad o parches que no estén disponibles en la rama estable, es recomendable instalar <em>stable</em> ya que es la única que recibe soporte activo y que se considera lista para producción.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</code></pre></figure>
+
+<p>Para cambiar de rama, añade la palabra <em>edge</em> o <em>test</em> despues de <em>stable</em> en el comando anterior.</p>
+
+<p>Refrescamos la lista de paquetes disponibles e iniciamos la instalación de Docker.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get update
+sudo apt-get install docker-ce</code></pre></figure>
+
+<blockquote>
+  <p>Actualmente los contenedores de Docker tienen que ser controlados por el usuario <em>root</em> (o el equivalente en tu plataforma). Este requisito no es opcional actualmente, aunque está planeado eliminarlo en un futuro.</p>
+</blockquote>
+
+<p>Como consecuencia, debemos otorgar acceso al servicio de Docker y sus herramientas asociadas sólo a usuarios de confianza.</p>
+
+<h2 id="pasos-opciones-tras-la-instalación">Pasos opciones tras la instalación.</h2>
+
+<h3 id="creación-del-grupo-de-usuarios-docker">Creación del grupo de usuarios <em>docker</em>.</h3>
+
+<p>Para no obligarnos a usar <em>sudo</em> para interactuar con Docker, podemos crear un grupo llamado <em>docker</em> y añadir usuarios al mismo. Cuando el servicio de Docker se inicia, otorga permisos de lectura/escritura en su socket al grupo <em>docker</em>.</p>
+
+<blockquote>
+  <p>Advertencia: Los usuarios miembros del grupo <em>docker</em> tienen, en la práctica, privilegios equivalentes a <em>root</em>. Docker publica un análisis ampliado sobre el impacto en la seguridad del sistema en su página web, en inglés: <a href="https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface">Docker Daemon Attack Surface</a>.</p>
+</blockquote>
+
+<p>Creamos el grupo de docker, y le añadimos el usuario actual.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo groupadd docker
+sudo usermod -aG docker `whoami`</code></pre></figure>
+
+<p>Los cambios se harán efectivos cuando el usuario cierre sesión y vuelva a iniciarla.</p>
+
+<h3 id="inicio-del-servicio-de-docker-con-el-arranque-del-sistema">Inicio del servicio de Docker con el arranque del sistema.</h3>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo systemctl enable docker</code></pre></figure>
+
+<h3 id="auto-completado-de-comandos-y-parámetros-para-docker">Auto-completado de comandos y parámetros para Docker.</h3>
+
+<p>Docker contiene una gran variedad de comandos, y las imágenes y contenedores se identifican por su ID (aunque podemos añadir manualmente un nombre personalizado).</p>
+
+<p>En este post vamos a activar el auto-completado para Bash en Ubuntu 16.04. Hay disponibles instrucciones actualizadas para Bash y para otros shells <a href="https://docs.docker.com/compose/completion/#installing-command-completion">en la web de Docker</a>.</p>
+
+<p>Como requisito, tenemos que tener instalado el paquete <em>bash-completion</em>. En el caso, muy poco probable, de que no esté instalado lo instalaremos el siguiente comando.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt install bash-completion</code></pre></figure>
+
+<p>Ahora descargamos el script de auto-completado y lo guardamos en <em>/etc/bash_completion.d/</em>.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose</code></pre></figure>
+
+<p>Desde este momento, cada nueva instancia de bash usará el esquema ampliado de auto-completado.</p>
+
+<h1 id="lanzando-nuestro-primer-contenedor-y-un-vistazo-al-interior-de-docker">Lanzando nuestro primer contenedor, y un vistazo al interior de Docker.</h1>
+
+<h2 id="hola-mundo">Hola mundo.</h2>
+
+<p>Para testear nuestra instalación de Docker vamos a ejecutar un contenedor simple proporcionado por el mismo Docker. Su única función es mostrar un mensaje de bienvenida.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo docker run hello-world</code></pre></figure>
+
+<p>Su salida en el terminal es la siguiente, comentada para su mejor comprensión.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.</code></pre></figure>
+
+<p>¿Qué acaba de pasar? ¿Qué es una imagen, y por qué Docker acaba de descargarla de Internet?</p>
+
+<p>Para poder entenderlo, tenemos que dar un paso atrás y examinar el proceso de creación de un contenedor.</p>
+
+<h2 id="flujo-de-trabajo-con-docker-y-ciclo-de-vida-de-un-contenedor">Flujo de trabajo con Docker, y ciclo de vida de un contenedor.</h2>
+
+<p>Un contenedor tiene dos capas: El entorno base en el que se ejecutará la aplicación, llamado <em>image</em> o imagen; y la aplicación o servicio en si misma que será ejecutada. Ambos se definen en un archivo <em>Dockerfile</em>, que no es más que un archivo de texto plano llamado Dockerfile.</p>
+
+<p>Por ejemplo, vamos a examinar de cerca el Dockerfile de “Hola Mundo” que acabamos de ejecutar.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">FROM scratch
+COPY hello /
+
+CMD ["/hello"]</code></pre></figure>
+
+<p>Todas las instrucciones contenidas en un Dockerfile se refieren al proceso de composición de la imagen padre, excepto la instrucción <em>CMD</em> que se refiere al comando que se ejecutará al lanzar el contenedor.</p>
+
+<p><em>FROM</em> especifica el entorno base en el que se ejecutarán el resto de las instrucciones. En este caso hemos usado un entorno mínimo llamado <em>scratch</em>, pero podemos especificar otro entorno diferente como Ubuntu o CentOS.</p>
+
+<p><em>COPY</em> copia el archivo especifiado al destino especificado. En este caso, el binario <em>hello</em> se copia a la raíz del sistema de archivos.</p>
+
+<p><em>CMD</em> ejecuta un binario llamado <em>hello</em> al iniciar el contenedor.</p>
+
+<p>Vamos a añadir un poco de complejidad al Dockerfile. Vamos a comenzar con un Debian Jessie, quitarle todos los componentes de Python que contiene y reemplazarlos con Python 3.4.3. Al lanzar el contenedor, mostraremos “Hola mundo.” en pantalla usando la nueva instalación de Python.</p>
+
+<blockquote>
+  <p>Precaución: No confundir <em>RUN</em> con <em>CMD</em>. <em>RUN</em> se ejecuta sólo al construir la imagen padre, y <em>CMD</em> sólo se ejecuta al lanzar el contenedor.</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none"># Especificamos que vamos a usar Debian Jessie como base.
+FROM buildpack-deps:jessie 
+
+# Eliminamos el python incluído, y todo lo relacionado con el mismo.
+RUN apt-get purge -y python.*
+
+# A partir de aquí, seguimos el proceso de instalación normal de Python 3.4.3.
+ENV LANG C.UTF-8
+
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 97FC712E4C024BBEA48A61ED3A5CA953F73C700D
+
+ENV PYTHON_VERSION 3.4.3
+
+ENV PYTHON_PIP_VERSION 7.1.0
+
+RUN set -x \
+	&amp;&amp; mkdir -p /usr/src/python \
+	&amp;&amp; curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
+	&amp;&amp; curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz.asc \
+	&amp;&amp; gpg --verify python.tar.xz.asc \
+	&amp;&amp; tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
+	&amp;&amp; rm python.tar.xz* \
+	&amp;&amp; cd /usr/src/python \
+	&amp;&amp; ./configure --enable-shared --enable-unicode=ucs4 \
+	&amp;&amp; make -j$(nproc) \
+	&amp;&amp; make install \
+	&amp;&amp; ldconfig \
+	&amp;&amp; pip3 install --no-cache-dir --upgrade pip==$PYTHON_PIP_VERSION \
+	&amp;&amp; find /usr/local \
+		\( -type d -a -name test -o -name tests \) \
+		-o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
+		-exec rm -rf '{}' + \
+	&amp;&amp; rm -rf /usr/src/python
+
+RUN cd /usr/local/bin \
+	&amp;&amp; ln -s easy_install-3.4 easy_install \
+	&amp;&amp; ln -s idle3 idle \
+	&amp;&amp; ln -s pydoc3 pydoc \
+	&amp;&amp; ln -s python3 python \
+	&amp;&amp; ln -s python-config3 python-config
+
+# El comando que se ejecutará al iniciar el contenedor.
+CMD python3 -c 'print("Hola mundo.")'</code></pre></figure>
+
+<p>El siguiente paso es construir la imagen. Al hacerlo, Docker incluirá todos los archivos y carpetas presentes en el directorio actual.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">docker build -t python3-hola-mundo .</code></pre></figure>
+
+<p>Al finalizar el proceso, lanzamos un contenedor basado en esa imagen.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker run python3-hola-mundo
+
+Hola mundo.</code></pre></figure>
+
+<p>La referencia completa de comandos y sintáxis de un Dockerfile <a href="https://docs.docker.com/engine/reference/builder/">se encuentra disponible en el sitio web de Docker’s</a>.</p>
+
+<h1 id="añadiendo-almacenamiento-persistente">Añadiendo almacenamiento persistente.</h1>
+
+<p>Un contenedor no tiene almacenamiento persistente, cualquier cambio se descarta al parar la ejecución. Si quisiésemos conservar el estado de una aplicación o servicio, por ejemplo una base de datos, ni que decir tiene que el descarte no es <em>deseable</em>.</p>
+
+<p>La solución de Docker a este problema se llama <em>mounts</em>.</p>
+
+<h2 id="mounts">Mounts</h2>
+
+<p>Hay tres tipos de <em>mounts</em>, y dos de ellas pueden utilizarse para montar carpetas en el contenedor cuyo contenido “vive” fuera del mismo.</p>
+
+<ul>
+  <li>
+    <p>Volumes (volúmenes): gestionados por docker, existen fuera del ciclo de vida de un contenedor y son portables. Apropiados para compartir datos entre contedores, y la opción recomendada para el almacenamiento de los mismos. Los volúmenes se almacenan en el sistema de archivos del anfitrión, en <em>/var/lib/docker/volumes</em>.</p>
+  </li>
+  <li>
+    <p>Bind mounts (“puntos de montaje asociados”): son carpetas tradicionales en el sistema anfitrión que se montan en una ruta específica en el contenedor. Son útiles para compartir datos entre el anfitrión y el contenedor.</p>
+  </li>
+  <li>
+    <p>Puntos de montaje TMPFS: Sistemas de archivos en RAM que funcionan de manera idéntica a los puntos de montaje TMPFS convencionales. Sólo deben utilizarse para archivos temporales, y tienen la ventaja de ser mucho más rápidos que el almacenamiento en disco.</p>
+  </li>
+</ul>
+
+<h2 id="qué-tipo-de-mount-debo-elegir-volume-bind-mount-o-tmpfs">Qué tipo de <em>mount</em> debo elegir: volume, bind mount o TMPFS.</h2>
+
+<p>Un <strong>volume</strong> puede ser compartido entre varios contenedores, son portables y pueden ser fácilmente copiados/restaurados. Es posible copiar el contenido adecuado en los volúmenes durante el despliegue, y se pueden montar como solo lectura.</p>
+<ul>
+  <li>Por ejemplo, podríamos hostear un sitio web y permitir la modificación del mismo a través de FTP. Para ello, /var/www se encontraría en un volumen accesible para el contenedor de Apache y para el del servidor FTP.</li>
+</ul>
+
+<blockquote>
+  <p>Un volumen puede ser declarado en un Dockerfile con la siguiente sintáxis: <em>VOLUME /var/www</em>.</p>
+</blockquote>
+
+<p><strong>Bind mounts</strong> son adecuados cuando necesitamos compartir datos entre el anfitrion y el contenedor. Por ejemplo, queremos almacenar los logs del servicio en una carpeta del anfitrión o mantener el /etc/resolf.conf sincronizado entre los dos.</p>
+
+<blockquote>
+  <p>Las bind mounts no pueden ser declaradas desde el Dockerfile, ya que el contenedor <em>debe</em> ser portable y puede que esos directorios no existan al ejecutar el contenedor en otra máquina. Una bind mount se declara con el parámetro –mount al lanzar el contenedor, <a href="#compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor">como veremos más adelante</a>.</p>
+</blockquote>
+
+<p><strong>tmpfs mounts</strong> son preferibles para guardar el estado no persistente de la aplicación, en caso de que necesitemos eliminar el cuello de botella del disco duro a la hora de trabajar con esos archivos.</p>
+
+<h1 id="redes">Redes.</h1>
+
+<p>Docker nos ofrece la capacidad de desplegar redes personalizadas, y por defecto define tres: <em>bridge</em> (puente) que es la red por defecto para todos los contenedores y está aislada del anfitrión, <em>none</em> (ninguna) que significa que el contenedor no tendra conectividad; y <em>host</em> que asocia el contenedor a la red del anfitrión, rompiendo así el aislamiento.</p>
+
+<blockquote>
+  <p>Red <em>host</em> signfica que el contenedor será accesible desde fuera del anfitrión. Por ejemplo, un servidor web ejecutándose en el puerto 80 de un contenedor será automáticamente visible en el puerto 80 del anfitrión.</p>
+</blockquote>
+
+<p>Docker Engine soporta dos tipos de redes: red puente, limitada a un host; y redes <em>overlay</em>, que se extienden a través de varios anfitriones.</p>
+
+<p>En este post utilizaremos la red puente por defecto, para desplegar nuestra aplicación de forma aislada.</p>
+
+<p>El manual completo sobre el funcionamiento de las redes de Docker se encuentra disponible <a href="https://docs.docker.com/engine/tutorials/networkingcontainers/">aquí</a>.</p>
+
+<h1 id="ejemplo-containerizando-una-hipotética-aplicación-en-producción">Ejemplo: Containerizando una hipotética aplicación en producción.</h1>
+
+<h2 id="descripción-del-escenario">Descripción del escenario</h2>
+
+<p>Nuestra empresa, WidgetMaker S.A., distribuye dispositivos embebidos basados en Linux para el control de maquinaría industrial. Para desplegar el código de nuestra aplicación en estos dispositivos, se utiliza una aplicación personalizada hecha por encargo hace unos años. Esta aplicación necesita:</p>
+
+<ul>
+  <li>
+    <p>Ubuntu 12.04, con una serie de librerías en una versión específica para que funcione correctamente.</p>
+  </li>
+  <li>
+    <p>La aplicación flashea un paquete de firmware completo que contiene nuestra aplicación de control a través de un dispositivo conectado al puerto serie del equipo.</p>
+  </li>
+  <li>
+    <p>Necesita poder servir un panel web en el puerto 80, para controlar el proceso y mostrar información del progreso. En su momento la seguridad del programa no era una preocupación importante, lo que significa que un agente malicioso podría interferir con el proceso si tuviese acceso al puerto 80 de la máquina.</p>
+  </li>
+  <li>
+    <p>La aplicación de flasheo no funciona correctamente si se ejecutan múltiples instancias al mismo tiempo, lo que ocasiona que sólo podamos flashear un dispositivo cada vez. El procedimiento actual para acelerar este proceso es tener varias máquinas físicas con la configuración necesaria, y realizar el flasheo de forma manual en ellas.</p>
+  </li>
+  <li>
+    <p>Modificar la aplicación, aunque es técnicamente posible, no es una solución apropiada por presupuesto y por coste de oportunidad; hay fuegos más grandes que apagar primero.</p>
+  </li>
+</ul>
+
+<p>Si pudiésemos integrar esta aplicación en nuestra pipeline DevOps, podríamos ahorrar tiempo y dinero:</p>
+
+<ul>
+  <li>
+    <p><strong>Podemos sobrevivir a cualquier fallo imprevisto de hardware</strong>: El entorno de ejecución de la aplicación es <em>inmutable</em> y facílmente re-desplegable. En caso de fallo, estamos a meros minutos de operar con normalidad de nuevo.</p>
+  </li>
+  <li>
+    <p>Podemos aislar la ejecución de la aplicación, y otorgar acceso a ella utilizando controles de acceso adecuados.</p>
+  </li>
+  <li>
+    <p>Podríamos automatizar el proceso de despliegue: En lugar de operarlo manualmente, podemos iniciar el programa con el input adecuado cuando el operario enchufe el dispositivo al cable serie y notificarle cuando el proceso de flasheo esté completado.</p>
+  </li>
+  <li>
+    <p>Podemos someter los dispositivos a pruebas unitarias de funcionamiento (con <a href="https://wiki.jenkins.io/display/JENKINS/Unit+Test">Jenkins</a> por ejemplo), y de esta forma asegurarnos de que el flasheo se realiza correctamente y la aplicación desplegada funciona.</p>
+  </li>
+</ul>
+
+<h2 id="diseñando-el-contenedor">Diseñando el contenedor.</h2>
+
+<h3 id="analizando-los-requisitos">Analizando los requisitos.</h3>
+
+<ul>
+  <li>
+    <p>Ubuntu 12.04, con librerías y configuración específicas.</p>
+  </li>
+  <li>
+    <p>Acceso directo a /dev/ttyACM0 desde el contenedor.</p>
+  </li>
+  <li>
+    <p>Red aislada, con el puerto 80 accesible sólo desde nuestra máquina.</p>
+  </li>
+  <li>
+    <p>Acceso a <em>anfitrión:/workspace/widgetOS/deployment-image/</em> para obtener la última versión de las aplicaciones y módulos para el despliegue.</p>
+
+    <ul>
+      <li>Idealmente, tendríamos un repositorio del que clonar esta información y poder garantizar que todos los componentes están actualizados. Dado que queremos aprender a compartir información con el contenedor, no lo haremos de esa forma</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="contruyendo-la-imagen-base">Contruyendo la imagen base.</h3>
+
+<p>Docker Hub tiene disponible una imagen de Ubuntu 12.04, pero vamos a recrearla de cero. Si quisiéramos usar la imagen de Docker Hub, basta con ejecutar <em>docker pull ubuntu:12.04</em> para descargarla. En este caso concreto podemos verificar que la imagen proviene directamente de Canonical, pero Docker Hub no ofrece garantías al respecto y cualquiera puede subir imágenes y <em>fingir que son de confianza</em>.</p>
+
+<blockquote>
+  <p>Dado que estamos tratanto con un escenario de producción, no se recomienda el uso de Docker Hub.</p>
+</blockquote>
+
+<p>Vamos a utilizar <a href="https://wiki.debian.org/Debootstrap">debootstrap</a> para instalar un sistema Ubuntu 12.04 mínimo en /tmp/precise-pangolin, y luego importaremos ese sistema a Docker para utilizarlo como imagen base.</p>
+
+<p>Primero, importamos las claves GPG necesarias para autenticar los paquetes. En este caso, tenemos que instalar <em>ubuntu-keyring</em> e indicarle a deboostrap dónde debe buscar para encontrar las claves de una distribución de Ubuntu antigua.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo apt-get install ubuntu-keyring
+
+mkdir /tmp/precise-pangolin
+cd /tmp/precise-pangolin
+sudo debootstrap --keyring /usr/share/keyrings/ubuntu-archive-removed-keys.gpg  --arch=i386 precise precise http://old-releases.ubuntu.com/ubuntu</code></pre></figure>
+
+<p>Deboostrap procederá a descargar los paquetes necesarios. Tras finalizar el proceso, importamos el resultado en Docker para usarlo como base.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo tar -C precise -c . | docker import - precise
+sha256:08d585429b174a4c27c89c47adf6f7bbb76d7cf3a246ca67562f257a7c66dc2d</code></pre></figure>
+
+<p>Llegados a este punto, podemos listar la imágenes disponibles para comprobar que nuestra imagen de Precise Pangolin está lista para ser utilizada.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+precise             latest              08d585429b17        About a minute ago   168MB</code></pre></figure>
+
+<p>Esta será nuestra imagen base de Ubuntu 12.04. Vamos a usarla como imagen padre, y construiremos sobre ella para aplicar las modificaciones requeridas por nuestra aplicación.</p>
+
+<h3 id="aplicar-modificaciones-a-través-de-un-dockerfile">Aplicar modificaciones a través de un Dockerfile.</h3>
+
+<p>Vamos a escribir un Dockerfile que contemple los requisitos necesarios para la correcta ejecución de nuestra app, y estos serán aplicados a la imagen base de Ubuntu.</p>
+
+<p>Docker construye las imágenes a base de capas. En términos de control de versiones, cada capa es un commit. Si realizas cambios en el Dockerfile sólo hay que reconstruir las líneas siguientes ya que las capas previas no han cambiado.</p>
+
+<blockquote>
+  <p>Dos de nuestros requisitos no pueden ser expresados en el Dockerfile: carpetas compartidas a través de puntos de montaje y acceso a dispositivos de hardware. Estos serán contemplados a la hora de lanzar el contenedor.</p>
+</blockquote>
+
+<p>Para recrear este escenario, necesitarás un archivo llamado requirements.txt situado en la misma carpeta que el Dockerfile y con el siguiente contenido.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">Flask
+Redis</code></pre></figure>
+
+<p>Y este es el contenido del Dockerfile, junto con comentarios explicando las diferentes directivas y como nos ayudan a cumplir los requisitos de la aplicación.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker"># Especifica la imagen que usaremos como base.
+FROM precise
+
+# LABEL sirve para añadir metadatos al contenedor. Estos metadatos son visibles con el comando `docker inspect`.
+
+LABEL	maintainer="josue@josuealvarezmoreno" \
+		copyright="WidgetMaker SA" \
+		deviceSupportStatus.widgy="Estable" \
+		deviceSupportStatus.widgeton="Candidato a estable 3" \
+		deviceSupportStatus.fidly="Beta"
+
+# EXPOSE comunica a Docker que el contenedor escucha en el puerto especificado. EXPOSE no hace que los puertos sean accesibles desde fuera del contenedor. Para ello hay que usar el parámetro -p para "abrir" un rango de puertos, o -P para abrirlos todos.
+EXPOSE 80
+
+# ENV sirve para fijar variables de entorno.
+# En nuestro caso, el programa comprueba la existencia de un valor específico antes de flashear, para asegurar que los usuarios no pueden dañar los dispositivos por equivocación.
+ENV magicNumber="8974c408d831"
+
+# apt-get tiene que saber que no va a ser ejecutado en una sesión interactiva para que no pregunte durante la instalación.
+ENV DEBIAN_FRONTEND noninteractive
+
+# RUN contempla comandos que se ejecutan durante la construcción de la imagen, y sirven para moldear la imagen según nuestros requisitos.
+
+RUN apt-get update
+RUN apt-get install -y curl
+
+WORKDIR /tmp/
+
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+RUN python get-pip.py
+
+# ADD copiara el archivo o directorio al destino especificado. Cualquier cambio en esos archivos invalidará la caché, y causará que imagen sea reconstruída a partir de ese punto.
+
+ADD requirements.txt /tmp/
+
+# Changes the working directory, equivalent to 'cd'.
+WORKDIR /tmp
+
+# Install the requirements for the python part of the app. This requirements file is located on /tmp/
+RUN pip install -r requirements.txt
+
+# La instrucción CMD se ejecuta sólo al lanzar el contenedor, y debe haber una solamente en cada Dockerfile.
+
+# Ejecuta el flasher.
+CMD python /workspace/widgetOS/deployment-image/flasher.py</code></pre></figure>
+
+<h2 id="constuyendo-y-ejecutando-el-contenedor">Constuyendo y ejecutando el contenedor.</h2>
+
+<p>Para construir el contenedor, lanzamos el proceso desde el directorio que contiene el <em>Dockerfile</em>. A este contenedor lo llamaremos <em>widget-deployer</em>.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ sudo docker build -t widget-deployer .</code></pre></figure>
+
+<p>Nota: El proceso de construcción copia el contenido del directorio actual al contenedor.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">Sending build context to Docker daemon  6.144kB
+Step 1/14 : FROM precise
+ ---&gt; 0e0cf7094433
+Step 2/14 : LABEL maintainer "josue@josuealvarezmoreno" copyright "WidgetMaker Inc" deviceSupportStatus.widgy "Stable" deviceSupportStatus.widgeton "Release Candidate 3" deviceSupportStatus.fidly "Beta"
+ ---&gt; Running in 545a4bbd6902
+ ---&gt; 1abe7d9bf44e
+Removing intermediate container 545a4bbd6902
+Step 3/14 : EXPOSE 80
+ ---&gt; Running in c72f0bf476ba
+ ---&gt; 82304f3016b5
+Removing intermediate container c72f0bf476ba
+Step 4/14 : ENV magicNumber "8974c408d831"
+ ---&gt; Running in 06560f51ec54
+ ---&gt; 02a10485b58c
+Removing intermediate container 06560f51ec54
+Step 5/14 : ENV DEBIAN_FRONTEND noninteractive
+ ---&gt; Running in 408e767a5a63
+ ---&gt; f6c07c4eafe3
+Removing intermediate container 408e767a5a63
+Step 6/14 : RUN apt-get update
+ ---&gt; Running in 9778028dce0e
+Ign http://old-releases.ubuntu.com precise InRelease
+Hit http://old-releases.ubuntu.com precise Release.gpg
+Hit http://old-releases.ubuntu.com precise Release
+Hit http://old-releases.ubuntu.com precise/main i386 Packages
+Get:1 http://old-releases.ubuntu.com precise/main TranslationIndex [3706 B]
+Get:2 http://old-releases.ubuntu.com precise/main Translation-en [726 kB]
+Fetched 729 kB in 1s (479 kB/s)
+Reading package lists...
+ ---&gt; d7e16bef7aab
+Removing intermediate container 9778028dce0e
+Step 7/14 : RUN apt-get install -y curl
+ ---&gt; Running in 90c016c6034c
+Reading package lists...
+Building dependency tree...
+The following extra packages will be installed:
+  ca-certificates krb5-locales libasn1-8-heimdal libcurl3 libgcrypt11
+  libgnutls26 libgpg-error0 libgssapi-krb5-2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libidn11 libk5crypto3 libkeyutils1 libkrb5-26-heimdal
+  libkrb5-3 libkrb5support0 libldap-2.4-2 libp11-kit0 libroken18-heimdal
+  librtmp0 libsasl2-2 libsasl2-modules libtasn1-3 libwind0-heimdal openssl
+Suggested packages:
+  rng-tools gnutls-bin krb5-doc krb5-user libsasl2-modules-otp
+  libsasl2-modules-ldap libsasl2-modules-sql libsasl2-modules-gssapi-mit
+  libsasl2-modules-gssapi-heimdal
+The following NEW packages will be installed:
+  ca-certificates curl krb5-locales libasn1-8-heimdal libcurl3 libgcrypt11
+  libgnutls26 libgpg-error0 libgssapi-krb5-2 libgssapi3-heimdal
+  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+  libhx509-5-heimdal libidn11 libk5crypto3 libkeyutils1 libkrb5-26-heimdal
+  libkrb5-3 libkrb5support0 libldap-2.4-2 libp11-kit0 libroken18-heimdal
+  librtmp0 libsasl2-2 libsasl2-modules libtasn1-3 libwind0-heimdal openssl
+0 upgraded, 29 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3979 kB of archives.
+After this operation, 12.1 MB of additional disk space will be used.
+Get:1 http://old-releases.ubuntu.com/ubuntu/ precise/main libroken18-heimdal i386 1.6~git20120311.dfsg.1-2 [47.4 kB]
+Get:2 http://old-releases.ubuntu.com/ubuntu/ precise/main libasn1-8-heimdal i386 1.6~git20120311.dfsg.1-2 [242 kB]
+Get:3 http://old-releases.ubuntu.com/ubuntu/ precise/main libgpg-error0 i386 1.10-2ubuntu1 [14.4 kB]
+Get:4 http://old-releases.ubuntu.com/ubuntu/ precise/main libgcrypt11 i386 1.5.0-3 [281 kB]
+Get:5 http://old-releases.ubuntu.com/ubuntu/ precise/main libp11-kit0 i386 0.12-2ubuntu1 [33.6 kB]
+Get:6 http://old-releases.ubuntu.com/ubuntu/ precise/main libtasn1-3 i386 2.10-1ubuntu1 [43.7 kB]
+Get:7 http://old-releases.ubuntu.com/ubuntu/ precise/main libgnutls26 i386 2.12.14-5ubuntu3 [448 kB]
+Get:8 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5support0 i386 1.10+dfsg~beta1-2 [23.6 kB]
+Get:9 http://old-releases.ubuntu.com/ubuntu/ precise/main libk5crypto3 i386 1.10+dfsg~beta1-2 [77.1 kB]
+Get:10 http://old-releases.ubuntu.com/ubuntu/ precise/main libkeyutils1 i386 1.5.2-2 [7716 B]
+Get:11 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5-3 i386 1.10+dfsg~beta1-2 [367 kB]
+Get:12 http://old-releases.ubuntu.com/ubuntu/ precise/main libgssapi-krb5-2 i386 1.10+dfsg~beta1-2 [120 kB]
+Get:13 http://old-releases.ubuntu.com/ubuntu/ precise/main libhcrypto4-heimdal i386 1.6~git20120311.dfsg.1-2 [104 kB]
+Get:14 http://old-releases.ubuntu.com/ubuntu/ precise/main libheimbase1-heimdal i386 1.6~git20120311.dfsg.1-2 [33.2 kB]
+Get:15 http://old-releases.ubuntu.com/ubuntu/ precise/main libwind0-heimdal i386 1.6~git20120311.dfsg.1-2 [77.8 kB]
+Get:16 http://old-releases.ubuntu.com/ubuntu/ precise/main libhx509-5-heimdal i386 1.6~git20120311.dfsg.1-2 [127 kB]
+Get:17 http://old-releases.ubuntu.com/ubuntu/ precise/main libkrb5-26-heimdal i386 1.6~git20120311.dfsg.1-2 [240 kB]
+Get:18 http://old-releases.ubuntu.com/ubuntu/ precise/main libheimntlm0-heimdal i386 1.6~git20120311.dfsg.1-2 [16.8 kB]
+Get:19 http://old-releases.ubuntu.com/ubuntu/ precise/main libgssapi3-heimdal i386 1.6~git20120311.dfsg.1-2 [112 kB]
+Get:20 http://old-releases.ubuntu.com/ubuntu/ precise/main libidn11 i386 1.23-2 [112 kB]
+Get:21 http://old-releases.ubuntu.com/ubuntu/ precise/main libsasl2-2 i386 2.1.25.dfsg1-3 [69.5 kB]
+Get:22 http://old-releases.ubuntu.com/ubuntu/ precise/main libldap-2.4-2 i386 2.4.28-1.1ubuntu4 [186 kB]
+Get:23 http://old-releases.ubuntu.com/ubuntu/ precise/main librtmp0 i386 2.4~20110711.gitc28f1bab-1 [57.7 kB]
+Get:24 http://old-releases.ubuntu.com/ubuntu/ precise/main openssl i386 1.0.1-4ubuntu3 [520 kB]
+Get:25 http://old-releases.ubuntu.com/ubuntu/ precise/main ca-certificates all 20111211 [169 kB]
+Get:26 http://old-releases.ubuntu.com/ubuntu/ precise/main libcurl3 i386 7.22.0-3ubuntu4 [242 kB]
+Get:27 http://old-releases.ubuntu.com/ubuntu/ precise/main krb5-locales all 1.10+dfsg~beta1-2 [8886 B]
+Get:28 http://old-releases.ubuntu.com/ubuntu/ precise/main libsasl2-modules i386 2.1.25.dfsg1-3 [60.5 kB]
+Get:29 http://old-releases.ubuntu.com/ubuntu/ precise/main curl i386 7.22.0-3ubuntu4 [137 kB]
+Preconfiguring packages ...
+Fetched 3979 kB in 1s (2618 kB/s)
+Selecting previously unselected package libroken18-heimdal.
+(Reading database ... 9848 files and directories currently installed.)
+Unpacking libroken18-heimdal (from .../libroken18-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libasn1-8-heimdal.
+Unpacking libasn1-8-heimdal (from .../libasn1-8-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libgpg-error0.
+Unpacking libgpg-error0 (from .../libgpg-error0_1.10-2ubuntu1_i386.deb) ...
+Selecting previously unselected package libgcrypt11.
+Unpacking libgcrypt11 (from .../libgcrypt11_1.5.0-3_i386.deb) ...
+Selecting previously unselected package libp11-kit0.
+Unpacking libp11-kit0 (from .../libp11-kit0_0.12-2ubuntu1_i386.deb) ...
+Selecting previously unselected package libtasn1-3.
+Unpacking libtasn1-3 (from .../libtasn1-3_2.10-1ubuntu1_i386.deb) ...
+Selecting previously unselected package libgnutls26.
+Unpacking libgnutls26 (from .../libgnutls26_2.12.14-5ubuntu3_i386.deb) ...
+Selecting previously unselected package libkrb5support0.
+Unpacking libkrb5support0 (from .../libkrb5support0_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libk5crypto3.
+Unpacking libk5crypto3 (from .../libk5crypto3_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libkeyutils1.
+Unpacking libkeyutils1 (from .../libkeyutils1_1.5.2-2_i386.deb) ...
+Selecting previously unselected package libkrb5-3.
+Unpacking libkrb5-3 (from .../libkrb5-3_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libgssapi-krb5-2.
+Unpacking libgssapi-krb5-2 (from .../libgssapi-krb5-2_1.10+dfsg~beta1-2_i386.deb) ...
+Selecting previously unselected package libhcrypto4-heimdal.
+Unpacking libhcrypto4-heimdal (from .../libhcrypto4-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libheimbase1-heimdal.
+Unpacking libheimbase1-heimdal (from .../libheimbase1-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libwind0-heimdal.
+Unpacking libwind0-heimdal (from .../libwind0-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libhx509-5-heimdal.
+Unpacking libhx509-5-heimdal (from .../libhx509-5-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libkrb5-26-heimdal.
+Unpacking libkrb5-26-heimdal (from .../libkrb5-26-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libheimntlm0-heimdal.
+Unpacking libheimntlm0-heimdal (from .../libheimntlm0-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libgssapi3-heimdal.
+Unpacking libgssapi3-heimdal (from .../libgssapi3-heimdal_1.6~git20120311.dfsg.1-2_i386.deb) ...
+Selecting previously unselected package libidn11.
+Unpacking libidn11 (from .../libidn11_1.23-2_i386.deb) ...
+Selecting previously unselected package libsasl2-2.
+Unpacking libsasl2-2 (from .../libsasl2-2_2.1.25.dfsg1-3_i386.deb) ...
+Selecting previously unselected package libldap-2.4-2.
+Unpacking libldap-2.4-2 (from .../libldap-2.4-2_2.4.28-1.1ubuntu4_i386.deb) ...
+Selecting previously unselected package librtmp0.
+Unpacking librtmp0 (from .../librtmp0_2.4~20110711.gitc28f1bab-1_i386.deb) ...
+Selecting previously unselected package openssl.
+Unpacking openssl (from .../openssl_1.0.1-4ubuntu3_i386.deb) ...
+Selecting previously unselected package ca-certificates.
+Unpacking ca-certificates (from .../ca-certificates_20111211_all.deb) ...
+Selecting previously unselected package libcurl3.
+Unpacking libcurl3 (from .../libcurl3_7.22.0-3ubuntu4_i386.deb) ...
+Selecting previously unselected package krb5-locales.
+Unpacking krb5-locales (from .../krb5-locales_1.10+dfsg~beta1-2_all.deb) ...
+Selecting previously unselected package libsasl2-modules.
+Unpacking libsasl2-modules (from .../libsasl2-modules_2.1.25.dfsg1-3_i386.deb) ...
+Selecting previously unselected package curl.
+Unpacking curl (from .../curl_7.22.0-3ubuntu4_i386.deb) ...
+Setting up libroken18-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libasn1-8-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libgpg-error0 (1.10-2ubuntu1) ...
+Setting up libgcrypt11 (1.5.0-3) ...
+Setting up libp11-kit0 (0.12-2ubuntu1) ...
+Setting up libtasn1-3 (2.10-1ubuntu1) ...
+Setting up libgnutls26 (2.12.14-5ubuntu3) ...
+Setting up libkrb5support0 (1.10+dfsg~beta1-2) ...
+Setting up libk5crypto3 (1.10+dfsg~beta1-2) ...
+Setting up libkeyutils1 (1.5.2-2) ...
+Setting up libkrb5-3 (1.10+dfsg~beta1-2) ...
+Setting up libgssapi-krb5-2 (1.10+dfsg~beta1-2) ...
+Setting up libhcrypto4-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libheimbase1-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libwind0-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libhx509-5-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libkrb5-26-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libheimntlm0-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libgssapi3-heimdal (1.6~git20120311.dfsg.1-2) ...
+Setting up libidn11 (1.23-2) ...
+Setting up libsasl2-2 (2.1.25.dfsg1-3) ...
+Setting up libldap-2.4-2 (2.4.28-1.1ubuntu4) ...
+Setting up librtmp0 (2.4~20110711.gitc28f1bab-1) ...
+Setting up openssl (1.0.1-4ubuntu3) ...
+Setting up ca-certificates (20111211) ...
+Updating certificates in /etc/ssl/certs... 152 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d....done.
+Setting up libcurl3 (7.22.0-3ubuntu4) ...
+Setting up krb5-locales (1.10+dfsg~beta1-2) ...
+Setting up libsasl2-modules (2.1.25.dfsg1-3) ...
+Setting up curl (7.22.0-3ubuntu4) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+ ---&gt; 16684411a89e
+Removing intermediate container 90c016c6034c
+Step 8/14 : WORKDIR /tmp/
+ ---&gt; 37e50202d457
+Removing intermediate container 32057cba2fc6
+Step 9/14 : RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+ ---&gt; Running in 17c757483d01
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1558k  100 1558k    0     0  3595k      0 --:--:-- --:--:-- --:--:-- 4793k
+ ---&gt; 383279846608
+Removing intermediate container 17c757483d01
+Step 10/14 : RUN python get-pip.py
+ ---&gt; Running in ac9cbc7aaf7a
+Collecting pip
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:318: SNIMissingWarning: An HTTPS request has been made, but the SNI (Subject Name Indication) extension to TLS is not available on this platform. This may cause the server to present an incorrect TLS certificate, which can cause validation failures. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#snimissingwarning.
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+  Downloading pip-9.0.1-py2.py3-none-any.whl (1.3MB)
+Collecting setuptools
+  Downloading setuptools-36.3.0-py2.py3-none-any.whl (477kB)
+Collecting wheel
+  Downloading wheel-0.29.0-py2.py3-none-any.whl (66kB)
+Installing collected packages: pip, setuptools, wheel
+Successfully installed pip-9.0.1 setuptools-36.3.0 wheel-0.29.0
+/tmp/tmpG9jzym/pip.zip/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+ ---&gt; ae059d740d83
+Removing intermediate container ac9cbc7aaf7a
+Step 11/14 : ADD requirements.txt /tmp/
+ ---&gt; 1f99f596bd4a
+Removing intermediate container 41963c811b1c
+Step 12/14 : WORKDIR /tmp
+ ---&gt; 04ea9ee57bfc
+Removing intermediate container 568de414a28c
+Step 13/14 : RUN pip install -r requirements.txt
+ ---&gt; Running in 43fcb99859f4
+Collecting Flask (from -r requirements.txt (line 1))
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:318: SNIMissingWarning: An HTTPS request has been made, but the SNI (Subject Name Indication) extension to TLS is not available on this platform. This may cause the server to present an incorrect TLS certificate, which can cause validation failures. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#snimissingwarning.
+  SNIMissingWarning
+/usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/packages/urllib3/util/ssl_.py:122: InsecurePlatformWarning: A true SSLContext object is not available. This prevents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/security.html#insecureplatformwarning.
+  InsecurePlatformWarning
+  Downloading Flask-0.12.2-py2.py3-none-any.whl (83kB)
+Collecting Redis (from -r requirements.txt (line 2))
+  Downloading redis-2.10.6-py2.py3-none-any.whl (64kB)
+Collecting itsdangerous&gt;=0.21 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting click&gt;=2.0 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+Collecting Jinja2&gt;=2.4 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading Jinja2-2.9.6-py2.py3-none-any.whl (340kB)
+Collecting Werkzeug&gt;=0.7 (from Flask-&gt;-r requirements.txt (line 1))
+  Downloading Werkzeug-0.12.2-py2.py3-none-any.whl (312kB)
+Collecting MarkupSafe&gt;=0.23 (from Jinja2&gt;=2.4-&gt;Flask-&gt;-r requirements.txt (line 1))
+  Downloading MarkupSafe-1.0.tar.gz
+Building wheels for collected packages: itsdangerous, MarkupSafe
+  Running setup.py bdist_wheel for itsdangerous: started
+  Running setup.py bdist_wheel for itsdangerous: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/fc/a8/66/24d655233c757e178d45dea2de22a04c6d92766abfb741129a
+  Running setup.py bdist_wheel for MarkupSafe: started
+  Running setup.py bdist_wheel for MarkupSafe: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/88/a7/30/e39a54a87bcbe25308fa3ca64e8ddc75d9b3e5afa21ee32d57
+Successfully built itsdangerous MarkupSafe
+Installing collected packages: itsdangerous, click, MarkupSafe, Jinja2, Werkzeug, Flask, Redis
+Successfully installed Flask-0.12.2 Jinja2-2.9.6 MarkupSafe-1.0 Redis-2.10.6 Werkzeug-0.12.2 click-6.7 itsdangerous-0.24
+ ---&gt; 7eae346963a6
+Removing intermediate container 43fcb99859f4
+Step 14/14 : CMD python /workspace/widgetOS/deployment-image/flasher.py
+ ---&gt; Running in 12fd72c01d09
+ ---&gt; 33306df28e7c
+Removing intermediate container 12fd72c01d09
+Successfully built 33306df28e7c
+Successfully tagged widget-deployer:latest</code></pre></figure>
+
+<h2 id="accediendo-carpetas-y-dispositivos-del-anfitrión">Accediendo carpetas y dispositivos del anfitrión.</h2>
+
+<h3 id="compartir-una-carpeta-entre-el-anfitrión-y-el-contenedor">Compartir una carpeta entre el anfitrión y el contenedor.</h3>
+
+<p>Tal y como hemos visto anteriormente, los puntos de montaje no pueden definirse dentro del Dockerfile debido a que deben ser portables. Por lo tanto, definiremos un punto de montaje lectura/escritura al ejecutar el contenedor. En este caso, queremos compartir la carpeta /workspace.</p>
+
+<p>La sintáxis del parámetro –mount es la siguiente.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>--mount type=bind,source=&lt;ruta absoluta en el anfitrión&gt;,target=&lt;ruta absoluta destino en el contenedor&gt;
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Nota: Es posible que te encuentres la sintáxis <em>-v</em> o <em>–volume</em> en documentación antigua de Docker al hablar de almacenamiento de datos. Esta sintáxis se considera en desuso, y ha sido oficialmente reemplazada por –mount que es la que usaremos en este post.
+La explicación completa oficial está disponible <a href="https://docs.docker.com/engine/admin/volumes/bind-mounts/#choosing-the--v-or-mount-flag">en la web de Docker</a>.</p>
+</blockquote>
+
+<h3 id="compartir-un-dispositivo-físico-con-el-contenedor">Compartir un dispositivo físico con el contenedor.</h3>
+
+<p>Para dar acceso a un dispositivo físico desde el contenedor, lo hacemos con el parámetro –device.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>--device &lt;ruta de acceso al dispositivo&gt; 
+</code></pre>
+</div>
+
+<h2 id="ejecutando-el-contenedor">Ejecutando el contenedor.</h2>
+
+<p>Combinando todo lo anterior, ejecutamos el contenedor con la siguiente línea de comando.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">sudo docker run --device /dev/ttyACM0 --mount type=bind,source=/workspace,target=/workspace  widget-deployer</code></pre></figure>
+
+<p>Una vez se está ejecutando, podemos examinar su estado y metadatos con el comando <em>inspect</em>.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">docker inspect widget-deployer
+[
+    {
+        "Id": "sha256:33306df28e7c87155e70463be8053edb21575500daf74060672397e7c8fb0829",
+        "RepoTags": [
+            "widget-deployer:latest"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+        "Comment": "",
+        "Created": "2017-08-30T07:48:11.591362982Z",
+        "Container": "12fd72c01d093016912455b813cb6e0bd5f72ebc7c2f913f15582f1238af1813",
+        "ContainerConfig": {
+            "Hostname": "12fd72c01d09",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "magicNumber=8974c408d831",
+                "DEBIAN_FRONTEND=noninteractive"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD [\"/bin/sh\" \"-c\" \"python /workspace/widgetOS/deployment-image/flasher.py\"]"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+            "Volumes": null,
+            "WorkingDir": "/tmp",
+            "Entrypoint": null,
+            "OnBuild": [],
+            "Labels": {
+                "copyright": "WidgetMaker Inc",
+                "deviceSupportStatus.fidly": "Beta",
+                "deviceSupportStatus.widgeton": "Release Candidate 3",
+                "deviceSupportStatus.widgy": "Stable",
+                "maintainer": "josue@josuealvarezmoreno"
+            }
+        },
+        "DockerVersion": "17.06.1-ce",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "magicNumber=8974c408d831",
+                "DEBIAN_FRONTEND=noninteractive"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "python /workspace/widgetOS/deployment-image/flasher.py"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:7eae346963a686a0b67a8c3d30bc27f68ec6dc3fd7143cfe474d31278c2e9988",
+            "Volumes": null,
+            "WorkingDir": "/tmp",
+            "Entrypoint": null,
+            "OnBuild": [],
+            "Labels": {
+                "copyright": "WidgetMaker Inc",
+                "deviceSupportStatus.fidly": "Beta",
+                "deviceSupportStatus.widgeton": "Release Candidate 3",
+                "deviceSupportStatus.widgy": "Stable",
+                "maintainer": "josue@josuealvarezmoreno"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 222672573,
+        "VirtualSize": 222672573,
+        "GraphDriver": {
+            "Data": null,
+            "Name": "aufs"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:3bb86384fde4b1091d120c6d7191e0527bf79ccceb768fde1243b749eceedc33",
+                "sha256:6f1faf2a0e748987c7ee58e24c84bc908eec8ba5a1bdc0c060a402a3b1100480",
+                "sha256:df0d2e8d340c5526f319bb7bab8fb8e298e0bd5445576cec7b16dc8184f99a13",
+                "sha256:3f92e333309b33b824a6252899b24ad1cb864c288da06a3e63f4bb5ba5582124",
+                "sha256:42e6185f24be913557cc64ea688499a9683fee14f299f80be16a9c2540b888e6",
+                "sha256:60fb28685d5f6de80f6afbbd123c77c177e61b3a2a6ba66afd4747e4b8e53b20",
+                "sha256:796de985371edcb6b0dcd0eadd802e3a8f475cd2cb66b12525a6246d97f87ec2"
+            ]
+        }
+    }
+]</code></pre></figure>
+
+<p>La aplicación está lista para usarse.</p>
+
+<h2 id="ejecutando-más-de-una-instancia-de-la-aplicación">Ejecutando más de una instancia de la aplicación.</h2>
+
+<p>Para ejecutar varias instancias de nuestra aplicación de forma paralela, necesitamos:</p>
+
+<ul>
+  <li>Un adaptador de puerto serie por cada instancia, especificado con el parámetro –device. /dev/ttyACM1 por ejemplo.</li>
+  <li>
+    <p>Redirigir el puerto 80 del servidor web a otro puerto diferente del anfitrión, por ejemplo al puerto 1080 de la siguiente forma:</p>
+
+    <p>docker run –device /dev/ttyACM1 –mount type=bind,source=/workspace,target=/workspace -p 1080:80 widget-deployer</p>
+  </li>
+</ul>
+
+<p>Por ejemplo, esta es la lista de contenedores en ejecución tras lanzar 4 instancias de la aplicación.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker ps
+
+CONTAINER ID        IMAGE               STATUS          PORTS                  
+958b79eed6ca        widget-deployer     Up              127.0.0.1:1080-&gt;80/tcp
+08a264882398        widget-deployer     Up              127.0.0.1:1081-&gt;80/tcp
+92a8df94994b        widget-deployer     Up              127.0.0.1:1082-&gt;80/tcp
+725c581d4dca        widget-deployer     Up              127.0.0.1:1083-&gt;80/tcp</code></pre></figure>
+
+<h2 id="abrir-una-shell-dentro-de-un-contenedor">Abrir una shell dentro de un contenedor.</h2>
+
+<p>Para lanzar una shell bash en un contenedor e inspeccionar su contenido, especificamos un comando concreto a la hora de lanzar el contenedor. En este caso, una shell.</p>
+
+<figure class="highlight"><pre><code class="language-none" data-lang="none">$ docker run --device /dev/ttyACM0 --mount type=bind,source=/workspace,target=/workspace -it widget-deployer /bin/bash 
+
+root@44489cae5745:/tmp# ls /workspace/widgetOS/deployment-image/flasher.py 
+/workspace/widgetOS/deployment-image/flasher.py
+
+root@44489cae5745:/tmp# ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+73: eth0@if74: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 scope global eth0
+       valid_lft forever preferred_lft forever</code></pre></figure>
+
+<p>No olvides que cualquier cambio se descarta al detener el contenedor, y que dichas modificacionesno se aplican a otras instancias del mismo.</p>
+
+<h1 id="eliminando-todas-las-imágenes-volúmenes-y-contenedores-en-ejecución">Eliminando todas las imágenes, volúmenes y contenedores en ejecución.</h1>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker rm <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+docker rmi <span class="k">$(</span>docker images -q<span class="k">)</span>
+docker volume rm <span class="k">$(</span>docker volume ls<span class="k">)</span></code></pre></figure>
+
+<h1 id="conclusiones">Conclusiones.</h1>
+
+<p>Los contenedores son una poderosa herramienta adicional para nuestro flujo DevOps, y aunque no son una solución universal sí que ofrecen ventajas significativas ante otras alternativas para aislar aplicaciones.</p>
+
+<p>En un futuro post exploraremos como usar Docker Swarm para lanzar y mantener una red de contenedores que contenga aplicaciones web, balanceadores de carga y bases de datos.</p>
+
 
 	  </div>
 
@@ -217,8 +1217,8 @@
 				</li>
 			 
 				<li>
-					<a href="/tags.html#containers-ref">
-					containers <span>(1)</span>
+					<a href="/tags.html#contenedores-ref">
+					contenedores <span>(1)</span>
 					
 					</a>
 				</li>
